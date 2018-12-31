@@ -1,11 +1,22 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// Connect to mongodb
+mongoose.connect(process.env.MONGODB_URL);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('successfully connected');
+});
 
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
