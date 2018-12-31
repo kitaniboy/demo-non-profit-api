@@ -1,6 +1,6 @@
 {
   "name": "alrahma-api",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The main API for Al rahma admin dashboard",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "mongoose": "^5.4.1",
     "morgan": "~1.9.0"
   },
   "author": "Maher Alkendi",
