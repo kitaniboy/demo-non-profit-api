@@ -14,6 +14,7 @@ Table of contents
    * [Change the version](#change-the-version)
    * [push to your fork](#push-to-your-fork)
    * [Create a pull request](#create-a-pull-request)
+   * [Sync fork with remote](#sync-fork-with-remote)
 <!--te-->
 
 Fork the project
@@ -98,3 +99,13 @@ If you go check your forked repositories page you will notice that you are
 prompted to create a pull request. Through the prompt you can create a pull
 request. It is highly encouraged that your pull request is associated with any
 additional comments or clarifications about the changes you made.
+
+Sync fork with remote
+=================
+
+In order to keep your local forked repository in-sync with the remote master
+repository you should follow the steps on these links:-
+
+1. (Configuring a remote for a fork)[https://help.github.com/articles/configuring-a-remote-for-a-fork/]
+
+2. (Syncing a fork)[https://help.github.com/articles/syncing-a-fork/]
