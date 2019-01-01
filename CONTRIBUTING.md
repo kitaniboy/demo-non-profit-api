@@ -67,13 +67,13 @@ npm version patch
 for minor updates (ex: Added a new Column to our table):
 
 ```
-npm version patch
+npm version minor
 ```
 
 for major updates (ex: added Sign in and Log in):
 
 ```
-npm version patch
+npm version major
 ```
 
 PLEASE NOTE that this should be done if and only if you are making changes to the code. DO NOT
