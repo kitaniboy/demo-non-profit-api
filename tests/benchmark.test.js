@@ -3,7 +3,7 @@ const siege = require('siege');
 let path = {
   dev: 'node ./bin/www',
   prod: 'node ./cluster.js'
-}
+};
 
 // testing routes
 siege(path.dev)
@@ -11,6 +11,6 @@ siege(path.dev)
   .on(3000) // port
   .for(10000).times
   .get('/visits')
-  .attack()
+  .attack();
 
 // TODO: test post, patch and delete routes

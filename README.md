@@ -15,3 +15,7 @@ The main API for Al Rahma Admin dashboard
 ## Contribution
 
 See [CONTRIBUTING.md](https://gitlab.com/estore-oman/al-rahme-api/blob/master/CONTRIBUTING.md)
+
+### NOTE:
+
+perform  `npm audit` before deploy
