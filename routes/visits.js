@@ -4,7 +4,7 @@ const router = express.Router();
 const Visits = require('../models/visit');
 
 /* GET route */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   Visits.find((err, result) => {
     if (err) {
       res.status(500).json({
@@ -19,17 +19,17 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST route */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
   let visit = new Visits({
-    familyID: req.query['familyID'],
-    visitorName:  req.query['visitorName'],
-    visitorPhone: req.query['visitorPhone'],
-    address:   req.query['address'],
-    purposeOfVisit: req.query['purposeOfVisit'], // case
-    response:req.query['response'],
-    caseAgent: req.query['caseAgent'], // who will handle it?
-    caseCategory: req.query['caseCategory'],
-    documentsMissing: req.query['documentsMissing'],
+    familyID: req.body['familyID'],
+    visitorName:  req.body['visitorName'],
+    visitorPhone: req.body['visitorPhone'],
+    address:   req.body['address'],
+    purposeOfVisit: req.body['purposeOfVisit'], // case
+    response:req.body['response'],
+    caseAgent: req.body['caseAgent'], // who will handle it?
+    caseCategory: req.body['caseCategory'],
+    documentsMissing: req.body['documentsMissing'],
   });
   visit.save(err => {
     if (err) {
@@ -47,8 +47,8 @@ router.post('/', function(req, res, next) {
 });
 
 /* PATCH route */
-router.patch('/:id', function(req, res, next) {
-  Visits.findByIdAndUpdate({'_id': req.params.id}, {$set: req.query}, err => {
+router.patch('/:id', function(req, res) {
+  Visits.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
@@ -63,7 +63,7 @@ router.patch('/:id', function(req, res, next) {
 });
 
 /* DELETE route */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function(req, res) {
   Visits.findByIdAndDelete({'_id': req.params.id}, err => {
     if (err) {
       res.status(500).json({
