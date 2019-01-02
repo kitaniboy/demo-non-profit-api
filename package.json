@@ -1,12 +1,14 @@
 {
   "name": "alrahma-api",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "The main API for Al rahma admin dashboard",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "seed": "node ./seed/visit-seed.js"
+    "build": "node ./cluster.js",
+    "seed": "node ./seed/visit-seed.js",
+    "test": "node ./tests/benchmark.test.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -19,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^6.2.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "siege": "^0.2.0"
   }
 }
