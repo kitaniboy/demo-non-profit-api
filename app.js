@@ -18,7 +18,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
-  // console.log('successfully connected');
+  console.log('successfully connected');
 });
 
 app.use(logger('dev')); // only logs when in dev env
@@ -26,8 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter); // not active
+app.use('/users', usersRouter); // not active
 app.use('/visits', visitsRouter);
 
 module.exports = app;

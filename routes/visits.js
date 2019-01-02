@@ -7,9 +7,13 @@ const Visits = require('../models/visit');
 router.get('/', function(req, res, next) {
   Visits.find((err, result) => {
     if (err) {
-      res.json({message: err, source: 'visits.js'});
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'visit.js, 12:28'
+      })
+      // console.log(err);
     } else {
-      res.json({data: result});
+      res.status(200).json({data: result});
     }
   })
 });
@@ -27,29 +31,50 @@ router.post('/', function(req, res, next) {
     caseCategory: req.query['caseCategory'],
     documentsMissing: req.query['documentsMissing'],
   })
-  visit.save();
-  res.status(201).json({
-    message: 'New Visit data created!'
+  visit.save(err => {
+    if (err) {
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'visit.js, 38:30'
+      })
+    } else {
+      return res.status(201).json({
+        message: 'New Visit data created!'
+      });
+    }
   });
+
 });
 
 /* PATCH route */
 router.patch('/:id', function(req, res, next) {
-  Visits.findByIdAndUpdate({"_id": req.params.id}, {$set: req.query}, (err, visit) => {
-    res.json({
-      message: 'updatad'
-    })
-
+  Visits.findByIdAndUpdate({"_id": req.params.id}, {$set: req.query}, err => {
+    if (err) {
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'visit.js, 55:33'
+      })
+    } else {
+      res.json({
+        message: 'updatad'
+      })
+    }
   })
 });
 
 /* DELETE route */
 router.delete('/:id', function(req, res, next) {
-  Visits.findByIdAndDelete({"_id": req.params.id}, (err, visit) => {
-    res.json({
-      message: 'deleted'
-    })
-
+  Visits.findByIdAndDelete({"_id": req.params.id}, err => {
+    if (err) {
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'visit.js, 55:33'
+      })
+    } else {
+      res.json({
+        message: 'deleted'
+      })
+    }
   })
 });
 
