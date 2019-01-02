@@ -21,10 +21,13 @@ let visits = [
 
 let done = 0;
 for (let i = 0; i < visits.length; i++) {
-  visits[i].save(function(err, result) {
+  visits[i].save(err => {
+    if (err) {
+      console.log(err);
+    }
     done++;
     if (done === visits.length) {
-      console.log("done seeding!");
+      console.log('done seeding!');
       exit();
     }
   });

@@ -14,8 +14,8 @@ if (cluster.isMaster) {
   // Listen for dying processes
   cluster.on('exit', () => {
     cluster.fork();
-    console.log(`worker ${worker.process.pid} died`);
-  })
+    console.log(`worker ${process.pid} died`);
+  });
 } else {
   // Worker process
   require('./bin/www');

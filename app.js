@@ -17,7 +17,7 @@ mongoose.set('useCreateIndex', true); // fixed error with internal mongoDB depre
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  // we're connected!
+// we're connected!
   console.log('successfully connected');
 });
 

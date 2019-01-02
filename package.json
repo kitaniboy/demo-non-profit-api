@@ -8,6 +8,7 @@
     "dev": "nodemon ./bin/www",
     "build": "node ./cluster.js",
     "seed": "node ./seed/visit-seed.js",
+    "lint": "eslint ./",
     "test-bench": "node ./tests/benchmark.test.js"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^6.2.0",
+    "eslint": "^5.11.1",
     "nodemon": "^1.18.9",
     "siege": "^0.2.0"
   }
