@@ -1,7 +1,9 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const Visits = require('../models/visit');
+const verifyToken = require('../middleware/verifyToken');
 
 /* GET route */
 router.get('/', function(req, res) {
@@ -20,30 +22,33 @@ router.get('/', function(req, res) {
 
 /* POST route */
 router.post('/', function(req, res) {
-  let visit = new Visits({
-    familyID: req.body['familyID'],
-    visitorName:  req.body['visitorName'],
-    visitorPhone: req.body['visitorPhone'],
-    address:   req.body['address'],
-    purposeOfVisit: req.body['purposeOfVisit'], // case
-    response:req.body['response'],
-    caseAgent: req.body['caseAgent'], // who will handle it?
-    caseCategory: req.body['caseCategory'],
-    documentsMissing: req.body['documentsMissing'],
-  });
-  visit.save(err => {
-    if (err) {
-      res.status(500).json({
-        message: 'MongoDB error',
-        source: 'visit.js, 38:30'
-      });
-    } else {
-      return res.status(201).json({
-        message: 'New Visit data created!'
-      });
-    }
-  });
+  // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+    // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
+    let visit = new Visits({
+      familyID: req.body['familyID'],
+      visitorName:  req.body['visitorName'],
+      visitorPhone: req.body['visitorPhone'],
+      address:   req.body['address'],
+      purposeOfVisit: req.body['purposeOfVisit'], // case
+      response:req.body['response'],
+      caseAgent: req.body['caseAgent'], // who will handle it?
+      caseCategory: req.body['caseCategory'],
+      documentsMissing: req.body['documentsMissing'],
+    });
+    visit.save(err => {
+      if (err) {
+        res.status(500).json({
+          message: 'MongoDB error',
+          source: 'visit.js, 38:30'
+        });
+      } else {
+        return res.status(201).json({
+          message: 'New Visit data created!'
+        });
+      }
+    });
+  // });
 });
 
 /* PATCH route */
@@ -77,5 +82,7 @@ router.delete('/:id', function(req, res) {
     }
   });
 });
+
+
 
 module.exports = router;

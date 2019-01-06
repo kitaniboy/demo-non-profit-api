@@ -12,7 +12,7 @@ router.post('/register', (req, res) => {
   let user = new User({
     username : req.body.username,
     password : hashedPassword,
-    role: req.body.role || 0
+    role: req.body.role
   });
   // save new user
   user.save(err => {
@@ -24,17 +24,19 @@ router.post('/register', (req, res) => {
 
 router.get('/login', (req, res) => {
   let returnUser = {
-    username: req.body.username,
-    password: req.body.password
+    username: req.query.username,
+    password: req.query.password
   };
-  User.find({username: req.body.username}, (err, user) => {
-    if (err) return res.status(500).send('could not find user');
+  User.find({username: req.query.username}, (err, user) => {
+    if (err) return res.status(500).send({message: 'could not find user'});
+    // console.log(user[0]);
 
-    bcrypt.compareSync(req.body.password, user.password, (err) => {
-      if (err) return res.status(500).send('wrong password');
+    bcrypt.compare(req.query.password, user[0].password, (err) => {
+      if (err) return res.status(500).json({message: 'wrong password'});
 
       // create a token
-      jwt.sign({returnUser}, process.env.SECRET, (err, token) => {
+      jwt.sign({returnUser}, process.env.SECRET, { expiresIn: '1hr'}, (err, token) => {
+        if (err) return res.status(500).json({message: 'could not get token'})
         res.status(200).json({
           auth: true,
           token

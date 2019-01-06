@@ -32,7 +32,7 @@ app.use(helmet());
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
