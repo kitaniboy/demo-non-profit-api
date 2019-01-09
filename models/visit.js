@@ -13,6 +13,6 @@ const visitSchema = new Schema({
   caseCategory: { type: String },
   documentsMissing: { type: String },
   date: { type: Date, default: Date.now },
-}, { collation: { locale: 'ar'} });
+}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Visit', visitSchema);

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 
-const User = require('../models/user');
+const User = require('../models/users');
 
 /* register new user should only be done by admin */
 router.post('/register', (req, res) => {
