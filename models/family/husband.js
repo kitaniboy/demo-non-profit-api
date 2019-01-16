@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const familyAddressSchema = new Schema({
+const husbandSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   governorate: { type: String },
   state: { type: String },
@@ -9,5 +9,4 @@ const familyAddressSchema = new Schema({
   neighborhood: { type: String }
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
-// module.exports = mongoose.model('FamilyAddress', familyAddressSchema);
-module.exports = familyAddressSchema;
+module.exports = mongoose.model('Husband', husbandSchema);

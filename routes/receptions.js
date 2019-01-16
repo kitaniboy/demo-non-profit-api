@@ -2,12 +2,12 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const Visits = require('../models/visit');
+const Receptions = require('../models/receptions');
 const verifyToken = require('../middleware/verifyToken');
 
 /* GET route */
 router.get('/', function(req, res) {
-  Visits.find((err, result) => {
+  Receptions.find((err, result) => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
@@ -25,8 +25,8 @@ router.post('/', function(req, res) {
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
     // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    let visit = new Visits({
-      familyID: req.body['familyID'],
+    let visit = new Receptions({
+      familyId: req.body['familyId'],
       visitorName:  req.body['visitorName'],
       visitorPhone: req.body['visitorPhone'],
       address:   req.body['address'],
@@ -38,9 +38,11 @@ router.post('/', function(req, res) {
     });
     visit.save(err => {
       if (err) {
+        // console.log(err);
         res.status(500).json({
           message: 'MongoDB error',
-          source: 'visit.js, 38:30'
+          source: 'visit.js, 38:30',
+          error: err
         });
       } else {
         return res.status(201).json({
@@ -53,7 +55,7 @@ router.post('/', function(req, res) {
 
 /* PATCH route */
 router.patch('/:id', function(req, res) {
-  Visits.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
+  Receptions.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
@@ -69,7 +71,7 @@ router.patch('/:id', function(req, res) {
 
 /* DELETE route */
 router.delete('/:id', function(req, res) {
-  Visits.findByIdAndDelete({'_id': req.params.id}, err => {
+  Receptions.findByIdAndDelete({'_id': req.params.id}, err => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',

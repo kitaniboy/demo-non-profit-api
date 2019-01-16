@@ -9,8 +9,8 @@ require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const visitsRouter = require('./routes/visits');
-const siteVisitsRouter = require('./routes/siteVisits');
+const receptionsRouter = require('./routes/receptions');
+const homeVisitsRouter = require('./routes/homeVisits');
 const familyRouter = require('./routes/family');
 
 const app = express();
@@ -43,8 +43,8 @@ app.use(cookieParser());
 
 app.use('/', indexRouter); // not active
 app.use('/users', usersRouter); // not active
-app.use('/visits', visitsRouter);
-app.use('/siteVisits', siteVisitsRouter);
+app.use('/receptions', receptionsRouter);
+app.use('/homeVisits', homeVisitsRouter);
 app.use('/family', familyRouter);
 
 module.exports = app;
