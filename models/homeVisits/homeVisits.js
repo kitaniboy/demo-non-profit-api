@@ -11,6 +11,7 @@ const homeVisitsSchema = new Schema({
   address: { type: String, default: ''},
   teamName: { type: String, default: '' },
   teamComments: { type: String, default: '' },
+  dateOfCaseStudy: { type: String },
   dateOfLetter: { type: String } // default on frontEnd
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 

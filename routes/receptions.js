@@ -5,6 +5,15 @@ const router = express.Router();
 const Receptions = require('../models/receptions');
 const verifyToken = require('../middleware/verifyToken');
 
+const newDocument = (model, body) => {
+  let obj ={};
+  for (let i in model) {
+    obj[i] = body[i];
+    // console.log(i);
+  }
+  return obj;
+};
+
 /* GET route */
 router.get('/', function(req, res) {
   Receptions.find((err, result) => {
@@ -25,17 +34,7 @@ router.post('/', function(req, res) {
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
     // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    let visit = new Receptions({
-      familyId: req.body['familyId'],
-      visitorName:  req.body['visitorName'],
-      visitorPhone: req.body['visitorPhone'],
-      address:   req.body['address'],
-      purposeOfVisit: req.body['purposeOfVisit'], // case
-      response:req.body['response'],
-      caseAgent: req.body['caseAgent'], // who will handle it?
-      caseCategory: req.body['caseCategory'],
-      documentsMissing: req.body['documentsMissing'],
-    });
+    let visit = new Receptions(newDocument(Receptions.schema.obj, req.body));
     visit.save(err => {
       if (err) {
         // console.log(err);
@@ -88,3 +87,20 @@ router.delete('/:id', function(req, res) {
 
 
 module.exports = router;
+
+// {
+//   receptionNumber: req.body['receptionNumber'],
+//   familyId: req.body['familyId'],
+//   date: req.body['date'],
+//   newCase: req.body['newCase'],
+//   visitorName:  req.body['visitorName'],
+//   visitorPhone: req.body['visitorPhone'],
+//   address:   req.body['address'],
+//   purposeOfVisit: req.body['purposeOfVisit'], // case
+//   response: req.body['response'], // dept response
+//   solutionGiven: req.body['']{ type: String, default: '' }, // what was done?
+//   caseMovedTo: req.body['']{ type: String, default: '' }, // who will handle it?
+//   caseCategory: req.body['']{ type: String, default: '' },
+//   documentsMissing: req.body['']{ type: String, default: '' },
+//   caseClosed: req.body['']{ type: Boolean, default: false }
+// }

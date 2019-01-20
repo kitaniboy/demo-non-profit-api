@@ -1,18 +1,19 @@
-export const receptionSeedSchema = (NumOfDocuments) => {
-  let model;
-  for (let i =0; i < NumOfDocuments; i++) {
-    model.push([
-      new Model({
-        familyID: `${i}`,
-        visitorName:  'ماهر',
-        visitorPhone: '97440004',
-        address:   'العذيبة',
-        purposeOfVisit: 'اسئلة',
-        response: 'اسئلة',
-        caseAgent: 'تم نقل الى الارشفة',
-        caseCategory: 'عاجلة',
-        documentsMissing: 'شهادة الميلاد'
-      })
-    ]);
-  }
-}
+
+const receptionSeedSchema = (NumOfDocuments) => ({
+  receptionNumber: `${NumOfDocuments+1}`,
+  familyId: `${NumOfDocuments}`,
+  date: 'vdasc',
+  newCase: true,
+  visitorName:  'cdcda',
+  visitorPhone: 'cdscds',
+  address:   'vfsvfsv',
+  purposeOfVisit: 'vfsvfsv', // case
+  response: 'vfsvfsv', // dept response
+  solutionGiven: 'vfsvfsv', // what was done?
+  caseMovedTo: 'vfsvfsv', // who will handle it?
+  caseCategory: 'vfsvfsv',
+  documentsMissing: 'vfsvfsv',
+  caseClosed: false
+});
+
+module.exports = receptionSeedSchema;

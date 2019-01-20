@@ -1,5 +1,6 @@
 // IMPORT MODELS
 const Receptions = require('../models/receptions');
+const receptionSchema = require('./seedSchema');
 
 // IMPORT MONGOOSE AND MONGODB
 const mongoose = require('mongoose');
@@ -15,17 +16,7 @@ populateData(iterate, Receptions);
 function populateData(NumOfDocuments, Model) {
   for (let i =0; i < NumOfDocuments; i++) {
     let model = [
-      new Model({
-        familyID: `${i}`,
-        visitorName:  'ماهر',
-        visitorPhone: '97440004',
-        address:   'العذيبة',
-        purposeOfVisit: 'اسئلة',
-        response: 'اسئلة',
-        caseAgent: 'تم نقل الى الارشفة',
-        caseCategory: 'عاجلة',
-        documentsMissing: 'شهادة الميلاد'
-      })
+      new Model(receptionSchema(i))
     ];
 
     let done = 0;

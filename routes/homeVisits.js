@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const HomeVisits = require('../models/homeVisits/visits');
+const HomeVisits = require('../models/homeVisits/homeVisits');
+
+const newDocument = (model, body) => {
+  let obj ={};
+  for (let i in model) {
+    obj[i] = body[i];
+    // console.log(i);
+  }
+  return obj;
+};
 
 router.get('/', (req, res) => {
   HomeVisits.find((err, result) => {
@@ -22,17 +31,7 @@ router.post('/', function(req, res) {
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
   // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-  let homeVisit = new HomeVisits({
-    visitNumber: req.body['visitNumber'],
-    familyId: req.body['familyId'],
-    familyName: req.body['familyName'],
-    dateOfVisit: req.body['dateOfVisit'], // default on frontEnd
-    timeOfVisit: req.body['timeOfVisit'], // default on frontEnd
-    address: req.body['address'],
-    teamName: req.body['teamName'],
-    teamComments: req.body['teamComments'],
-    dateOfLetter: req.body['dateOfLetter'] // default on frontEnd
-  });
+  let homeVisit = new HomeVisits(newDocument(HomeVisits.schema.obj, req.body));
   homeVisit.save(err => {
     if (err) {
       // console.log(err);
@@ -85,3 +84,15 @@ router.delete('/:id', function(req, res) {
 });
 
 module.exports = router;
+
+// {
+//   visitNumber: req.body['visitNumber'],
+//   familyId: req.body['familyId'],
+//   familyName: req.body['familyName'],
+//   dateOfVisit: req.body['dateOfVisit'], // default on frontEnd
+//   timeOfVisit: req.body['timeOfVisit'], // default on frontEnd
+//   address: req.body['address'],
+//   teamName: req.body['teamName'],
+//   teamComments: req.body['teamComments'],
+//   dateOfLetter: req.body['dateOfLetter'] // default on frontEnd
+// }
