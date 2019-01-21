@@ -2,35 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const livingConditionSchema = new Schema({
-  id: { type: Schema.Types.ObjectId },
-  accommodation: {
-    oneStoryHouse: { type: Boolean },
-    twoStoryHouse: { type: Boolean },
-    apartment: { type: Boolean },
-    addition: { type: Boolean },
-    other: { type: String }
-  },
-  accommodationStatus: {
-    owned: { type: Boolean },
-    inherited: { type: Boolean },
-    combined: { type: Boolean },
-    rent: {
-      amount: { type: Number },
-      status: { type: Boolean }
-    },
-  },
-  latePayments: {
-    rent: { type: Number },
-    electrical: { type: Number },
-    water: { type: Number },
-  },
-  homeDetails: {
-    numberOfRooms: { type: Number },
-    numberOfLivingRooms: { type: Number },
-    numberOfSittingRooms: { type: Number },
-    numberOfKitchens: { type: Number },
-    numberOfBathrooms: { type: Number },
-  }
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
+  oneStoryHouse: { type: Boolean, default: false },
+  twoStoryHouse: { type: Boolean, default: false },
+  apartment: { type: Boolean, default: false },
+  addition: { type: Boolean, default: false },
+  otherAccommodation: { type: String, default: '' }
+},{ _id : false });
 
-module.exports = mongoose.model('LivingConditionSchema', livingConditionSchema);
+// module.exports = mongoose.model('LivingConditionSchema',
+// livingConditionSchema);
+
+module.exports = livingConditionSchema;

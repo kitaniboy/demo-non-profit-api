@@ -2,33 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const wifeSchema = new Schema({
-  id: { type: Schema.Types.ObjectId },
-  name: { type: String },
-  nationality: { type: String },
-  civilID: { type: String },
-  phone: { type: String },
-  status: {
-    working: { type: Boolean },
-    housewife: { type: Boolean },
-    retired: { type: Boolean },
-    unemployed: { type: Boolean },
-    incarcerated: { type: Boolean },
-    widowed: { type: Boolean },
-    divorced: { type: Boolean },
-    disabled: { type: Boolean },
-    sick: { type: Boolean },
-    diseased: { type: Boolean },
-    other: { type: String }
-  },
-  occupation: { type: String },
-  workplace: { type: String },
-  salary: { type: String },
-  retirementAuthority: { type: String },
-  retirementSalary: { type: String },
-  dateOfDivorce: { type: Date },
-  bankAccountNumber: { type: Number }, // why???
-  isProductiveFamily: { type: Boolean },
-  typeOfProductiveFamilyJob: { type: String }
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
+  wifeName: { type: String, default: '' },
+  wifeIsWorking: { type: Boolean, default: false },
+  wifeNationality: { type: String, default: '' },
+  wifeCivilId: { type: String, default: '' },
+  wifePhone: { type: String, default: '' },
+  isHouseWife: { type: Boolean, default: false },
+  wifeIsRetired: { type: Boolean, default: false },
+  wifeIsWidow: { type: Boolean, default: false },
+  wifeIsAbandoned: { type: Boolean, default: false },
+  wifeIsDisabled: { type: Boolean, default: false },
+  wifeIsSick: { type: Boolean, default: false },
+  wifeIsDeceased: { type: Boolean, default: false },
+  wifeIsDivorced: { type: Boolean, default: false },
+  wifeJob: { type: String, default: '' },
+  wifeWorksAt: { type: String, default: '' },
+  wifeSalary: { type: String, default: '' },
+  wifeRetiredFrom: { type: String, default: '' },
+  wifeRetirementSalary: { type: String, default: '' },
+  dateOfDivorce: { type: String, default: '' },
+  wifeBankNumber: { type: String, default: '' },
+  isProductiveFamily: { type: Boolean, default: false },
+  typeOfProductiveFamily: { type: String, default: '' },
+},{ _id : false });
 
-module.exports = mongoose.model('Wife', wifeSchema);
+// module.exports = mongoose.model('Wife', wifeSchema);
+module.exports = wifeSchema;

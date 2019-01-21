@@ -2,25 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const loanSchema = new Schema({
-  id: { type: Schema.Types.ObjectId },
-  housing: {
-    loaner: { type: String },
-    amount: { type: Number },
-    monthlyPayments: { type: Number },
-    amountDue: { type: Number }
-  },
-  personal: {
-    loaner: { type: String },
-    amount: { type: Number },
-    monthlyPayments: { type: Number },
-    amountDue: { type: Number }
-  },
-  vehicle: {
-    loaner: { type: String },
-    amount: { type: Number },
-    monthlyPayments: { type: Number },
-    amountDue: { type: Number }
-  }
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
+  housingLoaner: { type: String, default: '' },
+  housingLoanAmount: { type: String, default: '' },
+  housingLoanMonthlyPayments: { type: String, default: '' },
+  housingLoanAmountDue: { type: String, default: '' },
+  personalLoaner: { type: String, default: '' },
+  personalLoanAmount: { type: String, default: '' },
+  personalLoanMonthlyPayments: { type: String, default: '' },
+  personalLoanAmountDue: { type: String, default: '' },
+  vehicleLoaner: { type: String, default: '' },
+  vehicleLoanAmount: { type: String, default: '' },
+  vehicleLoanMonthlyPayments: { type: String, default: '' },
+  vehicleLoanAmountDue: { type: String, default: '' },
+},{ _id : false });
 
-module.exports = mongoose.model('Loan', loanSchema);
+// module.exports = mongoose.model('Loan', loanSchema);
+module.exports = loanSchema;

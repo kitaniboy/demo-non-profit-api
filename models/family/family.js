@@ -1,43 +1,54 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+const accommodationStatusSchema = require('./accommodationStatus');
 const familyAddressSchema = require('./familyAddress');
-const husbandSchema = require('./husband');
-const wifeSchema = require('./wife');
+const familyCategorySchema = require('./familyCategory');
 const guardianSchema = require('./guardian');
-const relativeSchema = require('./relative');
+const homeDetailsSchema = require('./homeDetails');
+const husbandSchema = require('./husband');
 const incomeSchema = require('./income');
 const livingConditionSchema = require('./livingCondition');
-const possessionsSchema = require('./possessions');
 const loanSchema = require('./loan');
-const familyMembersSchema = require('./familyMembers');
+const possessionsSchema = require('./possessions');
+const relativeSchema = require('./relative');
+const wifeSchema = require('./wife');
 
 const familySchema = new Schema({
   id: { type: Schema.Types.ObjectId }, // document id
-  familyID: { type: String, unique: true }, // family id
-  archived: { type: Boolean, default: false },
-  familyCategory: { // OR STATUS?
-    orphan: { type: Boolean, default: false },
-    limitedIncome: { type: Boolean, default: false },
-    socialSecurity: { type: Boolean, default: false },
-    other: { type: String }
-  },
-  claimMadeBy: { type: String }, // person who made the claim
-  dateOfCaseStudy: { type: String },
-  typeOfAssistanceNeeded: { type: String },
-  notes: { type: String },
-  caseActive: { type: Boolean, default: true },
-  children: [familyAddressSchema, husbandSchema, wifeSchema, familyMembersSchema, guardianSchema, relativeSchema, incomeSchema, livingConditionSchema, possessionsSchema, loanSchema], // change to Archived
-  numberOfResidenceInHouseHold: { type: Number },
-  numberOfUnemployedAdultChildren: {
-    male: { type: Number },
-    female: { type: Number }
-  },
-  numberOfChildrenPerSchoolPhase: {
-    elementary: { type: Number },
-    secondary: { type: Number },
-    highSchool: { type: Number },
-    higherEducation: { type: Number }
-  }
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}, collation: { strength: 2 }});
+  accommodationStatus: [accommodationStatusSchema],
+  familyAddress: [familyAddressSchema],
+  familyCategory: [familyCategorySchema],
+  guardian: [guardianSchema],
+  homeDetails: [homeDetailsSchema],
+  husband: [husbandSchema],
+  income: [incomeSchema],
+  livingCondition: [livingConditionSchema],
+  loan: [loanSchema],
+  possessions: [possessionsSchema],
+  relative: [relativeSchema],
+  wife: [wifeSchema],
+  formId: { type: String, default: '' },
+  familyId: { type: String, default: '' }, // family id
+  claimMadeBy: { type: String, default: '' }, // person who made the claim
+  dateOfCaseStudy: { type: String, default: '' },
+  typeOfAssistanceNeeded: { type: String, default: '' },
+  notes: { type: String, default: '' },
+  sourceOfCase: { type: String, default: '' },
+  dateOfLetter: { type: String, default: '' },
+  phone: { type: String, default: '' },
+  isArchived: { type: Boolean, default: false },
+  reasonForArchiving: { type: String, default: '' },
+  dateOfArchiving: { type: String, default: '' },
+  numberOfResidenceInHouseHold: { type: String, default: '' },
+  maleUnemployedAdultChildren: { type: String, default: '' },
+  femaleUnemployedAdultChildren: { type: String, default: '' },
+  numberOfChildrenInElementary: { type: String, default: '' },
+  numberOfChildrenInSecondary: { type: String, default: '' },
+  numberOfChildrenInHighSchool: { type: String, default: '' },
+  numberOfChildrenInHigherEducation: { type: String, default: '' },
+  updatedBy: { type: String, default: '' },
+  dateOfUpdate: { type: String, default: '' },
+}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Family', familySchema);
