@@ -2,20 +2,30 @@ const express = require('express');
 const router = express.Router();
 
 const Family = require('../models/family/family');
+const VisitReports = require('../models/homeVisits/visitReports');
 
-let childList = [
-  'accommodationStatus',
-  'familyAddress',
+let childListReport = [
+  'isArchived',
+  'typeOfAssistanceNeeded',
+  'dateOfCaseStudy',
+  'claimMadeBy',
+  'formId',
   'familyCategory',
-  'guardian',
-  'homeDetails',
+  'wife',
   'husband',
+  'familyId',
+  '-_id'
+];
+
+let childListFamilyMembers = [
+  'familyAddress',
+  'typeOfAssistanceNeeded',
+  'familyCategory',
+  'husband',
+  'wife',
   'income',
-  'livingCondition',
-  'loan',
-  'possessions',
-  'relative',
-  'wife'
+  'familyId',
+  '-_id'
 ];
 
 const newDocument = (model, body) => {
@@ -40,6 +50,36 @@ router.get('/', (req, res) => {
   });
 });
 
+// get specific data points needed for visitReports
+router.get('/report', (req, res) => {
+  Family.find({}, childListReport.join(' '), ((err, result) => {
+    if (err) {
+      // console.log(err);
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'siteVisit.js'
+      });
+    } else {
+      res.status(200).json({data: result});
+    }
+  }));
+});
+
+// get specific data points needed for familyMember
+router.get('/:familyId', (req, res) => {
+  Family.findOne({'familyId': req.params['familyId']}, childListFamilyMembers.join(' '), ((err, result) => {
+    if (err) {
+      // console.log(err);
+      res.status(500).json({
+        message: 'failed to get family data',
+        error: err
+      });
+    } else {
+      res.status(200).json({data: result});
+    }
+  }));
+});
+
 
 /* POST route */
 router.post('/', function(req, res) {
@@ -47,9 +87,7 @@ router.post('/', function(req, res) {
   // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
   let family = new Family(newDocument(Family.schema.obj, req.body));
-  for (let i =0; i < childList.length; i++ ){
-    family[childList[i]].push(req.body);
-  }
+  let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
   family.save(err => {
     if (err) {
       // console.log(err);
@@ -59,6 +97,7 @@ router.post('/', function(req, res) {
         error: err
       });
     } else {
+      visitReports.save();
       return res.status(201).json({
         message: 'New Visit data created!'
       });
@@ -86,16 +125,27 @@ router.patch('/:id', function(req, res) {
 
 /* DELETE route */
 router.delete('/:id', function(req, res) {
-  Family.findByIdAndDelete({'_id': req.params.id}, err => {
+  Family.findByIdAndDelete({'_id': req.params.id}, (err, fam) => {
+    // console.log(fam['familyId']);
     // console.log(err);
     if (err) {
       res.status(500).json({
-        message: 'MongoDB error',
-        source: 'visit.js, 55:33'
+        message: 'failed to delete family data',
+        error: err
       });
     } else {
-      res.json({
-        message: 'deleted'
+      VisitReports.deleteOne({'familyId': fam['familyId']}, err => {
+        if (err){
+          // console.log(err);
+          res.status(500).json({
+            message: 'failed to delete visit report',
+            error: err
+          });
+        } else {
+          return res.json({
+            message: 'deleted'
+          });
+        }
       });
     }
   });

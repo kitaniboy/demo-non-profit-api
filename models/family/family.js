@@ -28,8 +28,9 @@ const familySchema = new Schema({
   possessions: [possessionsSchema],
   relative: [relativeSchema],
   wife: [wifeSchema],
+  visitReports: { type: Schema.Types.ObjectId, ref: 'VisitReports' },
   formId: { type: String, default: '' },
-  familyId: { type: String, default: '' }, // family id
+  familyId: { type: String, default: '', unique: true }, // family id
   claimMadeBy: { type: String, default: '' }, // person who made the claim
   dateOfCaseStudy: { type: String, default: '' },
   typeOfAssistanceNeeded: { type: String, default: '' },

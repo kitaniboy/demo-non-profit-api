@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const receptionsRouter = require('./routes/receptions');
 const homeVisitsRouter = require('./routes/homeVisits');
+const visitReportsRouter = require('./routes/visitReports');
 const familyRouter = require('./routes/family');
 
 const app = express();
@@ -37,7 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
@@ -45,6 +46,7 @@ app.use('/', indexRouter); // not active
 app.use('/users', usersRouter); // not active
 app.use('/receptions', receptionsRouter);
 app.use('/homeVisits', homeVisitsRouter);
+app.use('/visitReports', visitReportsRouter);
 app.use('/family', familyRouter);
 
 module.exports = app;
