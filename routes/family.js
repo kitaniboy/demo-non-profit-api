@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Family = require('../models/family/family');
 const VisitReports = require('../models/homeVisits/visitReports');
+const FamilyMembers = require('../models/familyMembers');
 
 let childListReport = [
   'isArchived',
@@ -88,6 +89,7 @@ router.post('/', function(req, res) {
 
   let family = new Family(newDocument(Family.schema.obj, req.body));
   let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
+  let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
   family.save(err => {
     if (err) {
       // console.log(err);
@@ -98,6 +100,7 @@ router.post('/', function(req, res) {
       });
     } else {
       visitReports.save();
+      familyMembers.save();
       return res.status(201).json({
         message: 'New Visit data created!'
       });
@@ -126,8 +129,6 @@ router.patch('/:id', function(req, res) {
 /* DELETE route */
 router.delete('/:id', function(req, res) {
   Family.findByIdAndDelete({'_id': req.params.id}, (err, fam) => {
-    // console.log(fam['familyId']);
-    // console.log(err);
     if (err) {
       res.status(500).json({
         message: 'failed to delete family data',
@@ -135,20 +136,30 @@ router.delete('/:id', function(req, res) {
       });
     } else {
       VisitReports.deleteOne({'familyId': fam['familyId']}, err => {
-        if (err){
+        if (err) {
           // console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'failed to delete visit report',
             error: err
           });
         } else {
-          return res.json({
-            message: 'deleted'
-          });
+          FamilyMembers.deleteOne({'familyId': fam['familyId']}, err => {
+            if (err) {
+              // console.log(err);
+              return res.status(500).json({
+                message: 'failed to delete visit report',
+                error: err
+              });
+            } else {
+              return res.json({
+                message: 'deleted'
+              });
+            }
+          })
         }
-      });
+      })
     }
-  });
-});
+  })
+})
 
 module.exports = router;
