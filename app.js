@@ -14,6 +14,7 @@ const homeVisitsRouter = require('./routes/homeVisits');
 const visitReportsRouter = require('./routes/visitReports');
 const familyRouter = require('./routes/family');
 const familyMembersRouter = require('./routes/familyMembers');
+const assistanceRouter = require('./routes/assistance');
 
 const app = express();
 
@@ -50,5 +51,6 @@ app.use('/homeVisits', homeVisitsRouter);
 app.use('/visitReports', visitReportsRouter);
 app.use('/family', familyRouter);
 app.use('/familyMembers', familyMembersRouter);
+app.use('/assistance', assistanceRouter);
 
 module.exports = app;

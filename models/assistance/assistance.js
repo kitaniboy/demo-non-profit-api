@@ -2,27 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const assistanceSchema = new Schema({
-  id: { type: Schema.Types.ObjectId }, // visit ID
-  familyID: { type: Schema.Types.ObjectId, unique: true, ref: 'Family' },
-  assistanceCategory:  { type: String },
+  id: { type: Schema.Types.ObjectId },
+  familyId: { type: String, default: '' },
+  assistanceId: { type: String, default: '' },
+  assistanceCategory:  { type: String, default: '' },
   supportNeeded: {
-    description: { type: String },
-    exchange: { type: String },
-    new: { type: String },
-    count: { type: Number },
-    date: { type: Date }
+    description: { type: String, default: '' },
+    exchange: { type: String, default: '' },
+    new: { type: String, default: '' },
+    count: { type: String, default: '' },
+    date: { type: String, default: '' }
   },
   supportGiven: {
-    description: { type: String },
-    exchange: { type: String },
-    new: { type: String },
-    count: { type: Number },
-    date: { type: Date }
+    description: { type: String, default: '' },
+    exchange: { type: String, default: '' },
+    new: { type: String, default: '' },
+    count: { type: String, default: '' },
+    date: { type: String, default: '' }
   },
-  department:   { type: String },
-  receiptDate: { type: Date }, // case
-  agreementGivenBy: { type: String },
-  dateOfAgreement: { type: Date }, // who will handle it?
+  department:   { type: String, default: '' },
+  receiptDate: { type: String, default: '' },
+  cost: { type: String, default: '' },
+  agreementGivenBy: { type: String, default: '' },
+  dateOfAgreement: { type: String, default: '' }, // who will handle it?
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Assistance', assistanceSchema);

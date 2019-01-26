@@ -6,7 +6,7 @@ const FamilyMembersSchema = new Schema({
   familyMemberId: { type: String, default: ''},
   familyId: { type: String, default: '' },
   familyMemberName: { type: String, default: '' },
-  relation: { type: Boolean, default: false },
+  relation: { type: String, default: '' },
   socialStatus:  { type: String, default: '' },
   dateOfBirth: { type: String, default: ''},
   educationLevel:   { type: String, default: '' },
@@ -16,7 +16,7 @@ const FamilyMembersSchema = new Schema({
   familyMemberLoan: { type: String, default: '' },
   monthlyInstallment: { type: String, default: '' },
   loanReason: { type: String, default: '' },
-  health: { type: Boolean, default: false }
+  health: { type: String, default: '' }
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('FamilyMembers', FamilyMembersSchema);

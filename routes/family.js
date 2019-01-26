@@ -89,7 +89,7 @@ router.post('/', function(req, res) {
 
   let family = new Family(newDocument(Family.schema.obj, req.body));
   let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
-  let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
+  // let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
   family.save(err => {
     if (err) {
       // console.log(err);
@@ -100,7 +100,7 @@ router.post('/', function(req, res) {
       });
     } else {
       visitReports.save();
-      familyMembers.save();
+      // familyMembers.save();
       return res.status(201).json({
         message: 'New Visit data created!'
       });
