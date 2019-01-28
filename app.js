@@ -8,8 +8,16 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/user');
-const visitsRouter = require('./routes/visits');
+const usersRouter = require('./routes/users');
+const receptionsRouter = require('./routes/receptions');
+const homeVisitsRouter = require('./routes/homeVisits');
+const visitReportsRouter = require('./routes/visitReports');
+const familyRouter = require('./routes/family');
+const familyMembersRouter = require('./routes/familyMembers');
+const assistanceRouter = require('./routes/assistance');
+const financialAssistanceRouter = require('./routes/financialAssistance');
+const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
+const orphanSponsorsRouter = require('./routes/orphanSponsors');
 
 const app = express();
 
@@ -32,15 +40,23 @@ app.use(helmet());
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
 app.use('/', indexRouter); // not active
-app.use('/user', usersRouter); // not active
-app.use('/visits', visitsRouter);
+app.use('/users', usersRouter); // not active
+app.use('/receptions', receptionsRouter);
+app.use('/homeVisits', homeVisitsRouter);
+app.use('/visitReports', visitReportsRouter);
+app.use('/family', familyRouter);
+app.use('/familyMembers', familyMembersRouter);
+app.use('/assistance', assistanceRouter);
+app.use('/financialAssistance', financialAssistanceRouter);
+app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
+app.use('/orphanSponsors', orphanSponsorsRouter);
 
 module.exports = app;
