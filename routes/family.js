@@ -29,6 +29,20 @@ let childListFamilyMembers = [
   '-_id'
 ];
 
+let childListOrphans = [
+  'familyAddress',
+  'husband',
+  'familyCategory',
+  'husband',
+  'wife',
+  'guardian',
+  'numberOfResidenceInHouseHold',
+  'maleUnemployedAdultChildren',
+  'femaleUnemployedAdultChildren',
+  'familyId',
+  '-_id'
+];
+
 const newDocument = (model, body) => {
   let obj ={};
   for (let i in model) {
@@ -54,6 +68,21 @@ router.get('/', (req, res) => {
 // get specific data points needed for visitReports
 router.get('/report', (req, res) => {
   Family.find({}, childListReport.join(' '), ((err, result) => {
+    if (err) {
+      // console.log(err);
+      res.status(500).json({
+        message: 'MongoDB error',
+        source: 'siteVisit.js'
+      });
+    } else {
+      res.status(200).json({data: result});
+    }
+  }));
+});
+
+// get specific data points needed for visitReports
+router.get('/orphans', (req, res) => {
+  Family.find({'familyCategory.0.orphan': true}, childListOrphans.join(' '), ((err, result) => {
     if (err) {
       // console.log(err);
       res.status(500).json({

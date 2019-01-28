@@ -15,6 +15,9 @@ const visitReportsRouter = require('./routes/visitReports');
 const familyRouter = require('./routes/family');
 const familyMembersRouter = require('./routes/familyMembers');
 const assistanceRouter = require('./routes/assistance');
+const financialAssistanceRouter = require('./routes/financialAssistance');
+const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
+const orphanSponsorsRouter = require('./routes/orphanSponsors');
 
 const app = express();
 
@@ -52,5 +55,8 @@ app.use('/visitReports', visitReportsRouter);
 app.use('/family', familyRouter);
 app.use('/familyMembers', familyMembersRouter);
 app.use('/assistance', assistanceRouter);
+app.use('/financialAssistance', financialAssistanceRouter);
+app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
+app.use('/orphanSponsors', orphanSponsorsRouter);
 
 module.exports = app;
