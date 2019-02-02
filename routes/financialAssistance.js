@@ -15,73 +15,102 @@ const newDocument = (model, body) => {
 };
 
 /* GET route */
-router.get('/', function(req, res) {
-  FinancialAssistance.find((err, result) => {
-    if (err) {
-      res.status(500).json({
-        message: 'MongoDB error',
-        source: 'visit.js, 12:28'
-      });
-      // console.log(err);
-    } else {
-      res.status(200).json({data: result});
-    }
-  });
+router.get('/', async (req, res) => {
+  try {
+    let result = await FinancialAssistance.find();
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+  // FinancialAssistance.find((err, result) => {
+  //   if (err) {
+  //     res.status(500).json({
+  //       message: 'MongoDB error',
+  //       source: 'visit.js, 12:28'
+  //     });
+  //     // console.log(err);
+  //   } else {
+  //     res.status(200).json({data: result});
+  //   }
+  // });
 });
 
 /* POST route */
-router.post('/', function(req, res) {
+router.post('/', async (req, res) => {
+  let financialAssistance = new FinancialAssistance(newDocument(FinancialAssistance.schema.obj, req.body));
+  try {
+    await financialAssistance.save();
+    return res.status(201).json({message: 'new data created!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in POST assistance route'});
+  }
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
     // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    let financialAssistance = new FinancialAssistance(newDocument(FinancialAssistance.schema.obj, req.body));
-    financialAssistance.save(err => {
-      if (err) {
-        // console.log(err);
-        res.status(500).json({
-          message: 'MongoDB error',
-          source: 'visit.js, 38:30',
-          error: err
-        });
-      } else {
-        return res.status(201).json({
-          message: 'New Visit data created!'
-        });
-      }
-    });
+    // let financialAssistance = new FinancialAssistance(newDocument(FinancialAssistance.schema.obj, req.body));
+    // financialAssistance.save(err => {
+    //   if (err) {
+    //     // console.log(err);
+    //     res.status(500).json({
+    //       message: 'MongoDB error',
+    //       source: 'visit.js, 38:30',
+    //       error: err
+    //     });
+    //   } else {
+    //     return res.status(201).json({
+    //       message: 'New Visit data created!'
+    //     });
+    //   }
+    // });
   // });
 });
 
 /* PATCH route */
-router.patch('/:id', function(req, res) {
-  FinancialAssistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
-    if (err) {
-      res.status(500).json({
-        message: 'MongoDB error',
-        source: 'visit.js, 55:33'
-      });
-    } else {
-      res.json({
-        message: 'updatad'
-      });
-    }
-  });
+router.patch('/:id', async (req, res) => {
+  try {
+    await FinancialAssistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    return res.status(200).json({message: 'existing data updated!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in PATCH financialAssistance route'});
+  }
+  // FinancialAssistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
+  //   if (err) {
+  //     res.status(500).json({
+  //       message: 'MongoDB error',
+  //       source: 'visit.js, 55:33'
+  //     });
+  //   } else {
+  //     res.json({
+  //       message: 'updatad'
+  //     });
+  //   }
+  // });
 });
 
 /* DELETE route */
-router.delete('/:id', function(req, res) {
-  FinancialAssistance.findByIdAndDelete({'_id': req.params.id}, err => {
-    if (err) {
-      res.status(500).json({
-        message: 'MongoDB error',
-        source: 'visit.js, 55:33'
-      });
-    } else {
-      res.json({
-        message: 'deleted'
-      });
-    }
-  });
+router.delete('/:id', async (req, res) => {
+  try {
+    await FinancialAssistance.findByIdAndDelete({'_id': req.params.id});
+    return res.status(200).json({message: 'existing data deleted!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in DELETE financialAssistance route'});
+  }
+  // FinancialAssistance.findByIdAndDelete({'_id': req.params.id}, err => {
+  //   if (err) {
+  //     res.status(500).json({
+  //       message: 'MongoDB error',
+  //       source: 'visit.js, 55:33'
+  //     });
+  //   } else {
+  //     res.json({
+  //       message: 'deleted'
+  //     });
+  //   }
+  // });
 });
 
 
