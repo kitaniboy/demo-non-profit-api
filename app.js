@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-require('dotenv').config();
+require('dotenv').config(); // configure env variables
 
+// Routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const receptionsRouter = require('./routes/receptions');
@@ -18,7 +19,10 @@ const assistanceRouter = require('./routes/assistance');
 const financialAssistanceRouter = require('./routes/financialAssistance');
 const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
 const orphanSponsorsRouter = require('./routes/orphanSponsors');
+const orphanFamilyRouter = require('./routes/orphanFamily');
+const orphansRouter = require('./routes/orphans');
 
+// initiate Express app
 const app = express();
 
 // Connect to mongodb
@@ -46,7 +50,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
+// all routes
 app.use('/', indexRouter); // not active
 app.use('/users', usersRouter); // not active
 app.use('/receptions', receptionsRouter);
@@ -58,5 +62,7 @@ app.use('/assistance', assistanceRouter);
 app.use('/financialAssistance', financialAssistanceRouter);
 app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
 app.use('/orphanSponsors', orphanSponsorsRouter);
+app.use('/orphanFamily', orphanFamilyRouter);
+app.use('/orphans', orphansRouter);
 
 module.exports = app;

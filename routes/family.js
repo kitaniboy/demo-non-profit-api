@@ -4,6 +4,7 @@ const router = express.Router();
 const Family = require('../models/family/family');
 const VisitReports = require('../models/homeVisits/visitReports');
 const FamilyMembers = require('../models/familyMembers');
+const OrphanFamily = require('../models/orphans/orpahnFamily');
 
 let childListReport = [
   'isArchived',
@@ -35,10 +36,6 @@ let childListOrphans = [
   'familyCategory',
   'husband',
   'wife',
-  'guardian',
-  'numberOfResidenceInHouseHold',
-  'maleUnemployedAdultChildren',
-  'femaleUnemployedAdultChildren',
   'familyId',
   '-_id'
 ];
@@ -119,6 +116,7 @@ router.post('/', function(req, res) {
   let family = new Family(newDocument(Family.schema.obj, req.body));
   let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
   // let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
+  console.log(req.body.familyCategory[0].orphan);
   family.save(err => {
     if (err) {
       // console.log(err);
@@ -128,6 +126,10 @@ router.post('/', function(req, res) {
         error: err
       });
     } else {
+      if (req.body.familyCategory[0].orphan) {
+        let orphanFamily = new OrphanFamily(newDocument(OrphanFamily.schema.obj, req.body));
+        orphanFamily.save();
+      }
       visitReports.save();
       // familyMembers.save();
       return res.status(201).json({
@@ -180,9 +182,18 @@ router.delete('/:id', function(req, res) {
                 error: err
               });
             } else {
-              return res.json({
-                message: 'deleted'
-              });
+              OrphanFamily.deleteOne({'familyId': fam['familyId']}, err => {
+                if (err) {
+                  return res.status(500).json({
+                    message: 'failed to delete visit report',
+                    error: err
+                  });
+                } else {
+                  return res.json({
+                    message: 'deleted'
+                  });
+                }
+              })
             }
           })
         }

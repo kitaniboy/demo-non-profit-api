@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const OrphanFamilySchema = new Schema({
   id: { type: Schema.Types.ObjectId },
+  numberOfFamilyMembers: { type: String, default: '' },
+  males: { type: String, default: '' },
+  females: { type: String, default: '' },
   numberOfOrphansWithSponsors: { type: String, default: ''},
   socialSecurity: { type: String, default: ''},
   accountOwner: { type: String, default: ''},
@@ -16,7 +19,7 @@ const OrphanFamilySchema = new Schema({
   endDate: { type: String, default: ''},
   reasonForStop: { type: String, default: ''},
   notes: { type: String, default: ''},
-  familyId: { type: String, ref: 'Family'}
+  familyId: [{ type: String, ref: 'Family'}]
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('OrphanFamily', OrphanFamilySchema);

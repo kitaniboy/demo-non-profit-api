@@ -2,7 +2,8 @@ const express = require('express');
 // const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const OrphanSponsors = require('../models/orphans/orphanSponsors');
+const Orphans = require('../models/orphans/orphans');
+const Family = require('../models/family/family');
 // const verifyToken = require('../middleware/verifyToken');
 
 const newDocument = (model, body) => {
@@ -16,7 +17,7 @@ const newDocument = (model, body) => {
 
 /* GET route */
 router.get('/', function(req, res) {
-  OrphanSponsors.find((err, result) => {
+    Orphans.find((err, result) => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
@@ -24,23 +25,9 @@ router.get('/', function(req, res) {
       });
       // console.log(err);
     } else {
-      res.status(200).json({data: result});
+        res.status(200).json({data: result});
     }
   });
-});
-
-router.get('/:sponsorId', (req, res) => {
-  OrphanSponsors.findOne({'sponsorId': req.params['sponsorId']}, ((err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).json({
-        message: 'failed to get family data',
-        error: err
-      });
-    } else {
-      res.status(200).json({data: result});
-    }
-  }));
 });
 
 /* POST route */
@@ -48,8 +35,8 @@ router.post('/', function(req, res) {
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
     // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    let orphanSponsor = new OrphanSponsors(newDocument(OrphanSponsors.schema.obj, req.body));
-    orphanSponsor.save(err => {
+    let orphan = new Orphans(newDocument(Orphans.schema.obj, req.body));
+    orphan.save(err => {
       if (err) {
         // console.log(err);
         res.status(500).json({
@@ -68,7 +55,7 @@ router.post('/', function(req, res) {
 
 /* PATCH route */
 router.patch('/:id', function(req, res) {
-  OrphanSponsors.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
+  Orphans.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
@@ -84,7 +71,7 @@ router.patch('/:id', function(req, res) {
 
 /* DELETE route */
 router.delete('/:id', function(req, res) {
-  OrphanSponsors.findByIdAndDelete({'_id': req.params.id}, err => {
+  Orphans.findByIdAndDelete({'_id': req.params.id}, err => {
     if (err) {
       res.status(500).json({
         message: 'MongoDB error',
