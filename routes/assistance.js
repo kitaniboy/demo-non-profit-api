@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Model
-const Assistance = require('../models/assistance/assistance');
+const Assistance = require('../models/Archives/assistance/assistance');
 
 const newDocument = (model, body) => {
   let obj ={};
@@ -16,6 +16,8 @@ const newDocument = (model, body) => {
 router.get('/', async (req, res) => {
   try {
     let result = await Assistance.find();
+    let numOfDocs = await Assistance.find().countDocument();
+    console.log(numOfDocs);
     return res.status(200).json({data: result});
   }
   catch(err) {

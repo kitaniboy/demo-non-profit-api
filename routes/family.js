@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 // Models
-const Family = require('../models/family/family');
-const VisitReports = require('../models/homeVisits/visitReports');
-const FamilyMembers = require('../models/familyMembers');
+const Family = require('../models/Archives/family/family');
+const VisitReports = require('../models/Archives/homeVisits/visitReports');
+const FamilyMembers = require('../models/Archives/familyMembers');
 const OrphanFamily = require('../models/orphans/orphanFamily');
+// const LowIncomeFamilies = require('../models/lowIncomeFamilies/lowIncomeFamilies');
 
 let childListReport = [
   'isArchived',
@@ -35,11 +36,19 @@ let childListOrphans = [
   'familyAddress',
   'husband',
   'familyCategory',
-  'husband',
   'wife',
   'familyId',
   '-_id'
 ];
+
+// let childListLowIncome = [
+//   'familyAddress',
+//   'husband',
+//   'accommodationStatus',
+//   'wife',
+//   'familyId',
+//   '-_id'
+// ];
 
 const newDocument = (model, body) => {
   let obj ={};
@@ -70,19 +79,6 @@ router.get('/report', async (req, res) => {
     res.status(500).json({message: 'Error in GET family route'});
   }
 });
-// router.get('/report', (req, res) => {
-//   Family.find({}, childListReport.join(' '), ((err, result) => {
-//     if (err) {
-//       // console.log(err);
-//       res.status(500).json({
-//         message: 'MongoDB error',
-//         source: 'siteVisit.js'
-//       });
-//     } else {
-//       res.status(200).json({data: result});
-//     }
-//   }));
-// });
 
 // get specific data points needed for visitReports
 router.get('/orphans', async (req, res) => {
@@ -94,18 +90,16 @@ router.get('/orphans', async (req, res) => {
     res.status(500).json({message: 'Error in GET family route'});
   }
 });
-// router.get('/orphans', (req, res) => {
-//   Family.find({'familyCategory.0.orphan': true}, childListOrphans.join(' '), ((err, result) => {
-//     if (err) {
-//       // console.log(err);
-//       res.status(500).json({
-//         message: 'MongoDB error',
-//         source: 'siteVisit.js'
-//       });
-//     } else {
-//       res.status(200).json({data: result});
-//     }
-//   }));
+
+// get specific data points needed for visitReports
+// router.get('/lowIncome', async (req, res) => {
+//   try {
+//     let result = await LowIncomeFamilies.find({'familyCategory.0.limitedIncome': true}, childListFamilyMembers.join(' '));
+//     return res.status(200).json({data: result});
+//   }
+//   catch(err) {
+//     res.status(500).json({message: 'Error in GET lowIncome route'});
+//   }
 // });
 
 // get specific data points needed for familyMember
@@ -118,19 +112,6 @@ router.get('/:familyId', async (req, res) => {
     res.status(500).json({message: 'Error in GET family route'});
   }
 });
-// router.get('/:familyId', (req, res) => {
-//   Family.findOne({'familyId': req.params['familyId']}, childListFamilyMembers.join(' '), ((err, result) => {
-//     if (err) {
-//       // console.log(err);
-//       res.status(500).json({
-//         message: 'failed to get family data',
-//         error: err
-//       });
-//     } else {
-//       res.status(200).json({data: result});
-//     }
-//   }));
-// });
 
 
 /* POST route */

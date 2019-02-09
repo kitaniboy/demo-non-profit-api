@@ -2,7 +2,7 @@ const express = require('express');
 // const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const FoodStuffAssistance = require('../models/assistance/foodStuffAssistance');
+const FoodStuffAssistance = require('../models/Archives/assistance/foodStuffAssistance');
 // const verifyToken = require('../middleware/verifyToken');
 
 const newDocument = (model, body) => {

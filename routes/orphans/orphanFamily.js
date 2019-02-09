@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const OrphanFamily = require('../models/orphans/orphanFamily');
+const OrphanFamily = require('../../models/orphans/orphanFamily');
 
 const newDocument = (model, body) => {
   let obj ={};

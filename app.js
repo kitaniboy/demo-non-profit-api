@@ -5,11 +5,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const compression = require('compression')
 require('dotenv').config(); // configure env variables
 
 // Routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
 const receptionsRouter = require('./routes/receptions');
 const homeVisitsRouter = require('./routes/homeVisits');
 const visitReportsRouter = require('./routes/visitReports');
@@ -18,9 +20,11 @@ const familyMembersRouter = require('./routes/familyMembers');
 const assistanceRouter = require('./routes/assistance');
 const financialAssistanceRouter = require('./routes/financialAssistance');
 const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
-const orphanSponsorsRouter = require('./routes/orphanSponsors');
-const orphanFamilyRouter = require('./routes/orphanFamily');
-const orphansRouter = require('./routes/orphans');
+const orphanSponsorsRouter = require('./routes/orphans/orphanSponsors');
+const orphanFamilyRouter = require('./routes/orphans/orphanFamily');
+const orphansRouter = require('./routes/orphans/orphans');
+const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
+const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
 
 // initiate Express app
 const app = express();
@@ -37,11 +41,16 @@ db.once('open', function() {
   console.log('successfully connected');
 });
 
+app.use(compression());
+
 // use Helmet for Header protection
 app.use(helmet());
 
 // initialize cors
 app.use(cors());
+
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -64,5 +73,8 @@ app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
 app.use('/orphanSponsors', orphanSponsorsRouter);
 app.use('/orphanFamily', orphanFamilyRouter);
 app.use('/orphans', orphansRouter);
+app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
+app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
+app.use('/login', loginRouter);
 
 module.exports = app;

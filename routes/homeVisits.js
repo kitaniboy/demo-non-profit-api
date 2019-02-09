@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const HomeVisits = require('../models/homeVisits/homeVisits');
+const HomeVisits = require('../models/Archives/homeVisits/homeVisits');
 
 const newDocument = (model, body) => {
   let obj ={};

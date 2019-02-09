@@ -2,7 +2,7 @@ const express = require('express');
 // const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const Orphans = require('../models/orphans/orphans');
+const Orphans = require('../../models/orphans/orphans');
 // const Family = require('../models/family/family');
 // const verifyToken = require('../middleware/verifyToken');
 
