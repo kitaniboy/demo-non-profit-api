@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Model
-const Assistance = require('../models/Archives/assistance/assistance');
+const LowIncomePayments = require('../../models/lowIncome/lowIncomePayments');
 
 const newDocument = (model, body) => {
   let obj ={};
@@ -15,47 +15,47 @@ const newDocument = (model, body) => {
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await Assistance.find();
+    let result = await LowIncomePayments.find();
     // let numOfDocs = await Assistance.find().countDocument();
     // console.log(numOfDocs);
     return res.status(200).json({data: result});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in GET assistance route'});
+    res.status(500).json({message: 'Error in GET LowIncomePayments route'});
   }
 });
 
 /* POST route */
 router.post('/', async (req, res) => {
-    let assistance = new Assistance(newDocument(Assistance.schema.obj, req.body));
+    let lowIncomePayments = new LowIncomePayments(newDocument(LowIncomePayments.schema.obj, req.body));
     try {
-      await assistance.save();
+      await lowIncomePayments.save();
       return res.status(201).json({message: 'new data created!'});
     }
     catch(err) {
-      res.status(500).json({message: 'Error in POST assistance route'});
+      res.status(500).json({message: 'Error in POST LowIncomePayments route'});
     }
 });
 
 /* PATCH route */
 router.patch('/:id', async (req, res) => {
   try {
-    await Assistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    await LowIncomePayments.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
     return res.status(200).json({message: 'existing data updated!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in PATCH assistance route'});
+    res.status(500).json({message: 'Error in PATCH LowIncomePayments route'});
   }
 });
 
 /* DELETE route */
 router.delete('/:id', async (req, res) => {
   try {
-    await Assistance.findByIdAndDelete({'_id': req.params.id});
+    await LowIncomePayments.findByIdAndDelete({'_id': req.params.id});
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in DELETE assistance route'});
+    res.status(500).json({message: 'Error in DELETE LowIncomePayments route'});
   }
 });
 

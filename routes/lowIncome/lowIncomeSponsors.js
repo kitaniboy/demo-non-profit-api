@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
     return res.status(200).json({data: result});
   }
   catch(err) {
+    console.log(err);
     res.status(500).json({message: 'Error in GET LowIncomeSponsors route'});
   }
 });

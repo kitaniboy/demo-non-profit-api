@@ -8,7 +8,7 @@ require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true});
 
-const iterate = 1000;
+const iterate = 2000;
 
 // POPULATE DATA
 populateData(iterate, Receptions);
@@ -27,7 +27,7 @@ function populateData(NumOfDocuments, Model) {
         }
         done++;
         if (done === model.length) {
-          console.log('done seeding!');
+          // console.log('done seeding!');
           exit();
         }
       });
@@ -37,4 +37,5 @@ function populateData(NumOfDocuments, Model) {
 
 function exit() {
   mongoose.disconnect();
+  console.log('done seeding!');
 }

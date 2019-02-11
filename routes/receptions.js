@@ -13,19 +13,44 @@ const newDocument = (model, body) => {
   return obj;
 };
 
+let TableData = [
+  'receptionNumber',
+  'familyId',
+  'date',
+  'visitorName',
+  'purposeOfVisit'
+]
+
+// let x = [
+//   '-created_at',
+//   '-updated_at',
+//   '-__v',
+// ]
+
 /* GET route */
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    let result = await Receptions.find({}, "-created_at -updated_at -__v");
-    // let numOfDocs = await Receptions.find().countDocument();
-    // console.log(numOfDocs);
-    return res.write(res.json({data: result}))
-    // return res.status(200).json({data: result});
+    let result = await Receptions.findOne({'_id': req.params['id']});
+    return res.status(200).json({data: result});
   }
   catch(err) {
+    // console.log(err);
     res.status(500).json({message: 'Error in GET assistance route'});
   }
 });
+
+/* GET route */
+router.get('/', async (req, res) => {
+  try {
+    let result = await Receptions.find({}, TableData.join(' '));
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+});
+
 
 // /* GET route */
 // router.get('/', verifyToken, async (req, res) => {

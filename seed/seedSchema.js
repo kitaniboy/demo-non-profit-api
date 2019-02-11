@@ -1,19 +1,19 @@
 
 const receptionSeedSchema = (NumOfDocuments) => ({
-  receptionNumber: `${NumOfDocuments+1}`,
-  familyId: `${NumOfDocuments}`,
-  date: 'vdasc',
+  receptionNumber: `${NumOfDocuments+100}`,
+  familyId: `${NumOfDocuments+200}`,
+  date: '2015',
   newCase: true,
-  visitorName:  'cdcda',
-  visitorPhone: 'cdscds',
-  address:   'vfsvfsv',
-  purposeOfVisit: 'vfsvfsv', // case
-  response: 'vfsvfsv', // dept response
-  solutionGiven: 'vfsvfsv', // what was done?
-  caseMovedTo: 'vfsvfsv', // who will handle it?
-  caseCategory: 'vfsvfsv',
-  documentsMissing: 'vfsvfsv',
-  caseClosed: false
+  visitorName:  'gfds',
+  visitorPhone: 'fdsg',
+  address:   'vfsvgfdsgdfsv',
+  purposeOfVisit: 'vfdsfgsvfsv', // case
+  response: 'vfsvgfdsfsv', // dept response
+  solutionGiven: 'vfsgfdsvfsv', // what was done?
+  caseMovedTo: 'vfsvgfdsfsv', // who will handle it?
+  caseCategory: 'vfsgdfvfsv',
+  documentsMissing: 'vgfdfsvfsv',
+  caseClosed: true
 });
 
 module.exports = receptionSeedSchema;

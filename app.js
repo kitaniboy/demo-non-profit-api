@@ -25,6 +25,7 @@ const orphanFamilyRouter = require('./routes/orphans/orphanFamily');
 const orphansRouter = require('./routes/orphans/orphans');
 const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
 const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
+const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments');
 
 // initiate Express app
 const app = express();
@@ -50,8 +51,6 @@ app.use(helmet());
 app.use(cors());
 
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev')); // only logs when in dev env
@@ -75,6 +74,7 @@ app.use('/orphanFamily', orphanFamilyRouter);
 app.use('/orphans', orphansRouter);
 app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
 app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
+app.use('/lowIncomePayments', lowIncomePaymentsRouter);
 app.use('/login', loginRouter);
 
 module.exports = app;
