@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const familyAddressSchema = new Schema({
+const accommodationStatusSchema = new Schema({
   owned: { type: Boolean, default: false },
   inherited: { type: Boolean, default: false },
   combined: { type: Boolean, default: false },
@@ -13,4 +13,4 @@ const familyAddressSchema = new Schema({
 },{ _id : false });
 
 // module.exports = mongoose.model('FamilyAddress', familyAddressSchema);
-module.exports = familyAddressSchema;
+module.exports = accommodationStatusSchema;

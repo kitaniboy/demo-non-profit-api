@@ -1,49 +1,60 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const router = express.Router();
 
-const User = require('../models/users');
+// Model
+const Users = require('../models/users');
 
-/* register new user should only be done by admin */
-router.post('/register', (req, res) => {
-  let hashedPassword = bcrypt.hashSync(req.body.password, 8);
+const newDocument = (model, body) => {
+  let obj ={};
+  for (let i in model) {
+    obj[i] = body[i];
+  }
+  return obj;
+};
 
-  let user = new User({
-    username : req.body.username,
-    password : hashedPassword,
-    role: req.body.role
-  });
-  // save new user
-  user.save(err => {
-    if (err) return res.status(500).json({message: 'There was a problem registering the user.'});
-
-    return res.status(200).json({ auth: true, message: 'New user registered' });
-  });
+/* GET route */
+router.get('/', async (req, res) => {
+  try {
+    let result = await Users.find();
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET Users route'});
+  }
 });
 
-router.get('/login', (req, res) => {
-  let returnUser = {
-    username: req.query.username,
-    password: req.query.password
-  };
-  User.find({username: req.query.username}, (err, user) => {
-    if (err) return res.status(500).send({message: 'could not find user'});
-    // console.log(user[0]);
+/* POST route */
+router.post('/', async (req, res) => {
+    let users = new Users(newDocument(Users.schema.obj, req.body));
+    try {
+      await users.save();
+      return res.status(201).json({message: 'new data created!'});
+    }
+    catch(err) {
+      res.status(500).json({message: 'Error in POST Users route'});
+    }
+});
 
-    bcrypt.compare(req.query.password, user[0].password, (err) => {
-      if (err) return res.status(500).json({message: 'wrong password'});
+/* PATCH route */
+router.patch('/:id', async (req, res) => {
+  try {
+    await Users.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    return res.status(200).json({message: 'existing data updated!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in PATCH Users route'});
+  }
+});
 
-      // create a token
-      jwt.sign({returnUser}, process.env.SECRET, { expiresIn: '1hr'}, (err, token) => {
-        if (err) return res.status(500).json({message: 'could not get token'})
-        res.status(200).json({
-          auth: true,
-          token
-        });
-      });
-    });
-  });
+/* DELETE route */
+router.delete('/:id', async (req, res) => {
+  try {
+    await Users.findByIdAndDelete({'_id': req.params.id});
+    return res.status(200).json({message: 'existing data deleted!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in DELETE Users route'});
+  }
 });
 
 module.exports = router;

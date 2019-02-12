@@ -1,5 +1,5 @@
 // IMPORT MODELS
-const Receptions = require('../models/receptions');
+const Receptions = require('../models/Archives/receptions');
 const receptionSchema = require('./seedSchema');
 
 // IMPORT MONGOOSE AND MONGODB
@@ -8,7 +8,7 @@ require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true});
 
-const iterate = 100;
+const iterate = 1000;
 
 // POPULATE DATA
 populateData(iterate, Receptions);

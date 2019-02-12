@@ -2,7 +2,7 @@ const express = require('express');
 // const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const FinancialAssistance = require('../models/Archives/assistance/financialAssistance');
+const OrphanSponsors = require('../../models/orphans/orphanSponsors');
 // const verifyToken = require('../middleware/verifyToken');
 
 const newDocument = (model, body) => {
@@ -17,13 +17,13 @@ const newDocument = (model, body) => {
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await FinancialAssistance.find();
+    let result = await OrphanSponsors.find();
     return res.status(200).json({data: result});
   }
   catch(err) {
     res.status(500).json({message: 'Error in GET assistance route'});
   }
-  // FinancialAssistance.find((err, result) => {
+  // OrphanSponsors.find((err, result) => {
   //   if (err) {
   //     res.status(500).json({
   //       message: 'MongoDB error',
@@ -36,21 +36,42 @@ router.get('/', async (req, res) => {
   // });
 });
 
+router.get('/:sponsorId', async (req, res) => {
+  try {
+    let result = await OrphanSponsors.find({'sponsorId': req.params['sponsorId']});
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET orphanSponsor route'});
+  }
+  // OrphanSponsors.findOne({'sponsorId': req.params['sponsorId']}, ((err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.status(500).json({
+  //       message: 'failed to get family data',
+  //       error: err
+  //     });
+  //   } else {
+  //     res.status(200).json({data: result});
+  //   }
+  // }));
+});
+
 /* POST route */
 router.post('/', async (req, res) => {
-  let financialAssistance = new FinancialAssistance(newDocument(FinancialAssistance.schema.obj, req.body));
+  let orphanSponsor = new OrphanSponsors(newDocument(OrphanSponsors.schema.obj, req.body));
   try {
-    await financialAssistance.save();
+    await orphanSponsor.save();
     return res.status(201).json({message: 'new data created!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in POST assistance route'});
+    res.status(500).json({message: 'Error in POST orphanSponsor route'});
   }
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
     // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    // let financialAssistance = new FinancialAssistance(newDocument(FinancialAssistance.schema.obj, req.body));
-    // financialAssistance.save(err => {
+    // let orphanSponsor = new OrphanSponsors(newDocument(OrphanSponsors.schema.obj, req.body));
+    // orphanSponsor.save(err => {
     //   if (err) {
     //     // console.log(err);
     //     res.status(500).json({
@@ -70,13 +91,13 @@ router.post('/', async (req, res) => {
 /* PATCH route */
 router.patch('/:id', async (req, res) => {
   try {
-    await FinancialAssistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    await OrphanSponsors.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
     return res.status(200).json({message: 'existing data updated!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in PATCH financialAssistance route'});
+    res.status(500).json({message: 'Error in PATCH orphanSponsor route'});
   }
-  // FinancialAssistance.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
+  // OrphanSponsors.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
   //   if (err) {
   //     res.status(500).json({
   //       message: 'MongoDB error',
@@ -93,13 +114,13 @@ router.patch('/:id', async (req, res) => {
 /* DELETE route */
 router.delete('/:id', async (req, res) => {
   try {
-    await FinancialAssistance.findByIdAndDelete({'_id': req.params.id});
+    await OrphanSponsors.findByIdAndDelete({'_id': req.params.id});
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in DELETE financialAssistance route'});
+    res.status(500).json({message: 'Error in DELETE OrphanSponsors route'});
   }
-  // FinancialAssistance.findByIdAndDelete({'_id': req.params.id}, err => {
+  // OrphanSponsors.findByIdAndDelete({'_id': req.params.id}, err => {
   //   if (err) {
   //     res.status(500).json({
   //       message: 'MongoDB error',
