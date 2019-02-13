@@ -25,6 +25,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+/* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    let result = await LowIncomePayments.find();
+    // let numOfDocs = await Assistance.find().countDocument();
+    // console.log(numOfDocs);
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET LowIncomePayments route'});
+  }
+});
+
 /* POST route */
 router.post('/', async (req, res) => {
     let lowIncomePayments = new LowIncomePayments(newDocument(LowIncomePayments.schema.obj, req.body));

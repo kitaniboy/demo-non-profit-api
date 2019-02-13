@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const LowIncomePaymentsSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   paymentId: { type: String, default: '' },
-  sponsorshipId: { type: String, default: '' },
+  sponsorId: { type: String, default: '' },
   familyId: { type: String, default: '' },
   paymentAmount: { type: String, default: '' },
   amountPaid: { type: String, default: '' },

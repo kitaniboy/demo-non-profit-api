@@ -37,8 +37,8 @@ mongoose.set('useCreateIndex', true); // fixed error with internal mongoDB depre
 // check db connection
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-// we're connected!
+db.once('open', function () {
+  // we're connected!
   console.log('successfully connected');
 });
 
@@ -52,7 +52,7 @@ app.use(cors());
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

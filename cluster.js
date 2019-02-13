@@ -7,7 +7,7 @@ if (cluster.isMaster) {
 
   const n_cpus = os.cpus().length;
   console.log(`Forking ${n_cpus} CPUs`);
-  for (let i =0; i < n_cpus; i++) {
+  for (let i = 0; i < n_cpus; i++) {
     cluster.fork();
   }
 
