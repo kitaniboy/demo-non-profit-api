@@ -13,6 +13,18 @@ const newDocument = (model, body) => {
 };
 
 /* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    // console.log(req.params.id);
+    let result = await LowIncomePayments.find({'sponsorId': req.params.id});
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET LowIncomePayments route'});
+  }
+});
+
+/* GET route */
 router.get('/', async (req, res) => {
   try {
     let result = await LowIncomePayments.find();
@@ -25,18 +37,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-/* GET route */
-router.get('/:id', async (req, res) => {
-  try {
-    let result = await LowIncomePayments.find();
-    // let numOfDocs = await Assistance.find().countDocument();
-    // console.log(numOfDocs);
-    return res.status(200).json({data: result});
-  }
-  catch(err) {
-    res.status(500).json({message: 'Error in GET LowIncomePayments route'});
-  }
-});
+
 
 /* POST route */
 router.post('/', async (req, res) => {
