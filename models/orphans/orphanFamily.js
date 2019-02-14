@@ -11,7 +11,7 @@ const OrphanFamilySchema = new Schema({
   accountOwner: { type: String, default: ''},
   bankName: { type: String, default: ''},
   bankAccountNumber: { type: String, default: ''},
-  allowance: { type: String, default: ''},
+  allowance: { type: String, default: '0'},
   relation: { type: String, default: ''},
   nameOfGuardian: { type: String, default: ''},
   fileStatus: { type: String, default: ''}, // active or not
