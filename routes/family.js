@@ -6,7 +6,15 @@ const Family = require('../models/Archives/family/family');
 const VisitReports = require('../models/Archives/homeVisits/visitReports');
 const FamilyMembers = require('../models/Archives/familyMembers');
 const OrphanFamily = require('../models/orphans/orphanFamily');
+const newDocument = require('../utils/createNewDoc');
 // const LowIncomeFamilies = require('../models/lowIncomeFamilies/lowIncomeFamilies');
+
+let TableData = [
+  'wife',
+  'husband',
+  'familyId',
+  '_id'
+];
 
 let childListReport = [
   'isArchived',
@@ -40,23 +48,6 @@ let childListOrphans = [
   'familyId',
   '-_id'
 ];
-
-// let childListLowIncome = [
-//   'familyAddress',
-//   'husband',
-//   'accommodationStatus',
-//   'wife',
-//   'familyId',
-//   '-_id'
-// ];
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
 
 /* GET route */
 router.get('/', async (req, res) => {
@@ -131,34 +122,34 @@ router.post('/', async (req, res) => {
     res.status(500).json({message: 'Error in GET family route'});
   }
 });
-  // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
-  // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
+// jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+// if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-  // let family = new Family(newDocument(Family.schema.obj, req.body));
-  // let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
-  // // let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
-  // console.log(req.body.familyCategory[0].orphan);
-  // family.save(err => {
-  //   if (err) {
-  //     // console.log(err);
-  //     res.status(500).json({
-  //       message: 'MongoDB error',
-  //       source: 'visit.js',
-  //       error: err
-  //     });
-  //   } else {
-  //     if (req.body.familyCategory[0].orphan) {
-  //       let orphanFamily = new OrphanFamily(newDocument(OrphanFamily.schema.obj, req.body));
-  //       orphanFamily.save();
-  //     }
-  //     visitReports.save();
-  //     // familyMembers.save();
-  //     return res.status(201).json({
-  //       message: 'New Visit data created!'
-  //     });
-  //   }
-  // });
-  // });
+// let family = new Family(newDocument(Family.schema.obj, req.body));
+// let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
+// // let familyMembers = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
+// console.log(req.body.familyCategory[0].orphan);
+// family.save(err => {
+//   if (err) {
+//     // console.log(err);
+//     res.status(500).json({
+//       message: 'MongoDB error',
+//       source: 'visit.js',
+//       error: err
+//     });
+//   } else {
+//     if (req.body.familyCategory[0].orphan) {
+//       let orphanFamily = new OrphanFamily(newDocument(OrphanFamily.schema.obj, req.body));
+//       orphanFamily.save();
+//     }
+//     visitReports.save();
+//     // familyMembers.save();
+//     return res.status(201).json({
+//       message: 'New Visit data created!'
+//     });
+//   }
+// });
+// });
 // });
 
 /* PATCH route */
@@ -225,6 +216,6 @@ router.delete('/:id', async (req, res) => {
   //     })
   //   }
   // })
-})
+});
 
 module.exports = router;

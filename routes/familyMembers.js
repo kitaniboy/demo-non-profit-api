@@ -3,15 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const FamilyMembers = require('../models/Archives/familyMembers');
+const newDocument = require('../utils/createNewDoc');
 // const verifyToken = require('../middleware/verifyToken');
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
 
 /* GET route */
 // router.get('/:familyId', function(req, res) {
@@ -36,17 +29,6 @@ router.get('/', async (req, res) => {
   catch(err) {
     res.status(500).json({message: 'Error in GET familyMembers route'});
   }
-  // FamilyMembers.find((err, result) => {
-  //   if (err) {
-  //     res.status(500).json({
-  //       message: 'MongoDB error',
-  //       source: 'visit.js, 12:28'
-  //     });
-  //     // console.log(err);
-  //   } else {
-  //     res.status(200).json({data: result});
-  //   }
-  // });
 });
 
 /* POST route */
@@ -60,23 +42,23 @@ router.post('/', async (req, res) => {
     res.status(500).json({message: 'Error in POST familyMember route'});
   }
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
-    // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
+  // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    // let familyMember = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
-    // familyMember.save(err => {
-    //   if (err) {
-    //     console.log(err);
-    //     res.status(500).json({
-    //       message: 'MongoDB error',
-    //       source: 'visit.js, 38:30',
-    //       error: err
-    //     });
-    //   } else {
-    //     return res.status(201).json({
-    //       message: 'New Visit data created!'
-    //     });
-    //   }
-    // });
+  // let familyMember = new FamilyMembers(newDocument(FamilyMembers.schema.obj, req.body));
+  // familyMember.save(err => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.status(500).json({
+  //       message: 'MongoDB error',
+  //       source: 'visit.js, 38:30',
+  //       error: err
+  //     });
+  //   } else {
+  //     return res.status(201).json({
+  //       message: 'New Visit data created!'
+  //     });
+  //   }
+  // });
   // });
 });
 

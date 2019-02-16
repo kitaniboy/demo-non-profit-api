@@ -19,14 +19,9 @@ let TableData = [
   'date',
   'visitorName',
   'purposeOfVisit',
-  'caseMovedTo'
-]
-
-// let x = [
-//   '-created_at',
-//   '-updated_at',
-//   '-__v',
-// ]
+  'caseMovedTo',
+  '_id'
+];
 
 /* GET route */
 router.get('/:id', async (req, res) => {
@@ -88,7 +83,7 @@ router.post('/', verifyToken, async (req, res) => {
         res.status(500).json({message: 'Error in POST visit route'});
       }
     }
-  })
+  });
 });
 
 /* PATCH route */
@@ -122,7 +117,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
         res.status(500).json({message: 'Error in DELETE visit route'});
       }
     }
-  })
+  });
 });
 
 

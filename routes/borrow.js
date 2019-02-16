@@ -3,25 +3,41 @@ const router = express.Router();
 
 // Model
 const Borrow = require('../models/Archives/assistance/borrow');
+const newDocument = require('../utils/createNewDoc');
 
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
+let TableData = [
+  'formId',
+  'familyId',
+  'familyName',
+  'recipientName',
+  'department',
+  'nameOfEmployee',
+  'dateOfBorrow',
+  'dateOfReturn',
+  '_id'
+];
+
+/* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    let result = await Borrow.findOne({'_id': req.params['id']});
+    return res.status(200).json({data: result});
   }
-  return obj;
-};
+  catch(err) {
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+});
 
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await Borrow.find();
-    // let numOfDocs = await Assistance.find().countDocument();
-    // console.log(numOfDocs);
+    let result = await Borrow.find({}, TableData.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in GET Borrow route'});
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
   }
 });
 

@@ -2,14 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const OrphanFamily = require('../../models/orphans/orphanFamily');
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
+const newDocument = require('../../utils/createNewDoc');
 
 router.get('/:familyId', async (req, res) => {
   try {
@@ -19,15 +12,6 @@ router.get('/:familyId', async (req, res) => {
   catch(err) {
     res.status(500).json({message: 'Error in GET assistance route'});
   }
-  // OrphanFamily.find({'familyId': req.params['familyId']}, (err, result) => {
-  //   if (err) {
-  //     res.status(500).json({
-  //       message: 'MongoDB error'
-  //     });
-  //   } else {
-  //     res.status(200).json({data: result});
-  //   }
-  // });
 });
 
 router.get('/', async (req, res) => {
@@ -38,16 +22,6 @@ router.get('/', async (req, res) => {
   catch(err) {
     res.status(500).json({message: 'Error in GET orphanFamily route'});
   }
-  // console.log(req.body);
-  // OrphanFamily.find({}, (err, result) => {
-  //   if (err) {
-  //     res.status(500).json({
-  //       message: 'MongoDB error'
-  //     });
-  //   } else {
-  //     res.status(200).json({data: result});
-  //   }
-  // });
 });
 
 /* POST route */

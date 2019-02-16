@@ -3,24 +3,39 @@ const router = express.Router();
 
 // Model
 const Assistance = require('../models/Archives/assistance/assistance');
+const newDocument = require('../utils/createNewDoc');
 
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
+let TableData = [
+  'cost',
+  'familyId',
+  'supportNeeded.date',
+  'supportNeeded.description',
+  'assistanceCategory',
+  'assistanceId',
+  'familyId',
+  '_id'
+];
+
+/* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    let result = await Assistance.findOne({'_id': req.params['id']});
+    return res.status(200).json({data: result});
   }
-  return obj;
-};
+  catch(err) {
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+});
 
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await Assistance.find();
-    // let numOfDocs = await Assistance.find().countDocument();
-    // console.log(numOfDocs);
+    let result = await Assistance.find({}, TableData.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
+    // console.log(err);
     res.status(500).json({message: 'Error in GET assistance route'});
   }
 });

@@ -5,35 +5,51 @@ const router = express.Router();
 const LowIncomeFamilies = require('../../models/lowIncome/lowIncomeFamilies');
 const newDocument = require('../../utils/createNewDoc');
 
-// const newDocument = (model, body) => {
-//   let obj ={};
-//   for (let i in model) {
-//     obj[i] = body[i];
-//   }
-//   return obj;
-// };
+let TableData = [
+  'isActive',
+  'notes',
+  'shoppingCenterName',
+  'address.area',
+  'endDate',
+  'wifeName',
+  'husbandName',
+  'familyId'
+];
+
+/* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    let result = await LowIncomeFamilies.findOne({'_id': req.params['id']});
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+});
 
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await LowIncomeFamilies.find();
+    let result = await LowIncomeFamilies.find({}, TableData.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in GET LowIncomeFamilies route'});
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
   }
 });
 
 /* POST route */
 router.post('/', async (req, res) => {
-    let lowIncomeFamilies = new LowIncomeFamilies(newDocument(LowIncomeFamilies.schema.obj, req.body));
-    try {
-      await lowIncomeFamilies.save();
-      return res.status(201).json({message: 'new data created!'});
-    }
-    catch(err) {
-      res.status(500).json({message: 'Error in POST LowIncomeFamilies route'});
-    }
+  let lowIncomeFamilies = new LowIncomeFamilies(newDocument(LowIncomeFamilies.schema.obj, req.body));
+  try {
+    await lowIncomeFamilies.save();
+    return res.status(201).json({message: 'new data created!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in POST LowIncomeFamilies route'});
+  }
 });
 
 /* PATCH route */

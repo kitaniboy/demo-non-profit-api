@@ -3,38 +3,41 @@ const express = require('express');
 const router = express.Router();
 
 const Orphans = require('../../models/orphans/orphans');
-// const Family = require('../models/family/family');
+const newDocument = require('../../utils/createNewDoc');
 // const verifyToken = require('../middleware/verifyToken');
 
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-    // console.log(i);
+let TableData = [
+  'orphanId',
+  'familyId',
+  'sponsorId',
+  'orphanName',
+  'sponsorAmount',
+  'sponsorshipStatus',
+  '_id'
+];
+
+/* GET route */
+router.get('/:id', async (req, res) => {
+  try {
+    let result = await Orphans.findOne({'_id': req.params['id']});
+    return res.status(200).json({data: result});
   }
-  return obj;
-};
+  catch(err) {
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
+  }
+});
 
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await Orphans.find();
+    let result = await Orphans.find({}, TableData.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in GET orphans route'});
+    // console.log(err);
+    res.status(500).json({message: 'Error in GET assistance route'});
   }
-  //   Orphans.find((err, result) => {
-  //   if (err) {
-  //     res.status(500).json({
-  //       message: 'MongoDB error',
-  //       source: 'visit.js, 12:28'
-  //     });
-  //     // console.log(err);
-  //   } else {
-  //       res.status(200).json({data: result});
-  //   }
-  // });
 });
 
 /* POST route */
@@ -48,23 +51,23 @@ router.post('/', async (req, res) => {
     res.status(500).json({message: 'Error in POST orphans route'});
   }
   // jwt.verify(req.token, process.env.SECRET, (err, authData) => {
-    // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
+  // if (err) return res.status(403).json({message: 'Forbidden, 47:67'});
 
-    // let orphan = new Orphans(newDocument(Orphans.schema.obj, req.body));
-    // orphan.save(err => {
-    //   if (err) {
-    //     // console.log(err);
-    //     res.status(500).json({
-    //       message: 'MongoDB error',
-    //       source: 'visit.js, 38:30',
-    //       error: err
-    //     });
-    //   } else {
-    //     return res.status(201).json({
-    //       message: 'New Visit data created!'
-    //     });
-    //   }
-    // });
+  // let orphan = new Orphans(newDocument(Orphans.schema.obj, req.body));
+  // orphan.save(err => {
+  //   if (err) {
+  //     // console.log(err);
+  //     res.status(500).json({
+  //       message: 'MongoDB error',
+  //       source: 'visit.js, 38:30',
+  //       error: err
+  //     });
+  //   } else {
+  //     return res.status(201).json({
+  //       message: 'New Visit data created!'
+  //     });
+  //   }
+  // });
   // });
 });
 
