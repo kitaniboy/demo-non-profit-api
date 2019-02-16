@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const compression = require('compression')
+const compression = require('compression');
 require('dotenv').config(); // configure env variables
 
 // Routers
@@ -20,6 +20,7 @@ const familyMembersRouter = require('./routes/familyMembers');
 const assistanceRouter = require('./routes/assistance');
 const financialAssistanceRouter = require('./routes/financialAssistance');
 const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
+const borrowRouter = require('./routes/borrow');
 const orphanSponsorsRouter = require('./routes/orphans/orphanSponsors');
 const orphanFamilyRouter = require('./routes/orphans/orphanFamily');
 const orphansRouter = require('./routes/orphans/orphans');
@@ -69,6 +70,7 @@ app.use('/familyMembers', familyMembersRouter);
 app.use('/assistance', assistanceRouter);
 app.use('/financialAssistance', financialAssistanceRouter);
 app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
+app.use('/borrow', borrowRouter);
 app.use('/orphanSponsors', orphanSponsorsRouter);
 app.use('/orphanFamily', orphanFamilyRouter);
 app.use('/orphans', orphansRouter);

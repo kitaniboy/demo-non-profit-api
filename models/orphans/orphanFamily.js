@@ -6,7 +6,7 @@ const OrphanFamilySchema = new Schema({
   numberOfFamilyMembers: { type: String, default: '' },
   males: { type: String, default: '' },
   females: { type: String, default: '' },
-  numberOfOrphansWithSponsors: { type: String, default: ''},
+  numberOfOrphansWithSponsors: { type: String, default: '0'},
   socialSecurity: { type: String, default: ''},
   accountOwner: { type: String, default: ''},
   bankName: { type: String, default: ''},

@@ -18,7 +18,8 @@ let TableData = [
   'familyId',
   'date',
   'visitorName',
-  'purposeOfVisit'
+  'purposeOfVisit',
+  'caseMovedTo'
 ]
 
 // let x = [
