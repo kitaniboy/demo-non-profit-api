@@ -1,43 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-const VisitReports = require('../models/Archives/homeVisits/homeVisits');
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
+const Model = require('../models/Archives/homeVisits/visitReports');
+const newDocument = require('../utils/createNewDoc');
 
 router.get('/:familyId', async (req, res) => {
   try {
-    let result = await VisitReports.find();
+    // console.log(req.params.familyId);
+    let result = await Model.findOne({'familyId':req.params.familyId});
     return res.status(200).json({data: result});
   }
   catch(err) {
     res.status(500).json({message: 'Error in GET visitReport route'});
   }
-  // console.log(req.body);
-  // VisitReports.find({'familyId': req.params['familyId']}, (err, result) => {
-  //   if (err) {
-  //     res.status(500).json({
-  //       message: 'MongoDB error',
-  //       source: 'siteVisit.js'
-  //     });
-  //   } else {
-  //     res.status(200).json({data: result});
-  //   }
-  // });
 });
 
 
 /* POST route */
 router.post('/', async (req, res) => {
-  let visitReport = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
+  let model = new Model(newDocument(Model.schema.obj, req.body));
   try {
-    await visitReport.save();
+    await model.save();
     return res.status(201).json({message: 'new data created!'});
   }
   catch(err) {
@@ -67,31 +50,18 @@ router.post('/', async (req, res) => {
 /* PATCH route */
 router.patch('/:id', async (req, res) => {
   try {
-    await VisitReports.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    await Model.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
     return res.status(200).json({message: 'existing data updated!'});
   }
   catch(err) {
     res.status(500).json({message: 'Error in PATCH visitReport route'});
   }
-  // VisitReports.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body}, err => {
-  //   if (err) {
-  //     // console.log(err);
-  //     res.status(500).json({
-  //       message: 'MongoDB error',
-  //       source: 'visit.js, 55:33'
-  //     });
-  //   } else {
-  //     res.json({
-  //       message: 'updatad'
-  //     });
-  //   }
-  // });
 });
 
 /* DELETE route */
 router.delete('/:id', async (req, res) => {
   try {
-    await VisitReports.findByIdAndDelete({'_id': req.params.id});
+    await Model.findByIdAndDelete({'_id': req.params.id});
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {

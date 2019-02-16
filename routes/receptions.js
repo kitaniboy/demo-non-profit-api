@@ -3,15 +3,8 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const Receptions = require('../models/Archives/receptions');
+const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
 
 let TableData = [
   'receptionNumber',

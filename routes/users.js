@@ -3,14 +3,7 @@ const router = express.Router();
 
 // Model
 const Users = require('../models/users');
-
-const newDocument = (model, body) => {
-  let obj ={};
-  for (let i in model) {
-    obj[i] = body[i];
-  }
-  return obj;
-};
+const newDocument = require('../utils/createNewDoc');
 
 /* GET route */
 router.get('/', async (req, res) => {
@@ -25,14 +18,14 @@ router.get('/', async (req, res) => {
 
 /* POST route */
 router.post('/', async (req, res) => {
-    let users = new Users(newDocument(Users.schema.obj, req.body));
-    try {
-      await users.save();
-      return res.status(201).json({message: 'new data created!'});
-    }
-    catch(err) {
-      res.status(500).json({message: 'Error in POST Users route'});
-    }
+  let users = new Users(newDocument(Users.schema.obj, req.body));
+  try {
+    await users.save();
+    return res.status(201).json({message: 'new data created!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in POST Users route'});
+  }
 });
 
 /* PATCH route */
