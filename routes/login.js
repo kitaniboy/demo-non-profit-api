@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     } else {
       if (req.body.password === user[0].password) {
         try {
-          let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '60s' });
+          let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '120s' });
           return res.status(200).json({ token });
         }
         catch (err) {

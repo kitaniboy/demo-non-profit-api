@@ -177,23 +177,23 @@ router.patch('/:id', verifyToken, async (req, res) => {
 });
 
 /* DELETE route */
-router.delete('/:id', verifyToken, async (req, res) => {
-  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      try {
-        let fam  = await Family.findByIdAndDelete({'_id': req.params.id});
-        await VisitReports.deleteOne({'familyId': fam['familyId']});
-        await FamilyMembers.deleteOne({'familyId': fam['familyId']});
-        await OrphanFamily.deleteOne({'familyId': fam['familyId']});
-        return res.status(200).json({message: 'existing data deleted!'});
-      }
-      catch(err) {
-        res.status(500).json({message: 'Error in DELETE assistance route'});
-      }
-    }
-  });
+router.delete('/:id', async (req, res) => {
+  // await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+  //   if (err) {
+  //     res.sendStatus(403);
+  //   } else {
+  try {
+    let fam  = await Family.findByIdAndDelete({'_id': req.params.id});
+    await VisitReports.deleteOne({'familyId': fam['familyId']});
+    await FamilyMembers.deleteOne({'familyId': fam['familyId']});
+    await OrphanFamily.deleteOne({'familyId': fam['familyId']});
+    return res.status(200).json({message: 'existing data deleted!'});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in DELETE assistance route'});
+  }
+  //   }
+  // });
 });
 
 module.exports = router;
