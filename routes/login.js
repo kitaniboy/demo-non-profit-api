@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 
 const Users = require('../models/users');
@@ -14,7 +15,8 @@ router.post('/', async (req, res) => {
     if (err) {
       return res.status(500).json({ message: 'mongodb err' });
     } else {
-      if (req.body.password === user[0].password) {
+      // if (req.body.password === user[0].password) {
+      if (bcrypt.compareSync(req.body.password, user[0].password)) {
         try {
           let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '120s' });
           return res.status(200).json({ token });

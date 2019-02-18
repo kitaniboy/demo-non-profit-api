@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 const Model = require('../models/users');
-const newDocument = require('../utils/createNewDoc');
+// const newDocument = require('../utils/createNewDoc');
 
 /* GET route */
 router.get('/', async (req, res) => {
@@ -17,7 +18,9 @@ router.get('/', async (req, res) => {
 
 /* POST route */
 router.post('/', async (req, res) => {
-  let model = new Model(newDocument(Model.schema.obj, req.body));
+  // let model = new Model(newDocument(Model.schema.obj, req.body));
+  let hash = bcrypt.hashSync(req.body.password, 8);
+  let model = new Model({username: req.body.username, password: hash, readOnly: req.body.readOnly});
   try {
     await model.save();
     return res.status(201).json({message: 'new data created!'});
