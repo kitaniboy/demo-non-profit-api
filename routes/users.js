@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-// Model
-const Users = require('../models/users');
+const Model = require('../models/users');
 const newDocument = require('../utils/createNewDoc');
 
 /* GET route */
 router.get('/', async (req, res) => {
   try {
-    let result = await Users.find();
+    let result = await Model.find();
     return res.status(200).json({data: result});
   }
   catch(err) {
@@ -18,9 +17,9 @@ router.get('/', async (req, res) => {
 
 /* POST route */
 router.post('/', async (req, res) => {
-  let users = new Users(newDocument(Users.schema.obj, req.body));
+  let model = new Model(newDocument(Model.schema.obj, req.body));
   try {
-    await users.save();
+    await model.save();
     return res.status(201).json({message: 'new data created!'});
   }
   catch(err) {
@@ -31,7 +30,7 @@ router.post('/', async (req, res) => {
 /* PATCH route */
 router.patch('/:id', async (req, res) => {
   try {
-    await Users.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+    await Model.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
     return res.status(200).json({message: 'existing data updated!'});
   }
   catch(err) {
@@ -42,7 +41,7 @@ router.patch('/:id', async (req, res) => {
 /* DELETE route */
 router.delete('/:id', async (req, res) => {
   try {
-    await Users.findByIdAndDelete({'_id': req.params.id});
+    await Model.findByIdAndDelete({'_id': req.params.id});
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
