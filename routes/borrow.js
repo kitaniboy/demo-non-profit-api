@@ -3,19 +3,20 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 // Model
-const Model = require('../../models/lowIncome/lowIncomeFamilies');
-const newDocument = require('../../utils/createNewDoc');
-const verifyToken = require('../../middleware/verifyToken');
+const Model = require('../models/Archives/assistance/borrow');
+const newDocument = require('../utils/createNewDoc');
+const verifyToken = require('../middleware/verifyToken');
 
 let TableData = [
-  'isActive',
-  'notes',
-  'shoppingCenterName',
-  'address.area',
-  'endDate',
-  'wifeName',
-  'husbandName',
-  'familyId'
+  'formId',
+  'familyId',
+  'familyName',
+  'recipientName',
+  'department',
+  'nameOfEmployee',
+  'dateOfBorrow',
+  'dateOfReturn',
+  '_id'
 ];
 
 /* GET route */
@@ -66,7 +67,7 @@ router.post('/', verifyToken, async (req, res) => {
         return res.status(201).json({message: 'new data created!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in POST LowIncomeFamilies route'});
+        res.status(500).json({message: 'Error in POST Borrow route'});
       }
     }
   });
@@ -83,7 +84,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({message: 'existing data updated!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in PATCH LowIncomeFamilies route'});
+        res.status(500).json({message: 'Error in PATCH Borrow route'});
       }
     }
   });
@@ -100,7 +101,7 @@ router.delete('/:id', async (req, res) => {
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in DELETE LowIncomeFamilies route'});
+    res.status(500).json({message: 'Error in DELETE Borrow route'});
   }
   //   }
   // });

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const compression = require('compression')
+const compression = require('compression');
 require('dotenv').config(); // configure env variables
 
 // Routers
@@ -20,11 +20,13 @@ const familyMembersRouter = require('./routes/familyMembers');
 const assistanceRouter = require('./routes/assistance');
 const financialAssistanceRouter = require('./routes/financialAssistance');
 const foodStuffAssistanceRouter = require('./routes/foodStuffAssistance');
+const borrowRouter = require('./routes/borrow');
 const orphanSponsorsRouter = require('./routes/orphans/orphanSponsors');
 const orphanFamilyRouter = require('./routes/orphans/orphanFamily');
 const orphansRouter = require('./routes/orphans/orphans');
 const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
 const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
+const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments');
 
 // initiate Express app
 const app = express();
@@ -36,8 +38,8 @@ mongoose.set('useCreateIndex', true); // fixed error with internal mongoDB depre
 // check db connection
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-// we're connected!
+db.once('open', function () {
+  // we're connected!
   console.log('successfully connected');
 });
 
@@ -50,17 +52,15 @@ app.use(helmet());
 app.use(cors());
 
 
-
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev')); // only logs when in dev env
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // all routes
-app.use('/', indexRouter); // not active
+app.use('/index', indexRouter); // not active
 app.use('/users', usersRouter); // not active
 app.use('/receptions', receptionsRouter);
 app.use('/homeVisits', homeVisitsRouter);
@@ -70,11 +70,13 @@ app.use('/familyMembers', familyMembersRouter);
 app.use('/assistance', assistanceRouter);
 app.use('/financialAssistance', financialAssistanceRouter);
 app.use('/foodStuffAssistance', foodStuffAssistanceRouter);
+app.use('/borrow', borrowRouter);
 app.use('/orphanSponsors', orphanSponsorsRouter);
 app.use('/orphanFamily', orphanFamilyRouter);
 app.use('/orphans', orphansRouter);
 app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
 app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
+app.use('/lowIncomePayments', lowIncomePaymentsRouter);
 app.use('/login', loginRouter);
 
 module.exports = app;

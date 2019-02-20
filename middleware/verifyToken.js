@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
     next();
   } else {
     // Forbidden
-    res.status(403).json({message: 'Forbidden'})
+    res.status(403).json({message: 'Forbidden'});
   }
 };
 
