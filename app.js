@@ -60,7 +60,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // all routes
-app.use('/index', indexRouter); // not active
+app.use('/', indexRouter); // not active
 app.use('/users', usersRouter); // not active
 app.use('/receptions', receptionsRouter);
 app.use('/homeVisits', homeVisitsRouter);
