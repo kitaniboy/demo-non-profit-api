@@ -20,21 +20,23 @@ router.get('/:id', verifyToken, async (req, res) => {
       catch(err) {
         res.status(500).json({message: 'Error in GET homeVisits route'});
       }
-   }
- })
-})
+    }
+  });
+});
 
+/* GET route */
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.find();
+        let result = await Model.find({}, TableData.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in GET HomeVisits route'});
+        // console.log(err);
+        res.status(500).json({message: 'Error in GET home Visit route'});
       }
     }
   });
