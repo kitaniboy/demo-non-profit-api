@@ -48,8 +48,20 @@ app.use(compression());
 // use Helmet for Header protection
 app.use(helmet());
 
+var whitelist = ['http://104.248.25.52', 'http://localhost:3000'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 // initialize cors
-app.use(cors());
+app.use(cors(corsOptions));
 
 
 app.use(bodyParser.json());
