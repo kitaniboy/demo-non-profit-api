@@ -6,6 +6,24 @@ const Model = require('../models/Archives/homeVisits/homeVisits');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 
+let TableData = ['address', 'teamName', 'dateOfVisit', 'familyName', 'visitNumber', 'familyId', '_id'];
+
+router.get('/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Model.findOne({'_id': req.params['id']});
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET homeVisits route'});
+      }
+   }
+ })
+})
+
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
