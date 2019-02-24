@@ -48,7 +48,7 @@ app.use(compression());
 // use Helmet for Header protection
 app.use(helmet());
 
-var whitelist = ['http://104.248.25.52', 'http://localhost:3000'];
+var whitelist = ['http://104.248.25.52', 'http://localhost:3000','http://dashboard.alrahma-baraka.com'];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
