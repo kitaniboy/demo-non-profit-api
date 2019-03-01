@@ -9,12 +9,12 @@ const OrphanFamily = require('../models/orphans/orphanFamily');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 
-// let TableData = [
-//   'wife',
-//   'husband',
-//   'familyId',
-//   '_id'
-// ];
+let childListRamadhan = [
+  'wife',
+  'husband',
+  'familyId',
+  '_id'
+];
 
 let childListReport = [
   'isArchived',
@@ -74,6 +74,23 @@ router.get('/report', verifyToken, async (req, res) => {
     } else {
       try {
         let result = await Family.find({}, childListReport.join(' '));
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
+// get specific data points needed for visitReports
+router.get('/ramadhan', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Family.find({isArchived: false}, childListRamadhan.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
