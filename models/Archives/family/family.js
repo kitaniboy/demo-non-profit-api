@@ -13,6 +13,7 @@ const loanSchema = require('./loan');
 const possessionsSchema = require('./possessions');
 const relativeSchema = require('./relative');
 const wifeSchema = require('./wife');
+const ramadanSchema = require('./ramadan');
 
 const familySchema = new Schema({
   id: { type: Schema.Types.ObjectId }, // document id
@@ -28,6 +29,7 @@ const familySchema = new Schema({
   possessions: [possessionsSchema],
   relative: [relativeSchema],
   wife: [wifeSchema],
+  ramadan: [ramadanSchema],
   visitReports: { type: Schema.Types.ObjectId, ref: 'VisitReports' },
   formId: { type: String, default: '' },
   familyId: { type: String, default: '', unique: true }, // family id

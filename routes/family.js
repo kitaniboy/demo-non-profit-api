@@ -6,15 +6,17 @@ const Family = require('../models/Archives/family/family');
 const VisitReports = require('../models/Archives/homeVisits/visitReports');
 const FamilyMembers = require('../models/Archives/familyMembers');
 const OrphanFamily = require('../models/orphans/orphanFamily');
+const Ramadan = require('../models/Archives/family/ramadan');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 
-// let TableData = [
-//   'wife',
-//   'husband',
-//   'familyId',
-//   '_id'
-// ];
+let childListRamadan = [
+  'wife',
+  'husband',
+  'familyId',
+  'ramadan',
+  '_id'
+];
 
 let childListReport = [
   'isArchived',
@@ -56,7 +58,7 @@ router.get('/', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find();
+        let result = await Family.find({}, '-ramadan');
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -77,6 +79,42 @@ router.get('/report', verifyToken, async (req, res) => {
         return res.status(200).json({data: result});
       }
       catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
+// get specific data points needed for visitReports
+router.get('/ramadan', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Family.find({isArchived: false}, childListRamadan.join(' '));
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
+// get specific data points needed for visitReports
+router.get('/ramadan/signature/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Family.findOne({isArchived: false,'_id': req.params['id']}, 'ramadan.signature');
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        console.log(err);
         res.status(500).json({message: 'Error in GET family route'});
       }
     }
@@ -143,6 +181,14 @@ router.post('/', verifyToken, async (req, res) => {
     } else {
       let family = new Family(newDocument(Family.schema.obj, req.body));
       let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
+      family.ramadan.push({breakfast:  false,
+        eidSupport:  false,
+        zakat: false,
+        eidSacrifice:  false,
+        date: '',
+        signature: '',
+        isDone: false});
+      // let ramadan = new ();
       try {
         await family.save();
         await visitReports.save();
