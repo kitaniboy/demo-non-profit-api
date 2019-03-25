@@ -32,8 +32,8 @@ const familySchema = new Schema({
   ramadan: [ramadanSchema],
   visitReports: { type: Schema.Types.ObjectId, ref: 'VisitReports' },
   formId: { type: String, default: '' },
-  familyId: { type: String, default: '' }, // family id
-  claimMadeBy: { type: String, default: '' }, // person who made the claim
+  familyId: { type: String, default: '' },
+  claimMadeBy: { type: String, default: '' },
   dateOfCaseStudy: { type: String, default: '' },
   typeOfAssistanceNeeded: { type: String, default: '' },
   notes: { type: String, default: '' },

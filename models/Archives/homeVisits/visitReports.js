@@ -14,7 +14,7 @@ const visitReportsSchema = new Schema({
   panelRecFourth: { type: String, default: '' },
   panelRecFifth: { type: String, default: '' },
   panelRecSixth: { type: String, default: '' },
-  familyId: { type: String, ref: 'Family'}
+  familyId: { type: String, default: ''}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('VisitReports', visitReportsSchema);
