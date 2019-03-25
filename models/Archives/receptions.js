@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReceptionsSchema = new Schema({
-  id: { type: Schema.Types.ObjectId }, // visit ID
+  id: { type: Schema.Types.ObjectId },
   receptionNumber: { type: String, default: ''},
-  familyId: { type: String, default: 'جديد' },
+  familyId: { type: String, default: '' },
   date: { type: String, default: '' },
   newCase: { type: Boolean, default: false },
   visitorName:  { type: String, default: '' },
