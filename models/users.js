@@ -6,6 +6,6 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   readOnly: { type: Boolean, default: false } // 0 = admin, 1 = read only
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
+}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
 
 module.exports = mongoose.model('User', userSchema);
