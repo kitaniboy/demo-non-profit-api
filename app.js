@@ -8,6 +8,11 @@ const helmet = require('helmet');
 const compression = require('compression');
 require('dotenv').config(); // configure env variables
 
+// Load dependencies
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
 // Routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -64,6 +69,36 @@ var corsOptions = {
 // initialize cors
 app.use(cors(corsOptions));
 
+// Set S3 endpoint to DigitalOcean Spaces
+const spacesEndpoint = new aws.Endpoint('sgp1.digitaloceanspaces.com');
+const s3 = new aws.S3({
+  endpoint: spacesEndpoint
+});
+
+// Change bucket property to your Space name
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'family-files',
+    acl: 'public-read',
+    key: function (request, file, cb) {
+      // console.log(file);
+      cb(null, file.originalname);
+    }
+  })
+}).array('upload', 1);
+
+app.post('/upload', function (request, response, next) {
+  upload(request, response, function (error) {
+    if (error) {
+      // console.log(error);
+      // return response.redirect('/error');
+      response.json({message: 'Failed to upload', err: error});
+    }
+    // console.log('File uploaded successfully.');
+    response.json({message: 'File uploaded successfully.'});
+  });
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
