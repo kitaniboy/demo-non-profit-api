@@ -94,6 +94,23 @@ router.get('/main', verifyToken, async (req, res) => {
 });
 
 // get specific data points needed for visitReports
+router.get('/archived', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Family.find({isArchived: true}, childListMain.join(' '));
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
+// get specific data points needed for visitReports
 router.get('/report', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
