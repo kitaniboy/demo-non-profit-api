@@ -14,7 +14,8 @@ let childListMain = [
   '_id',
   'wife',
   'husband',
-  'dateOfCaseStudy'
+  'dateOfCaseStudy',
+  'familyId'
 ];
 
 let childListRamadan = [
