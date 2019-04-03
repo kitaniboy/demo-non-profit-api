@@ -61,7 +61,7 @@ router.get('/getOne/:id', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.findOne({'familyId': req.params.id});
+        let result = await Model.find({'familyId': req.params.id});
         return res.status(200).json({data: result});
       }
       catch(err) {
