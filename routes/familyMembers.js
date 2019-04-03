@@ -54,6 +54,23 @@ router.get('/', verifyToken, async (req, res) => {
   });
 });
 
+/* GET route */
+router.get('/getOne/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Model.findOne({'familyId': req.params.id});
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET familyMembers route'});
+      }
+    }
+  });
+});
+
 /* POST route */
 router.post('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
