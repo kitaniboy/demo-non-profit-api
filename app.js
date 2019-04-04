@@ -27,6 +27,7 @@ const orphansRouter = require('./routes/orphans/orphans');
 const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
 const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
 const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments');
+const sponsorshipRouter = require('./routes/sponsorship');
 // const Model = require('./models/Archives/family/family');
 
 // initiate Express app
@@ -90,5 +91,6 @@ app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
 app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
 app.use('/lowIncomePayments', lowIncomePaymentsRouter);
 app.use('/login', loginRouter);
+app.use('/sponsorship', sponsorshipRouter);
 
 module.exports = app;
