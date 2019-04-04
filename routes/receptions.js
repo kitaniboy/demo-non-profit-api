@@ -13,7 +13,8 @@ let TableData = [
   'visitorName',
   'purposeOfVisit',
   'caseMovedTo',
-  '_id'
+  '_id',
+'caseClosed'
 ];
 
 /* GET route */
