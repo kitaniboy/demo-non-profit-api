@@ -52,6 +52,7 @@ const familySchema = new Schema({
   numberOfChildrenInHigherEducation: { type: String, default: '' },
   updatedBy: { type: String, default: '' },
   dateOfUpdate: { type: String, default: '' },
+  isWaitList: { type: Boolean, default: false },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Family', familySchema);
