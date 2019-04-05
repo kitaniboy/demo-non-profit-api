@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const compression = require('compression');
+const fileUpload = require('express-fileupload');
 require('dotenv').config(); // configure env variables
 
 // Routers
@@ -28,7 +29,7 @@ const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
 const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
 const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments');
 const sponsorshipRouter = require('./routes/sponsorship');
-// const Model = require('./models/Archives/family/family');
+const uploadRouter = require('./routes/upload/upload');
 
 // initiate Express app
 const app = express();
@@ -49,6 +50,9 @@ app.use(compression());
 
 // use Helmet for Header protection
 app.use(helmet());
+
+// default options
+app.use(fileUpload());
 
 var whitelist = ['http://104.248.25.52', 'http://localhost:3000','http://dashboard.alrahma-baraka.com'];
 var corsOptions = {
@@ -92,5 +96,6 @@ app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
 app.use('/lowIncomePayments', lowIncomePaymentsRouter);
 app.use('/login', loginRouter);
 app.use('/sponsorship', sponsorshipRouter);
+app.use('/upload', uploadRouter);
 
 module.exports = app;
