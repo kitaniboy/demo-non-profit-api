@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
       // if (req.body.password === user[0].password) {
       if (bcrypt.compareSync(req.body.password, user[0].password)) {
         try {
-          let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '3600s' });
+          let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '14400s' });
           return res.status(200).json({ token });
         }
         catch (err) {

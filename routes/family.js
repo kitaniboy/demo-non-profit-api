@@ -12,10 +12,15 @@ const verifyToken = require('../middleware/verifyToken');
 
 let childListMain = [
   '_id',
-  'wife',
-  'husband',
+  'wife.wifeName',
+  'wife.wifePhone',
+  'wife.wifeCivilId',
+  'husband.husbandName',
+  'husband.husbandPhone',
+  'husband.husbandCivilId',
   'dateOfCaseStudy',
-  'familyId'
+  'familyId',
+  'formId'
 ];
 
 let childListRamadan = [
@@ -27,14 +32,18 @@ let childListRamadan = [
 ];
 
 let childListReport = [
-  'isArchived',
+  //'isArchived',
   'typeOfAssistanceNeeded',
   'dateOfCaseStudy',
   'claimMadeBy',
   'formId',
   'familyCategory',
-  'wife',
-  'husband',
+  'wife.wifeName',
+  'wife.wifePhone',
+  'wife.wifeCivilId',
+  'husband.husbandName',
+  'husband.husbandCivilId',
+  'husband.husbandPhone',
   'familyId',
   '-_id'
 ];
@@ -168,7 +177,7 @@ router.get('/ramadan', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isArchived: false}, childListRamadan.join(' '));
+        let result = await Family.find({isArchived: false}, {"wife.wifeName":1,"ramadan":1,"familyId":1,"husband.husbandName":1,"husband.husbandPhone":1,"husband.husbandCivilId":1,"wife.wifePhone":1,"wife.wifeCivilId":1});
         return res.status(200).json({data: result});
       }
       catch(err) {
