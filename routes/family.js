@@ -168,7 +168,7 @@ router.get('/ramadan', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isArchived: false}, childListRamadan.join(' '));
+        let result = await Family.find({isArchived: false, "ramadan.0.state":"السيب"}, childListRamadan.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
