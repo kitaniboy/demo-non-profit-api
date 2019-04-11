@@ -10,10 +10,11 @@ router.post('/', function(req, res) {
   let sampleFile = req.files.sampleFile;
 
   // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('https://alrahma4mc.com/log/morfiqat/filename.jpg', function(err) {
-    if (err)
+  sampleFile.mv('https://alrahma4mc.com/log/morfiqat/test.pdf', function(err) {
+    if (err){
+console.log(err)
       return res.status(500).send(err);
-
+}
     res.send('File uploaded!');
   });
 });
