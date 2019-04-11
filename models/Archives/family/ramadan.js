@@ -8,7 +8,7 @@ const ramadanSchema = new Schema({
   eidSacrifice: { type: Boolean, default: false},
   date: { type: String, default: '' },
   signature: { type: String, default: ''},
-  isDone: { type: Boolean, default: false},
+  bookBags: { type: String, default: '0'}
 }, { _id : false });
 
 // module.exports = mongoose.model('Ramadan', ramadanSchema);
