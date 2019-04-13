@@ -5,7 +5,13 @@ const userSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  readOnly: { type: Boolean, default: false } // 0 = admin, 1 = read only
+  reception: { type: Boolean, default: false },
+  orphan: { type: Boolean, default: false },
+  lowIncome: { type: Boolean, default: false },
+  wedding: { type: Boolean, default: false },
+  productive: { type: Boolean, default: false },
+  finance: { type: Boolean, default: false },
+  delegate: { type: Boolean, default: false },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
 
 module.exports = mongoose.model('User', userSchema);
