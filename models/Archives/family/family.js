@@ -53,6 +53,7 @@ const familySchema = new Schema({
   updatedBy: { type: String, default: '' },
   dateOfUpdate: { type: String, default: '' },
   isWaitList: { type: Boolean, default: false },
+  finalNotes: { type: String, default: '' },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Family', familySchema);
