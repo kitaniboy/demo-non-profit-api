@@ -177,8 +177,8 @@ router.get('/ramadan', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-
-        let result = await Family.find({isArchived: false,"familyAddress.0.state":"السيب"}, {"wife.wifeName":1,"ramadan":1,"familyId":1,"husband.husbandName":1,"husband.husbandPhone":1,"husband.husbandCivilId":1,"wife.wifePhone":1,"wife.wifeCivilId":1});
+        // 'familyAddress.0.state':'السيب'
+        let result = await Family.find({isArchived: false}, {'wife.wifeName':1,'ramadan':1,'familyId':1,'husband.husbandName':1,'husband.husbandPhone':1,'husband.husbandCivilId':1,'wife.wifePhone':1,'wife.wifeCivilId':1,'familyAddress.0.state':1});
         return res.status(200).json({data: result});
       }
       catch(err) {
