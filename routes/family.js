@@ -109,7 +109,7 @@ router.get('/orphanWaitList', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isWaitList: true,isArchived: false,typeOfAssistanceNeeded:'كفالة ايتام'}, childListMain.join(' '));
+        let result = await Family.find({isWaitList: true,isArchived: false,typeOfAssistanceNeeded:'كفالة ايتام',isApproved:false}, childListMain.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
