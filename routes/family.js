@@ -61,10 +61,16 @@ let childListFamilyMembers = [
 
 let childListOrphans = [
   'familyAddress',
-  'husband',
+  'husband.husbandName',
+  'husband.husbandCivilId',
+  'husband.husbandPhone',
   'familyCategory',
-  'wife',
+  'wife.wifeName',
+  'guardian.guardianName',
+  'wife.wifeCivilId',
+  'wife.wifePhone',
   'formId',
+  'familyId',
   '-_id'
 ];
 
