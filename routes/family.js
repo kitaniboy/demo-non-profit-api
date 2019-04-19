@@ -64,7 +64,7 @@ let childListOrphans = [
   'husband',
   'familyCategory',
   'wife',
-  'familyId',
+  'formId',
   '-_id'
 ];
 
@@ -192,7 +192,6 @@ router.get('/ramadan', verifyToken, async (req, res) => {
 router.get('/ramadan/signature/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
-      console.log(err);
       res.sendStatus(403);
     } else {
       try {
@@ -200,7 +199,6 @@ router.get('/ramadan/signature/:id', verifyToken, async (req, res) => {
         return res.status(200).json({data: result});
       }
       catch(err) {
-        console.log(err);
         res.status(500).json({message: 'Error in GET family route'});
       }
     }
@@ -214,7 +212,7 @@ router.get('/orphans', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({'typeOfAssistanceNeeded': 'كفالة ايتام'}, childListOrphans.join(' '));
+        let result = await Family.find({'typeOfAssistanceNeeded': 'كفالة ايتام', isWaitList: false, isApproved: true}, childListOrphans.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -302,7 +300,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({message: 'existing data updated!'});
       }
       catch(err) {
-console.log(err);
+        console.log(err);
         res.status(500).json({message: 'Error in PATCH Family route'});
       }
     }
