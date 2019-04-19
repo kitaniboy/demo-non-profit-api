@@ -2,7 +2,6 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-
 const OrphanFamily = require('../../models/orphans/orphanFamily');
 const newDocument = require('../../utils/createNewDoc');
 const verifyToken = require('../../middleware/verifyToken');
