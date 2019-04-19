@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const OrphansSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   orphanId: { type: String, default: '' },
-  familyId: { type: String, default: '' },
+  orphanFamilyId: { type: String, default: '' },
   sponsorId: { type: String, default: '' },
   orphanName: { type: String, default: '' },
   orphanSex: { type: String, default: '' },
@@ -15,7 +15,6 @@ const OrphansSchema = new Schema({
   fatherDeathDate: { type: String, default: '' },
   sponsorStopDate: { type: String, default: '' },
   sponsorshipStatus: { type: String, default: ''},
-  sponsorAmount: { type: String, default: '' },
   notes: { type: String, default: '' },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
