@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
       if (bcrypt.compareSync(req.body.password, user[0].password)) {
         try {
           let token = await jwt.sign({ user: user }, 'alrahmasecrestkey', { expiresIn: '14400s' });
-          return res.status(200).json({ token });
+          return res.status(200).json({ token, user });
         }
         catch (err) {
           return res.status(500).json({ message: 'failed to login' });

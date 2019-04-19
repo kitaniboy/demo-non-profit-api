@@ -75,7 +75,7 @@ router.get('/', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isArchived: false}, '-ramadan');
+        let result = await Family.find({}, '-ramadan');
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -92,7 +92,7 @@ router.get('/main', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isArchived: false}, childListMain.join(' '));
+        let result = await Family.find({}, childListMain.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -178,7 +178,7 @@ router.get('/ramadan', verifyToken, async (req, res) => {
     } else {
       try {
         // 'familyAddress.0.state':'السيب'
-        let result = await Family.find({isArchived: false}, {'wife.wifeName':1,'ramadan':1,'familyId':1,'husband.husbandName':1,'husband.husbandPhone':1,'husband.husbandCivilId':1,'wife.wifePhone':1,'wife.wifeCivilId':1,'familyAddress.0.state':1});
+        let result = await Family.find({isArchived: false}, {'wife.wifeName':1,'ramadan':1,'familyId':1,'husband.husbandName':1,'husband.husbandPhone':1,'husband.husbandCivilId':1,'wife.wifePhone':1,'wife.wifeCivilId':1,'familyAddress.state':1});
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -302,6 +302,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({message: 'existing data updated!'});
       }
       catch(err) {
+console.log(err);
         res.status(500).json({message: 'Error in PATCH Family route'});
       }
     }
