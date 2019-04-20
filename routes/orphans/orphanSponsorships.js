@@ -7,16 +7,15 @@ const newDocument = require('../../utils/createNewDoc');
 const verifyToken = require('../../middleware/verifyToken');
 
 // let TableData = [
-//   'health',
-//   'monthlyInstallment',
-//   'familyMemberLoan',
-//   'familyMemberSalary',
-//   'job',
-//   'relation',
-//   'familyMemberName',
-//   'familyMemberId',
-//   'familyId',
-//   '_id'
+//   'sponsorName',
+//   'sponsorId',
+//   'sponsorPhone',
+//   'numberOfSponsored',
+//   'sponsorAmount',
+//   'paymentMethod',
+//   'sponsorStatus',
+//   'sponsorBankAccountNum',
+//   'sponsorBank',
 // ];
 
 /* GET route */
@@ -26,7 +25,7 @@ router.get('/:id', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.findOne({'_id': req.params['id']});
+        let result = await Model.find({'sponsorId': req.params['id']});
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -47,25 +46,24 @@ router.get('/', verifyToken, async (req, res) => {
         return res.status(200).json({data: result});
       }
       catch(err) {
-        // console.log(err);
         res.status(500).json({message: 'Error in GET assistance route'});
       }
     }
   });
 });
 
-/* GET route */
-router.get('/getOne/:id', verifyToken, async (req, res) => {
+
+router.get('/:sponsorshipId', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.find({'sponsorshipId': req.params.id});
+        let result = await Model.findOne({'sponsorshipId': req.params['sponsorshipId']});
         return res.status(200).json({data: result});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in GET familyMembers route'});
+        res.status(500).json({message: 'Error in GET orphanSponsor route'});
       }
     }
   });
@@ -83,7 +81,7 @@ router.post('/', verifyToken, async (req, res) => {
         return res.status(201).json({message: 'new data created!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in POST familyMember route'});
+        res.status(500).json({message: 'Error in POST orphanSponsor route'});
       }
     }
   });
@@ -100,7 +98,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({message: 'existing data updated!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in PATCH familyMembers route'});
+        res.status(500).json({message: 'Error in PATCH orphanSponsor route'});
       }
     }
   });
@@ -117,7 +115,7 @@ router.delete('/:id', async (req, res) => {
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in DELETE familyMembers route'});
+    res.status(500).json({message: 'Error in DELETE OrphanSponsors route'});
   }
   //   }
   // });

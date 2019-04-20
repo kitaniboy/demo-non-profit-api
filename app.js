@@ -92,7 +92,7 @@ app.use('/borrow', borrowRouter);
 app.use('/orphanSponsors', orphanSponsorsRouter);
 app.use('/orphanFamily', orphanFamilyRouter);
 app.use('/orphans', orphansRouter);
-app.use('/orphanSponsorships', orphanSponsorsRouter);
+app.use('/orphanSponsorships', orphanSponsorshipsRouter);
 app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
 app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
 app.use('/lowIncomePayments', lowIncomePaymentsRouter);
