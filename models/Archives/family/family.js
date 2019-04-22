@@ -54,6 +54,7 @@ const familySchema = new Schema({
   dateOfUpdate: { type: String, default: '' },
   isWaitList: { type: Boolean, default: false },
   isApproved: { type: Boolean, default: false },
+  isRamadan: { type: Boolean, default: false },
   finalNotes: { type: String, default: '' },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
