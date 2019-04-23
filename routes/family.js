@@ -20,7 +20,8 @@ let childListMain = [
   'husband.husbandCivilId',
   'dateOfCaseStudy',
   'familyId',
-  'formId'
+  'formId',
+  'isRamadan'
 ];
 
 let childListRamadan = [
@@ -229,13 +230,13 @@ router.get('/orphans', verifyToken, async (req, res) => {
 });
 
 // get specific data points needed for familyMember
-router.get('/:familyId', verifyToken, async (req, res) => {
+router.get('/:formId', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({'familyId': req.params['familyId']}, childListFamilyMembers.join(' '));
+        let result = await Family.find({'formId': req.params['formId']}, childListFamilyMembers.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {

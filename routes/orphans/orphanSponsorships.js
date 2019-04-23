@@ -53,7 +53,7 @@ router.get('/', verifyToken, async (req, res) => {
 });
 
 
-router.get('/:sponsorshipId', verifyToken, async (req, res) => {
+router.get('/getOne/:sponsorshipId', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
