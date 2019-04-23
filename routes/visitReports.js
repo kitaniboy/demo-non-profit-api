@@ -6,13 +6,13 @@ const Model = require('../models/Archives/homeVisits/visitReports');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 
-router.get('/:familyId', verifyToken, async (req, res) => {
+router.get('/:formId', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.findOne({'familyId':req.params.familyId});
+        let result = await Model.findOne({'formId':req.params.formId});
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -20,6 +20,22 @@ router.get('/:familyId', verifyToken, async (req, res) => {
       }
     }
   });
+});
+
+router.get('/print/:formId', verifyToken, async (req, res) => {
+  // await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+  // if (err) {
+  // res.sendStatus(403);
+  // } else {
+  try {
+    let result = await Model.find({'formId': req.params['formId']});
+    return res.status(200).json({data: result});
+  }
+  catch(err) {
+    res.status(500).json({message: 'Error in GET family route'});
+  }
+  // }
+  // });
 });
 
 
