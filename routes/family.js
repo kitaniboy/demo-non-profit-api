@@ -5,8 +5,6 @@ const router = express.Router();
 const Family = require('../models/Archives/family/family');
 const VisitReports = require('../models/Archives/homeVisits/visitReports');
 const FamilyMembers = require('../models/Archives/familyMembers');
-const OrphanFamily = require('../models/orphans/orphanFamily');
-// const Ramadan = require('../models/Archives/family/ramadan');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 
@@ -229,6 +227,23 @@ router.get('/orphans', verifyToken, async (req, res) => {
   });
 });
 
+// get specific data points needed for visitReports
+router.get('/orphans/:formId', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        let result = await Family.findOne({'formId': req.params['formId']}, childListOrphans.join(' '));
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
 // get specific data points needed for familyMember
 router.get('/print/:formId', verifyToken, async (req, res) => {
   // await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
@@ -300,10 +315,6 @@ router.post('/', verifyToken, async (req, res) => {
       try {
         await family.save();
         await visitReports.save();
-        if (req.body.typeOfAssistanceNeeded === 'كفالة ايتام') {
-          let orphanFamily = new OrphanFamily(newDocument(OrphanFamily.schema.obj, req.body));
-          orphanFamily.save();
-        }
         return res.status(201).json({message: 'New Visit data created!'});
       }
       catch(err) {
@@ -339,9 +350,8 @@ router.delete('/:id', async (req, res) => {
   //   } else {
   try {
     let fam  = await Family.findByIdAndDelete({'_id': req.params.id});
-    await VisitReports.deleteOne({'familyId': fam['familyId']});
+    await VisitReports.deleteOne({'formId': fam['formId']});
     await FamilyMembers.deleteOne({'familyId': fam['familyId']});
-    await OrphanFamily.deleteOne({'familyId': fam['familyId']});
     return res.status(200).json({message: 'existing data deleted!'});
   }
   catch(err) {
