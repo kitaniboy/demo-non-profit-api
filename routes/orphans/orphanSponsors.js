@@ -19,7 +19,7 @@ let TableData = [
 ];
 
 /* GET route */
-router.get('/:id', verifyToken, async (req, res) => {
+router.get('/getOne/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
