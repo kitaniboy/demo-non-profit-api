@@ -165,7 +165,7 @@ router.get('/report', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Family.find({isArchived: false}, childListReport.join(' '));
+        let result = await Family.find({}, childListReport.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
