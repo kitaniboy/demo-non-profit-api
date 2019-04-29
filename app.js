@@ -56,7 +56,7 @@ app.use(helmet());
 // default options
 app.use(fileUpload());
 
-var whitelist = ['http://104.248.25.52', 'http://localhost:3000','http://dashboard.alrahma-baraka.com','https://alrahma4mc.com/log/morfiqat/test.pdf'];
+var whitelist = ['http://104.248.25.52', 'http://localhost:3000','http://dashboard.alrahma-baraka.com','https://alrahma4mc.com/log/morfiqat/test.pdf', 'https://gifted-payne-0ac760.netlify.com','http://gifted-payne-0ac760.netlify.com/'];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
