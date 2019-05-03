@@ -28,7 +28,8 @@ let childListRamadan = [
   'familyId',
   'ramadan',
   'formId',
-  '_id'
+  '_id',
+  '-ramadan.signature'
 ];
 
 let childListReport = [
@@ -184,7 +185,25 @@ router.get('/ramadan', verifyToken, async (req, res) => {
     } else {
       try {
         // 'familyAddress.0.state':'السيب'
-        let result = await Family.find({isArchived: false, isRamadan: true}, {'wife.wifeName':1,'ramadan':1,'formId':1,'husband.husbandName':1,'husband.husbandPhone':1,'husband.husbandCivilId':1,'wife.wifePhone':1,'wife.wifeCivilId':1,'familyAddress.state':1});
+        let result = await Family.find({isArchived: false, isRamadan: true}, childListRamadan.join(' '));
+        return res.status(200).json({data: result});
+      }
+      catch(err) {
+        res.status(500).json({message: 'Error in GET family route'});
+      }
+    }
+  });
+});
+
+// get specific data points needed for visitReports
+router.get('/ramadan/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      try {
+        // 'familyAddress.0.state':'السيب'
+        let result = await Family.findOne({isArchived: false, isRamadan: true,'_id': req.params['id']});
         return res.status(200).json({data: result});
       }
       catch(err) {
