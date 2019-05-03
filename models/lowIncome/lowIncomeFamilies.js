@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const LowIncomeFamiliesSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   formId: { type: String, default: '' },
-  familyId: { type: String, default: '' },
+  lowIncomeFamilyId: { type: String, default: '' },
   familyCategory: { type: String, default: '' },
   husbandName: { type: String, default: '' },
   husbandPhone: { type: String, default: '' },

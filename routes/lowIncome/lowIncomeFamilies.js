@@ -15,7 +15,7 @@ let TableData = [
   'endDate',
   'wifeName',
   'husbandName',
-  'familyId'
+  'lowIncomeFamilyId'
 ];
 
 /* GET route */
