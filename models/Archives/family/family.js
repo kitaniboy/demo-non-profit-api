@@ -56,6 +56,7 @@ const familySchema = new Schema({
   isApproved: { type: Boolean, default: false },
   isRamadan: { type: Boolean, default: false },
   finalNotes: { type: String, default: '' },
+  signature: { type: String, default: '' },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('Family', familySchema);
