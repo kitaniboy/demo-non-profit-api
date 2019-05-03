@@ -28,8 +28,17 @@ let childListRamadan = [
   'familyId',
   'ramadan',
   'formId',
-  '_id',
-  '-ramadan.signature'
+  '_id'
+];
+
+let childListRamadanOne = [
+  'wife',
+  'husband',
+  'familyId',
+  'ramadan',
+  'formId',
+  'signature',
+  '_id'
 ];
 
 let childListReport = [
@@ -203,7 +212,7 @@ router.get('/ramadan/:id', verifyToken, async (req, res) => {
     } else {
       try {
         // 'familyAddress.0.state':'السيب'
-        let result = await Family.findOne({isArchived: false, isRamadan: true,'_id': req.params['id']});
+        let result = await Family.findOne({isArchived: false, isRamadan: true,'_id': req.params['id']}, childListRamadanOne.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -324,14 +333,13 @@ router.post('/', verifyToken, async (req, res) => {
     } else {
       let family = new Family(newDocument(Family.schema.obj, req.body));
       let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
-      family.ramadan.push({breakfast:  false,
-        eidSupport:  false,
-        zakat: false,
-        eidSacrifice:  false,
-        date: '',
-        signature: '',
-        isDone: false});
-      // let ramadan = new ();
+      // family.ramadan.push({breakfast:  false,
+      //   eidSupport:  false,
+      //   zakat: false,
+      //   eidSacrifice:  false,
+      //   date: '',
+      //   signature: '',
+      //   isDone: false});
       try {
         await family.save();
         await visitReports.save();

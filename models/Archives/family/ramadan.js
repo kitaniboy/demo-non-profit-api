@@ -7,7 +7,7 @@ const ramadanSchema = new Schema({
   zakat: { type: Boolean, default: false},
   eidSacrifice: { type: Boolean, default: false},
   date: { type: String, default: '' },
-  signature: { type: String, default: ''},
+  // signature: { type: String, default: ''},
   bookBags: { type: String, default: '0'},
   notes: { type: String, default: ''}
 }, { _id : false });
