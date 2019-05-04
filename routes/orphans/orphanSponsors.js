@@ -55,10 +55,10 @@ router.get('/', verifyToken, async (req, res) => {
 
 
 router.get('/:sponsorId', verifyToken, async (req, res) => {
-  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
+//  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+//    if (err) {
+//      res.sendStatus(403);
+//    } else {
       try {
         let result = await Model.find({'sponsorId': req.params['sponsorId']});
         return res.status(200).json({data: result});
@@ -66,8 +66,8 @@ router.get('/:sponsorId', verifyToken, async (req, res) => {
       catch(err) {
         res.status(500).json({message: 'Error in GET orphanSponsor route'});
       }
-    }
-  });
+//    }
+//  });
 });
 
 /* POST route */

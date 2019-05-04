@@ -28,6 +28,7 @@ let childListRamadan = [
   'familyId',
   'ramadan',
   'formId',
+  'familyAddress.state',
   '_id'
 ];
 
@@ -38,6 +39,7 @@ let childListRamadanOne = [
   'ramadan',
   'formId',
   'signature',
+  'familyAddress.state',
   '_id'
 ];
 
@@ -206,10 +208,10 @@ router.get('/ramadan', verifyToken, async (req, res) => {
 
 // get specific data points needed for visitReports
 router.get('/ramadan/:id', verifyToken, async (req, res) => {
-  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
+//  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+//    if (err) {
+//      res.sendStatus(403);
+//    } else {
       try {
         // 'familyAddress.0.state':'السيب'
         let result = await Family.findOne({isArchived: false, isRamadan: true,'_id': req.params['id']}, childListRamadanOne.join(' '));
@@ -218,8 +220,8 @@ router.get('/ramadan/:id', verifyToken, async (req, res) => {
       catch(err) {
         res.status(500).json({message: 'Error in GET family route'});
       }
-    }
-  });
+//    }
+//  });
 });
 
 // get specific data points needed for visitReports
