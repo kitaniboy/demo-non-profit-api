@@ -10,6 +10,7 @@ const ramadanSchema = new Schema({
   date: { type: String, default: '' },
   // signature: { type: String, default: ''},
   bookBags: { type: String, default: '0'},
+  eidSupportAmount: { type: String, default: '0'},
   notes: { type: String, default: ''}
 }, { _id : false });
 
