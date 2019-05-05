@@ -6,13 +6,14 @@ const OrphanFamily = require('../../models/orphans/orphanFamily');
 const newDocument = require('../../utils/createNewDoc');
 const verifyToken = require('../../middleware/verifyToken');
 
-router.get('/:formId', verifyToken, async (req, res) => {
+/* GET route */
+router.get('/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await OrphanFamily.find({'formId': req.params['formId']});
+        let result = await OrphanFamily.findOne({'_id': req.params['id']});
         return res.status(200).json({data: result});
       }
       catch(err) {
@@ -21,6 +22,22 @@ router.get('/:formId', verifyToken, async (req, res) => {
     }
   });
 });
+
+// router.get('/:formId', verifyToken, async (req, res) => {
+//   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
+//     if (err) {
+//       res.sendStatus(403);
+//     } else {
+//       try {
+//         let result = await OrphanFamily.find({'formId': req.params['formId']});
+//         return res.status(200).json({data: result});
+//       }
+//       catch(err) {
+//         res.status(500).json({message: 'Error in GET assistance route'});
+//       }
+//     }
+//   });
+// });
 
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
