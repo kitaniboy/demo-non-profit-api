@@ -23,8 +23,12 @@ let childListMain = [
 ];
 
 let childListRamadan = [
-  'wife',
-  'husband',
+  'wife.wifeName',
+  'wife.wifePhone',
+  'wife.wifeCivilId',
+  'husband.husbandName',
+  'husband.husbandPhone',
+  'husband.husbandCivilId',
   'familyId',
   'ramadan',
   'formId',
@@ -33,8 +37,12 @@ let childListRamadan = [
 ];
 
 let childListRamadanOne = [
-  'wife',
-  'husband',
+  'wife.wifeName',
+  'wife.wifePhone',
+  'wife.wifeCivilId',
+  'husband.husbandName',
+  'husband.husbandPhone',
+  'husband.husbandCivilId',
   'familyId',
   'ramadan',
   'formId',
