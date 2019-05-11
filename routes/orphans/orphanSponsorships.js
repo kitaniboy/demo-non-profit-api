@@ -41,7 +41,7 @@ router.get('/getBy/:sponsorId', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.findOne({'sponsorId': req.params['sponsorId']});
+        let result = await Model.find({'sponsorId': req.params['sponsorId']});
         return res.status(200).json({data: result});
       }
       catch(err) {
