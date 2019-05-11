@@ -239,7 +239,7 @@ router.get('/ramadan/fam/:formId', verifyToken, async (req, res) => {
 //    } else {
   try {
     // 'familyAddress.0.state':'السيب'
-    let result = await Family.findOne({isArchived: false, isRamadan: true,'formId': req.params['formId']}, childListRamadanOne.join(' '));
+    let result = await Family.find({isArchived: false, isRamadan: true,'formId': req.params['formId'], 'ramadan.0.isDone': true}, childListRamadanOne.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
