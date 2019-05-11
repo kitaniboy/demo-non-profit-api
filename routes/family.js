@@ -232,14 +232,14 @@ router.get('/ramadan/:id', verifyToken, async (req, res) => {
 //  });
 });
 
-router.get('/ramadan/fam/:formId', verifyToken, async (req, res) => {
+router.get('/ramadan/fam', verifyToken, async (req, res) => {
 //  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
 //    if (err) {
 //      res.sendStatus(403);
 //    } else {
   try {
     // 'familyAddress.0.state':'السيب'
-    let result = await Family.find({isArchived: false, isRamadan: true,'formId': req.params['formId'], 'ramadan.0.isDone': true}, childListRamadanOne.join(' '));
+    let result = await Family.find({isArchived: false, isRamadan: true,'ramadan.0.isDone': true}, childListRamadanOne.join(' '));
     return res.status(200).json({data: result});
   }
   catch(err) {
