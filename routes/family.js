@@ -232,7 +232,7 @@ router.get('/ramadan/:id', verifyToken, async (req, res) => {
 //  });
 });
 
-router.get('/ramadan/fam', verifyToken, async (req, res) => {
+router.get('/ramadanPrint', verifyToken, async (req, res) => {
 //  await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
 //    if (err) {
 //      res.sendStatus(403);
