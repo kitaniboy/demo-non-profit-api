@@ -45,7 +45,7 @@ router.get('/', verifyToken, async (req, res) => {
       }
       catch(err) {
         // console.log(err);
-        res.status(500).json({message: 'Error in GET assistance route'});
+        res.status(500).json({message: 'Error in GET orphan route'});
       }
     }
   });
