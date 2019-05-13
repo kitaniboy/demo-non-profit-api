@@ -360,13 +360,15 @@ router.post('/', verifyToken, async (req, res) => {
     } else {
       let family = new Family(newDocument(Family.schema.obj, req.body));
       let visitReports = new VisitReports(newDocument(VisitReports.schema.obj, req.body));
-      // family.ramadan.push({breakfast:  false,
-      //   eidSupport:  false,
-      //   zakat: false,
-      //   eidSacrifice:  false,
-      //   date: '',
-      //   signature: '',
-      //   isDone: false});
+      family.ramadan.push({  breakfast:false,
+        eidSupport: false,
+        zakat: false,
+        eidSacrifice: false,
+        isDone:false,
+        date: '' ,
+        bookBags: '0',
+        eidSupportAmount: '0',
+        notes: ''});
       try {
         await family.save();
         await visitReports.save();
