@@ -24,6 +24,9 @@ Can be accessed fronm a frontend application to:
 
 6. Start the project by running the following command `npm run dev`
 
+7. Start your frontend application and connect to the api using the appropriate url (by default it is localhost:5000)
+
+
 ## Contribution
 
 See [CONTRIBUTING.md](https://gitlab.com/estore-oman/al-rahme-api/blob/master/CONTRIBUTING.md)
