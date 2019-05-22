@@ -2,6 +2,14 @@
 
 The main API for Al Rahma Admin dashboard
 
+This node js project handles all serverside related activities for the over all project. 
+
+Can be accessed fronm a frontend application to:
+
+- Creating JWT tokens
+- Connecting all application data to a mongoDB database (family data, family members data, etc.)
+- Perform CRUD activities
+
 ## Gettong Started
 
 1. Fork the project
