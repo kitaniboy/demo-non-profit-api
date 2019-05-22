@@ -10,7 +10,11 @@ The main API for Al Rahma Admin dashboard
 
 3. Navigate to project directory and install dependencies via `npm install`
 
-4. Start the project by running the following command `npm run dev`
+4. Run mongoDB (see [link](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-windows/) for installing and running guide)
+
+5. Create a .env file in the root directory and add the following to it: `MONGODB_URL=YOUR_MONGODB_URL`
+
+6. Start the project by running the following command `npm run dev`
 
 ## Contribution
 
