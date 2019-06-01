@@ -9,7 +9,7 @@ const LowIncomeSponsorsSchema = new Schema({
   paymentMethod: { type: String, default: '' },
   paymentAmount: { type: String, default: '' },
   dateOfPayment: { type: String, default: '' },
-  familyId: { type: String, default: '' },
+  lowIncomeFamilyId: { type: String, default: '' },
   familyName: { type: String, default: '' },
   notes: { type: String, default: '' },
   isActive: { type: Boolean, default: false },
