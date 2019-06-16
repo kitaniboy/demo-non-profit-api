@@ -19,7 +19,8 @@ let childListMain = [
   'dateOfCaseStudy',
   'familyId',
   'formId',
-  'isRamadan'
+  'isRamadan',
+  'familyAddress.state'
 ];
 
 let childListRamadan = [
