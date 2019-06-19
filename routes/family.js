@@ -370,6 +370,7 @@ router.post('/', verifyToken, async (req, res) => {
         bookBags: '0',
         eidSupportAmount: '0',
         notes: ''});
+     visitReports.family_id = family._id;
       try {
         await family.save();
         await visitReports.save();
@@ -389,7 +390,9 @@ router.patch('/:id', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
+//console.log(req.body)
         await Family.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
+	await VisitReports.findOneAndUpdate({'family_id': req.params.id}, {'formId': req.body.formId});
         return res.status(200).json({message: 'existing data updated!'});
       }
       catch(err) {
