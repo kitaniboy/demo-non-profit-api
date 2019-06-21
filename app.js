@@ -30,6 +30,7 @@ const orphanPaymentsRouter = require('./routes/orphans/orphanPayments');
 const lowIncomeFamiliesRouter = require('./routes/lowIncome/lowIncomeFamilies');
 const lowIncomeSponsorsRouter = require('./routes/lowIncome/lowIncomeSponsors');
 const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments');
+const lowIncomeSponsorshipsRouter = require('./routes/lowIncome/lowIncomeSponsorships');
 const sponsorshipRouter = require('./routes/sponsorship');
 const uploadRouter = require('./routes/upload/upload');
 
@@ -98,6 +99,7 @@ app.use('/orphanPayments', orphanPaymentsRouter);
 app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter);
 app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter);
 app.use('/lowIncomePayments', lowIncomePaymentsRouter);
+app.use('/lowIncomeSponsorships', lowIncomeSponsorshipsRouter);
 app.use('/login', loginRouter);
 app.use('/sponsorship', sponsorshipRouter);
 app.use('/upload', uploadRouter);
