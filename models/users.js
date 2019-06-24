@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -12,6 +13,8 @@ const userSchema = new Schema({
   productive: { type: Boolean, default: false },
   finance: { type: Boolean, default: false },
   delegate: { type: Boolean, default: false },
+  admin: { type: Boolean, default: false },
+  name: { type: String, default: '' }
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
 
 module.exports = mongoose.model('User', userSchema);

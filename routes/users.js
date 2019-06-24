@@ -36,8 +36,9 @@ router.get('/', async (req, res) => {
 /* POST route */
 router.post('/', async (req, res) => {
   // let model = new Model(newDocument(Model.schema.obj, req.body));
-  let hash = bcrypt.hashSync(req.body.password, 8);
-  let model = new Model({username: req.body.username, password: hash, readOnly: req.body.readOnly});
+  let hash = await  bcrypt.hashSync(req.body.password, 8);
+  let model = new Model({username: req.body.username, password: hash, name: req.body.name, wedding: req.body.wedding, lowIncome: req.body.lowIncome, orphan: req.body.orphan, reception: req.body.reception, admin: req.body.admin, delegate: req.body.delegate, finance: req.body.finance, productive: req.body.productive});
+	console.log(model.password);
   try {
     await model.save();
     return res.status(201).json({message: 'new data created!'});
