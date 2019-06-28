@@ -2,23 +2,13 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-// Model
+// core imports
 const Model = require('../models/Archives/assistance/assistance');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
+const TableData = require('../utils/tableSchema');
 
-let TableData = [
-  'cost',
-  'familyId',
-  'supportNeeded.date',
-  'supportNeeded.description',
-  'assistanceCategory',
-  'assistanceId',
-  'familyId',
-  '_id'
-];
-
-/* GET route */
+/* GET one in preparation for edit */
 router.get('/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
@@ -35,25 +25,24 @@ router.get('/:id', verifyToken, async (req, res) => {
   });
 });
 
-/* GET route */
+/* GET all per table columns on frontend */
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.find({}, TableData.join(' '));
+        let result = await Model.find({}, TableData.assistance.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {
-        // console.log(err);
         res.status(500).json({message: 'Error in GET assistance route'});
       }
     }
   });
 });
 
-/* POST route */
+/* POST new document to DB */
 router.post('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
@@ -71,7 +60,7 @@ router.post('/', verifyToken, async (req, res) => {
   });
 });
 
-/* PATCH route */
+/* PATCH existing document */
 router.patch('/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
@@ -88,12 +77,12 @@ router.patch('/:id', verifyToken, async (req, res) => {
   });
 });
 
-/* DELETE route */
+/* DELETE existing document */
 router.delete('/:id', async (req, res) => {
-  // await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
-  //   if (err) {
-  //     res.sendStatus(403);
-  //   } else {
+  /* No authentication is included because delete route does not
+  send back a response body so no way to check using jwt. in this
+  case authentication is left to the frontend
+  */
   try {
     await Model.findByIdAndDelete({'_id': req.params.id});
     return res.status(200).json({message: 'existing data deleted!'});
@@ -101,8 +90,6 @@ router.delete('/:id', async (req, res) => {
   catch(err) {
     res.status(500).json({message: 'Error in DELETE assistance route'});
   }
-  //   }
-  // });
 });
 
 module.exports = router;
