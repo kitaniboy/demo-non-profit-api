@@ -13,7 +13,6 @@ const loanSchema = require('./loan');
 const possessionsSchema = require('./possessions');
 const relativeSchema = require('./relative');
 const wifeSchema = require('./wife');
-const ramadanSchema = require('./ramadan');
 
 const interiorFamilySchema = new Schema({
   id: { type: Schema.Types.ObjectId }, // document id
@@ -29,8 +28,6 @@ const interiorFamilySchema = new Schema({
   possessions: [possessionsSchema],
   relative: [relativeSchema],
   wife: [wifeSchema],
-  ramadan: [ramadanSchema],
-  visitReports: { type: Schema.Types.ObjectId, ref: 'VisitReports' },
   formId: { type: String, default: '000' },
   familyId: { type: String, default: '000' },
   claimMadeBy: { type: String, default: '' },
@@ -56,7 +53,6 @@ const interiorFamilySchema = new Schema({
   isApproved: { type: Boolean, default: false },
   isRamadan: { type: Boolean, default: false },
   finalNotes: { type: String, default: '' },
-  signature: { type: String, default: '' },
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('interiorFamily', interiorFamilySchema);
