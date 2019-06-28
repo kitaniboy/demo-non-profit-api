@@ -4,7 +4,7 @@ const router = express.Router();
 
 // core imports
 const Model = require('../models/Archives/assistance/assistance');
-const newDocument = require('../utils/createNewDoc');
+const createNewDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
 const clientSideTableData = require('../utils/tableSchema');
 
@@ -12,6 +12,8 @@ const clientSideTableData = require('../utils/tableSchema');
 router.get('/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
+      /* client side should view all 403 as an auth error and deliver
+      the proper message to the user */
       res.sendStatus(403);
     } else {
       try {
@@ -19,7 +21,7 @@ router.get('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({data: result});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in GET assistance route'});
+        res.status(500).json({message: err});
       }
     }
   });
@@ -29,6 +31,8 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
+      /* client side should view all 403 as an auth error and deliver
+      the proper message to the user */
       res.sendStatus(403);
     } else {
       try {
@@ -36,7 +40,7 @@ router.get('/', verifyToken, async (req, res) => {
         return res.status(200).json({data: result});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in GET assistance route'});
+        res.status(500).json({message: err});
       }
     }
   });
@@ -46,15 +50,17 @@ router.get('/', verifyToken, async (req, res) => {
 router.post('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
+      /* client side should view all 403 as an auth error and deliver
+      the proper message to the user */
       res.sendStatus(403);
     } else {
-      let model = new Model(newDocument(Model.schema.obj, req.body));
+      let model = new Model(createNewDocument(Model.schema.obj, req.body));
       try {
         await model.save();
-        return res.status(201).json({message: 'new data created!'});
+        return res.status(201).json({message: 'new document created!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in POST assistance route'});
+        res.status(500).json({message: err});
       }
     }
   });
@@ -64,14 +70,16 @@ router.post('/', verifyToken, async (req, res) => {
 router.patch('/:id', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
+      /* client side should view all 403 as an auth error and deliver
+      the proper message to the user */
       res.sendStatus(403);
     } else {
       try {
         await Model.findByIdAndUpdate({'_id': req.params.id}, {$set: req.body});
-        return res.status(200).json({message: 'existing data updated!'});
+        return res.status(200).json({message: 'existing document updated!'});
       }
       catch(err) {
-        res.status(500).json({message: 'Error in PATCH assistance route'});
+        res.status(500).json({message: err});
       }
     }
   });
@@ -85,10 +93,10 @@ router.delete('/:id', async (req, res) => {
   */
   try {
     await Model.findByIdAndDelete({'_id': req.params.id});
-    return res.status(200).json({message: 'existing data deleted!'});
+    return res.status(200).json({message: 'existing document deleted!'});
   }
   catch(err) {
-    res.status(500).json({message: 'Error in DELETE assistance route'});
+    res.status(500).json({message: err});
   }
 });
 
