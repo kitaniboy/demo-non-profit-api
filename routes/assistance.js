@@ -6,7 +6,7 @@ const router = express.Router();
 const Model = require('../models/Archives/assistance/assistance');
 const newDocument = require('../utils/createNewDoc');
 const verifyToken = require('../middleware/verifyToken');
-const TableData = require('../utils/tableSchema');
+const clientSideTableData = require('../utils/tableSchema');
 
 /* GET one in preparation for edit */
 router.get('/:id', verifyToken, async (req, res) => {
@@ -32,7 +32,7 @@ router.get('/', verifyToken, async (req, res) => {
       res.sendStatus(403);
     } else {
       try {
-        let result = await Model.find({}, TableData.assistance.join(' '));
+        let result = await Model.find({}, clientSideTableData.assistance.join(' '));
         return res.status(200).json({data: result});
       }
       catch(err) {

@@ -1,4 +1,4 @@
-let tableSchema = {
+module.export = {
   assistance: [
     'cost',
     'familyId',
@@ -10,5 +10,3 @@ let tableSchema = {
     '_id'
   ]
 };
-
-module.export = tableSchema;
