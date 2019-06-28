@@ -8,5 +8,16 @@ module.exports = {
     'assistanceId',
     'familyId',
     '_id'
+  ],
+  borrow: [
+    'formId',
+    'familyId',
+    'familyName',
+    'recipientName',
+    'department',
+    'nameOfEmployee',
+    'dateOfBorrow',
+    'dateOfReturn',
+    '_id'
   ]
 };
