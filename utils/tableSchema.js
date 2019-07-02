@@ -32,7 +32,9 @@ module.exports = {
     'familyId',
     'formId',
     'isRamadan',
-    'familyAddress.state'
+    'familyAddress.state',
+    'familyAddress.town',
+    'isArchived'
   ],
   ramadan: [
     'wife.wifeName',
