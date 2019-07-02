@@ -18,7 +18,9 @@ let childListMain = [
   'familyId',
   'formId',
   'isRamadan',
-  'familyAddress.state'
+  'familyAddress.state',
+  'familyAddress.town',
+  'isArchived'
 ];
 
 /* GET route */
