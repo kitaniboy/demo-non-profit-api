@@ -14,6 +14,7 @@ const userSchema = new Schema({
   finance: { type: Boolean, default: false },
   delegate: { type: Boolean, default: false },
   admin: { type: Boolean, default: false },
+  temp: { type: Boolean, default: false },
   name: { type: String, default: '' }
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
 
