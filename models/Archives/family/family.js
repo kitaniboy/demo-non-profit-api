@@ -30,7 +30,7 @@ const familySchema = new Schema({
   relative: [relativeSchema],
   wife: [wifeSchema],
   ramadan: [ramadanSchema],
-  visitReports: { type: Schema.Types.ObjectId, ref: 'VisitReports' },
+  visitReports: { type: String, default: '' },
   formId: { type: String, default: '000' },
   familyId: { type: String, default: '000' },
   claimMadeBy: { type: String, default: '' },
