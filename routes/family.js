@@ -387,6 +387,16 @@ router.post('/', verifyToken, async (req, res) => {
         eidSupportAmount: '0',
         notes: ''
       })
+      // !for some reason this needs to be manual
+      // !gotta find a better solution
+      family.eidAlAdha.push({
+        eidDonation: false,
+        eidSacrifice: false,
+        eidFoodDonation: false,
+        isDone: false,
+        notes: '',
+        eidAlAdhaSignature: ''
+      })
       // !a hack to make it easy to patch visitReports
       // !need to find a better solution
       visitReports.family_id = family._id
