@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 /*
 TRANSLATION
@@ -16,10 +16,11 @@ const eidAlAdhaSchema = new Schema(
     eidSacrifice: { type: Boolean, default: false },
     eidFoodDonation: { type: Boolean, default: false },
     isDone: { type: Boolean, default: false },
-    date: { type: String, default: "" },
-    notes: { type: String, default: "" }
+    date: { type: String, default: '' },
+    notes: { type: String, default: '' },
+    eidAlAdhaSignature: { type: String, default: '' }
   },
   { _id: false }
-);
+)
 
-module.exports = eidAlAdhaSchema;
+module.exports = eidAlAdhaSchema

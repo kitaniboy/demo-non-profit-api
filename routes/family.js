@@ -229,11 +229,35 @@ Eid Al Adha Pages routes
 
 /* GET all per table columns on frontend */
 router.get('/eidAlAdha', verifyToken, (req, res) => {
-  return eidAlAdhaController(
+  return eidAlAdhaController.getAllFamilies(
     req,
     res,
     { isArchived: false, isEidAlAdha: true },
     clientSideTableData.eidAlAdha.join(' ')
+  )
+})
+
+/* GET one in preparation for edit */
+router.get('/eidAlAdha/:id', verifyToken, async (req, res) => {
+  return eidAlAdhaController.getOneFamily(
+    req,
+    res,
+    {
+      isArchived: false,
+      isEidAlAdha: true,
+      _id: req.params['id']
+    },
+    clientSideTableData.eidAlAdhOne.join(' ')
+  )
+})
+
+/* GET all per table columns on frontend */
+router.get('/eidAlAdha/signature/:id', verifyToken, async (req, res) => {
+  return eidAlAdhaController.getSignature(
+    req,
+    res,
+    { isArchived: false, isEidAlAdha: true, _id: req.params['id'] },
+    'eidAlAdha.0.eidAlAdhaSignature'
   )
 })
 
