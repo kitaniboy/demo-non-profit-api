@@ -14,6 +14,7 @@ const possessionsSchema = require("./possessions");
 const relativeSchema = require("./relative");
 const wifeSchema = require("./wife");
 const ramadanSchema = require("./ramadan");
+const eidAlAdhaSchema = require("./eidAlAdha");
 
 const familySchema = new Schema(
   {
@@ -31,10 +32,11 @@ const familySchema = new Schema(
     relative: [relativeSchema],
     wife: [wifeSchema],
     ramadan: [ramadanSchema],
+    eidAlAdha: [eidAlAdhaSchema],
     visitReports: { type: String, default: "" },
     numberOfFamilyMembers: { type: String, default: "0" },
-    formId: { type: String, default: "000" },
-    familyId: { type: String, default: "000" },
+    formId: { type: String, default: "0" },
+    familyId: { type: String, default: "0" },
     claimMadeBy: { type: String, default: "" },
     dateOfCaseStudy: { type: String, default: "" },
     typeOfAssistanceNeeded: { type: String, default: "" },
@@ -57,6 +59,7 @@ const familySchema = new Schema(
     isWaitList: { type: Boolean, default: false },
     isApproved: { type: Boolean, default: false },
     isRamadan: { type: Boolean, default: false },
+    isEidAlAdha: { type: Boolean, default: false },
     finalNotes: { type: String, default: "" },
     signature: { type: String, default: "" }
   },
