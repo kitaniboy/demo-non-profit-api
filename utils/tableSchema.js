@@ -34,7 +34,11 @@ module.exports = {
     'isRamadan',
     'familyAddress.state',
     'familyAddress.town',
-    'isArchived'
+    'isArchived',
+    'numberOfChildrenInElementary',
+    'numberOfChildrenInSecondary',
+    'numberOfChildrenInHighSchool',
+    'numberOfChildrenInHigherEducation'
   ],
   ramadan: [
     'wife.wifeName',
@@ -86,12 +90,6 @@ module.exports = {
     'familyId',
     'formId',
     'eidAlAdha',
-    // 'eidAlAdha.0.eidAlAdhaSignature',
-    // 'eidAlAdha.0.eidDonation',
-    // 'eidAlAdha.0.eidSacrifice',
-    // 'eidAlAdha.0.eidFoodDonation',
-    // 'eidAlAdha.0.isDone',
-    // 'eidAlAdha.0.isDone',
     'familyAddress.state',
     '_id'
   ],
