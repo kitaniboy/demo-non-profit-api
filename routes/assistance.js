@@ -24,7 +24,7 @@ router.post('/', verifyToken, async (req, res) =>
 
 /* PATCH existing document */
 router.patch('/:id', verifyToken, async (req, res) =>
-  controller.patchOne(req, res, Model)
+  controller.patchOne(req, res, Model, { _id: req.params.id })
 )
 
 /* DELETE existing document */
