@@ -35,7 +35,7 @@ const getAll = async (req, res, Model, findAllObject) => {
   })
 }
 
-const post = async (req, res, Model) => {
+const postOne = async (req, res, Model) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       /* client side should view all 403 as an auth error and deliver
@@ -53,7 +53,7 @@ const post = async (req, res, Model) => {
   })
 }
 
-const patch = async (req, res, Model) => {
+const patchOne = async (req, res, Model) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       /* client side should view all 403 as an auth error and deliver
@@ -89,7 +89,7 @@ const deleteOne = async (req, res, Model) => {
 module.exports = {
   getOne,
   getAll,
-  post,
-  patch,
+  postOne,
+  patchOne,
   deleteOne
 }
