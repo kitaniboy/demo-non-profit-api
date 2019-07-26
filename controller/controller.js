@@ -11,8 +11,8 @@ const getOne = async (req, res, Model, findOneObject) => {
       try {
         let result = await Model.findOne(findOneObject)
         return res.status(200).json({ data: result })
-      } catch (err) {
-        res.status(500).json({ message: err })
+      } catch (err2) {
+        res.status(500).json({ message: err2 })
       }
     }
   })
@@ -28,8 +28,8 @@ const getAll = async (req, res, Model, findAllObject) => {
       try {
         let result = await Model.find({}, findAllObject)
         return res.status(200).json({ data: result })
-      } catch (err) {
-        res.status(500).json({ message: err })
+      } catch (err2) {
+        res.status(500).json({ message: err2 })
       }
     }
   })
@@ -46,8 +46,8 @@ const postOne = async (req, res, Model) => {
       try {
         await model.save()
         return res.status(201).json({ message: 'new document created!' })
-      } catch (err) {
-        res.status(500).json({ message: err })
+      } catch (err2) {
+        res.status(500).json({ message: err2 })
       }
     }
   })
@@ -66,8 +66,8 @@ const patchOne = async (req, res, Model) => {
           { $set: req.body }
         )
         return res.status(200).json({ message: 'existing document updated!' })
-      } catch (err) {
-        res.status(500).json({ message: err })
+      } catch (err2) {
+        res.status(500).json({ message: err2 })
       }
     }
   })
@@ -81,8 +81,8 @@ const deleteOne = async (req, res, Model) => {
   try {
     await Model.findByIdAndDelete({ _id: req.params.id })
     return res.status(200).json({ message: 'existing document deleted!' })
-  } catch (err) {
-    res.status(500).json({ message: err })
+  } catch (err2) {
+    res.status(500).json({ message: err2 })
   }
 }
 
