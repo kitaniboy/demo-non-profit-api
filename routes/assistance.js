@@ -8,24 +8,24 @@ const clientSideTableData = require('../utils/tableSchema')
 const controller = require('../controller/controller')
 
 /* GET one in preparation for edit */
-router.get('/:id', verifyToken, (req, res) =>
+router.get('/:id', verifyToken, async (req, res) =>
   controller.getOne(req, res, Model, { _id: req.params['id'] })
 )
 
 /* GET all per table columns on frontend */
-router.get('/', verifyToken, (req, res) =>
+router.get('/', verifyToken, async (req, res) =>
   controller.getAll(req, res, Model, clientSideTableData.assistance.join(' '))
 )
 
 /* POST new document to DB */
-router.post('/', verifyToken, (req, res) => controller.post(req, res, Model))
+router.post('/', verifyToken, async (req, res) => controller.post(req, res, Model))
 
 /* PATCH existing document */
-router.patch('/:id', verifyToken, (req, res) =>
+router.patch('/:id', verifyToken, async (req, res) =>
   controller.patch(req, res, Model)
 )
 
 /* DELETE existing document */
-router.delete('/:id', (req, res) => controller.deleteOne(req, res, Model))
+router.delete('/:id', async (req, res) => controller.deleteOne(req, res, Model))
 
 module.exports = router
