@@ -53,7 +53,7 @@ const postOne = async (req, res, Model) => {
   })
 }
 
-const patchOne = async (req, res, Model) => {
+const patchOne = async (req, res, Model, patchOneObject) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       /* client side should view all 403 as an auth error and deliver
@@ -61,10 +61,7 @@ const patchOne = async (req, res, Model) => {
       res.sendStatus(403)
     } else {
       try {
-        await Model.findByIdAndUpdate(
-          { _id: req.params.id },
-          { $set: req.body }
-        )
+        await Model.findByIdAndUpdate(patchOneObject, { $set: req.body })
         return res.status(200).json({ message: 'existing document updated!' })
       } catch (err2) {
         res.status(500).json({ message: err2 })
