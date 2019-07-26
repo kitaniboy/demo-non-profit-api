@@ -18,11 +18,13 @@ router.get('/', verifyToken, async (req, res) =>
 )
 
 /* POST new document to DB */
-router.post('/', verifyToken, async (req, res) => controller.post(req, res, Model))
+router.post('/', verifyToken, async (req, res) =>
+  controller.postOne(req, res, Model)
+)
 
 /* PATCH existing document */
 router.patch('/:id', verifyToken, async (req, res) =>
-  controller.patch(req, res, Model)
+  controller.patchOne(req, res, Model)
 )
 
 /* DELETE existing document */
