@@ -8,14 +8,14 @@ const assistanceSchema = new Schema(
     assistanceId: { type: String, default: '' },
     assistanceCategory: { type: String, default: '' },
     supportNeeded: {
-      description: { type: String, default: '' },
+      supportNeededDescription: { type: String, default: '' },
       exchange: { type: String, default: '' },
       new: { type: String, default: '' },
       count: { type: String, default: '' },
       date: { type: String, default: '' }
     },
     supportGiven: {
-      description: { type: String, default: '' },
+      supportGivenDescription: { type: String, default: '' },
       exchange: { type: String, default: '' },
       new: { type: String, default: '' },
       count: { type: String, default: '' },
