@@ -56,7 +56,7 @@ app.use(compression())
 app.use(helmet())
 
 // default options
-app.use(fileUpload())
+// app.use(fileUpload())
 
 var whitelist = [
   'http://104.248.25.52',
