@@ -261,6 +261,20 @@ router.get('/eidAlAdha/signature/:id', verifyToken, async (req, res) => {
   )
 })
 
+/* GET all per table columns on frontend */
+router.get('/eidAlAdhaPrint', verifyToken, async (req, res) => {
+  // !need to add auth to this
+  try {
+    let result = await Family.find(
+      { isArchived: false, isEidAlAdha: true, 'eidAlAdha.0.isDone': true },
+      clientSideTableData.eidAlAdhOne.join(' ')
+    )
+    return res.status(200).json({ data: result })
+  } catch (err) {
+    res.status(500).json({ message: err })
+  }
+})
+
 // !do I need this route???
 /* GET all per table columns on frontend */
 router.get('/orphans', verifyToken, async (req, res) => {
