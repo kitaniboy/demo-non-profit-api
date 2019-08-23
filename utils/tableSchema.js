@@ -35,10 +35,11 @@ module.exports = {
     'familyAddress.state',
     'familyAddress.town',
     'isArchived',
-    'numberOfChildrenInElementary',
-    'numberOfChildrenInSecondary',
-    'numberOfChildrenInHighSchool',
-    'numberOfChildrenInHigherEducation'
+    'reasonForArchiving'
+    // 'numberOfChildrenInElementary',
+    // 'numberOfChildrenInSecondary',
+    // 'numberOfChildrenInHighSchool',
+    // 'numberOfChildrenInHigherEducation'
   ],
   ramadan: [
     'wife.wifeName',
