@@ -37,7 +37,7 @@ router.get('/single/:path/:id', verifyToken, async (req, res) => {
       return eidAlAdhaController.getOneFamily(
         req,
         res,
-        { isArchived: false, _id: req.params['id'] },
+        { isArchived: false, formId: req.params['id'] },
         clientSideTableData.insolventFamilies.join(' ')
       )
     default:
