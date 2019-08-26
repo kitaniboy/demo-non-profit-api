@@ -17,13 +17,27 @@ const controller = require('../controller/controller')
 // ======================================
 // TEST
 // ======================================
-router.get('/group/:id', verifyToken, async (req, res) => {
-  switch (req.params['id']) {
+router.get('/group/:path', verifyToken, async (req, res) => {
+  switch (req.params['path']) {
     case 'insolventFamilies':
       return eidAlAdhaController.getAllFamilies(
         req,
         res,
         { isArchived: false },
+        clientSideTableData.insolventFamilies.join(' ')
+      )
+    default:
+      return controller(req, res, Family, {})
+  }
+})
+
+router.get('/single/:path/:id', verifyToken, async (req, res) => {
+  switch (req.params['path']) {
+    case 'insolventFamilies':
+      return eidAlAdhaController.getOneFamily(
+        req,
+        res,
+        { isArchived: false, _id: req.params['id'] },
         clientSideTableData.insolventFamilies.join(' ')
       )
     default:
