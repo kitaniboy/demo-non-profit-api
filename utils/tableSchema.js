@@ -134,6 +134,19 @@ module.exports = {
     '-_id'
   ],
   insolventFamilies: [
+    'husband.husbandName',
+    'husband.husbandPhone',
+    'wife.wifeName',
+    'wife.wifePhone',
+    'accommodationStatus.rent',
+    'livingCondition',
+    'familyAddress',
+    'numberOfChildrenInElementary',
+    'numberOfChildrenInSecondary',
+    'numberOfChildrenInHighSchool',
+    'income',
+    'loan',
+    // main not family
     'lowIncomeFamilyId',
     'formId',
     'sponsorshipEndDate',
