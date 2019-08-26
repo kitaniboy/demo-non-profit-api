@@ -12,6 +12,27 @@ const clientSideTableData = require('../utils/tableSchema')
 
 // Controllers
 const eidAlAdhaController = require('../controller/family')
+const controller = require('../controller/controller')
+
+// ======================================
+// TEST
+// ======================================
+router.get('/group/:id', verifyToken, async (req, res) => {
+  switch (req.params['id']) {
+    case 'insolventFamilies':
+      return eidAlAdhaController.getAllFamilies(
+        req,
+        res,
+        { isArchived: false },
+        clientSideTableData.insolventFamilies.join(' ')
+      )
+    default:
+      return controller(req, res, Family, {})
+  }
+})
+// ======================================
+// TEST END
+// ======================================
 
 /* GET all per table columns on frontend */
 router.get('/', verifyToken, async (req, res) => {
