@@ -132,5 +132,13 @@ module.exports = {
     'formId',
     'familyId',
     '-_id'
+  ],
+  insolventFamilies: [
+    'lowIncomeFamilyId',
+    'formId',
+    'sponsorshipEndDate',
+    'shoppingCenterName',
+    'notes',
+    'isActive'
   ]
 }
