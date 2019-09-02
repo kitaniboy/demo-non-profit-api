@@ -454,6 +454,9 @@ router.post('/', verifyToken, async (req, res) => {
         await visitReports.save()
         return res.status(201).json({ message: 'New Visit document created!' })
       } catch (err) {
+        if (err.name === 'MongoError' && err.code === 11000) {
+          res.status(422).json({ message: err })
+        }
         res.status(500).json({ message: err })
       }
     }
