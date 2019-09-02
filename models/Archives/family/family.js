@@ -35,7 +35,7 @@ const familySchema = new Schema(
     eidAlAdha: [eidAlAdhaSchema],
     visitReports: { type: String, default: '' },
     numberOfFamilyMembers: { type: String, default: '0' },
-    formId: { type: String, default: '0' },
+    formId: { type: String, default: '0', unique: true },
     familyId: { type: String, default: '0' },
     claimMadeBy: { type: String, default: '' },
     dateOfCaseStudy: { type: String, default: '' },
