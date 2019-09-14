@@ -6,7 +6,7 @@ const getOne = async (req, res, Model, findOneObject) => {
     if (err) {
       /* client side should view all 403 as an auth error and deliver
           the proper message to the user */
-      res.sendStatus(403)
+      res.sendStatus(403).json({ message: 'no right' })
     } else {
       try {
         let result = await Model.findOne(findOneObject)

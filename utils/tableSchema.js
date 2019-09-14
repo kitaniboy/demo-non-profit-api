@@ -1,4 +1,14 @@
 module.exports = {
+  reception: [
+    'receptionNumber',
+    'familyId',
+    'date',
+    'visitorName',
+    'purposeOfVisit',
+    'caseMovedTo',
+    '_id',
+    'caseClosed'
+  ],
   assistance: [
     'cost',
     'familyId',
