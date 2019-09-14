@@ -9,11 +9,9 @@ const compression = require('compression')
 require('dotenv').config() // configure env variables
 
 // Routers
-const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const loginRouter = require('./routes/login')
 const receptionsRouter = require('./routes/receptions')
-const homeVisitsRouter = require('./routes/homeVisits')
 const visitReportsRouter = require('./routes/visitReports')
 const familyRouter = require('./routes/family')
 const interiorFamilyRouter = require('./routes/interiorFamily')
@@ -91,10 +89,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // all routes
-app.use('/', indexRouter) // not active
 app.use('/users', usersRouter) // not active
 app.use('/receptions', receptionsRouter)
-app.use('/homeVisits', homeVisitsRouter)
 app.use('/visitReports', visitReportsRouter)
 app.use('/family', familyRouter)
 app.use('/interiorFamily', interiorFamilyRouter)
