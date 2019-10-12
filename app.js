@@ -32,7 +32,7 @@ const lowIncomePaymentsRouter = require('./routes/lowIncome/lowIncomePayments')
 const lowIncomeSponsorshipsRouter = require('./routes/lowIncome/lowIncomeSponsorships')
 const insolventFamiliesRouter = require('./routes/lowIncome/insolventFamilies')
 const sponsorshipRouter = require('./routes/sponsorship')
-// const uploadRouter = require('./routes/upload/upload')
+const productiveFamiliesRouter = require('./routes/productiveFamilies/productiveFamilies')
 
 // initiate Express app
 const app = express()
@@ -114,6 +114,6 @@ app.use('/lowIncomeSponsorships', lowIncomeSponsorshipsRouter)
 app.use('/insolventFamilies', insolventFamiliesRouter)
 app.use('/login', loginRouter)
 app.use('/sponsorship', sponsorshipRouter)
-// app.use('/upload', uploadRouter)
+app.use('/productiveFamilies', productiveFamiliesRouter)
 
 module.exports = app

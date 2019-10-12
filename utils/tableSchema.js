@@ -163,5 +163,25 @@ module.exports = {
     'shoppingCenterName',
     'notes',
     'isActive'
+  ],
+  possibleProductiveFamilies: [
+    'formId',
+    'claimMadeBy',
+    'wife.wifePhone',
+    'familyAddress',
+    '-_id'
+  ],
+  productiveFamilies: [
+    'id',
+    'formId',
+    'nameOfRecipient',
+    'relationship',
+    'ageOfRecipient',
+    'RecipientNationalId',
+    'RecipientEducationLevel',
+    'fieldOfWork',
+    'formOfContact',
+    'dateOfContact',
+    'reasonForNotRegistering'
   ]
 }
