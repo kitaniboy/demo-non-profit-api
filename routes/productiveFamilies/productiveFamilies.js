@@ -7,6 +7,24 @@ const Model2 = require('../../models/productiveFamilies/productiveFamilies')
 const clientSideTableData = require('../../utils/tableSchema')
 const createNewDocument = require('../../utils/createNewDoc')
 
+router.get('/:id', async (req, res) => {
+  try {
+    let prodfamily = await Model2.findOne(
+      { _id: req.params['id'] },
+      clientSideTableData.productiveFamilies.join(' ')
+    )
+    let family = await Model1.findOne(
+      { formId: prodfamily.formId },
+      clientSideTableData.possibleProductiveFamilies.join(' ')
+    )
+    return res
+      .status(200)
+      .json({ data: [{ ...prodfamily.toObject(), ...family.toObject() }] })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 // GET ALL
 router.get('/', async (req, res) => {
   try {
@@ -27,7 +45,6 @@ router.get('/', async (req, res) => {
         y.push(families[i])
       }
     }
-    // console.log(y)
     return res.status(200).json({ data: y })
   } catch (err) {
     console.log(err)
@@ -40,6 +57,16 @@ router.post('/', async (req, res) => {
   try {
     await model.save()
     return res.status(201).json({ message: 'new document created!' })
+  } catch (err) {
+    res.status(500).json({ message: err })
+  }
+})
+
+// PATCH ONE
+router.patch('/:id', async (req, res) => {
+  try {
+    await Model2.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body })
+    return res.status(200).json({ message: 'existing document updated!' })
   } catch (err) {
     res.status(500).json({ message: err })
   }

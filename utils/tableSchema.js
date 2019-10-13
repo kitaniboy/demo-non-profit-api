@@ -172,7 +172,7 @@ module.exports = {
     '-_id'
   ],
   productiveFamilies: [
-    'id',
+    '_id',
     'formId',
     'nameOfRecipient',
     'relationship',
