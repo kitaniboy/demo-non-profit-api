@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     let families = await Model1.find(
-      {},
+      { isArchived: false },
       clientSideTableData.possibleProductiveFamilies.join(' ')
     )
     let y = []
