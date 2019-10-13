@@ -41,8 +41,21 @@ router.get('/getBy/:sponsorId', verifyToken, async (req, res) => {
       res.sendStatus(403)
     } else {
       try {
-        let result = await Model.find({ sponsorId: req.params['sponsorId'] })
-        return res.status(200).json({ data: result })
+        let result1 = await Model.find({ sponsorId: req.params['sponsorId'] })
+        let y = []
+        for (let i = 0; i < result1.length; i++) {
+          let x = await OrphanModel.find(
+            { orphanId: result1[i].orphanId },
+            'orphanName'
+          )
+          if (x.length != 0) {
+            let z = Object.assign({}, x[0].toObject(), result1[i].toObject())
+            y.push(z)
+          } else {
+            y.push(result1[i])
+          }
+        }
+        return res.status(200).json({ data: y })
       } catch (err) {
         res.status(500).json({ message: 'Error in GET assistance route' })
       }
