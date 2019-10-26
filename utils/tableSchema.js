@@ -167,8 +167,15 @@ module.exports = {
   possibleProductiveFamilies: [
     'formId',
     'claimMadeBy',
-    'wife.wifePhone',
+    'wife',
     'familyAddress',
+    'income',
+    'accommodationStatus.rentAmount',
+    'accommodationStatus.lateElectricalAmount',
+    'accommodationStatus.lateWaterAmount',
+    'loan.housingLoanAmount',
+    'loan.personalLoanAmount',
+    'loan.vehicleLoanAmount',
     '-_id'
   ],
   productiveFamilies: [
