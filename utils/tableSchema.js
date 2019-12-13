@@ -190,5 +190,16 @@ module.exports = {
     'formOfContact',
     'dateOfContact',
     'reasonForNotRegistering'
+  ],
+  orphanSponsors: [
+    'sponsorName',
+    'sponsorId',
+    'sponsorPhone',
+    'numberOfSponsored',
+    'sponsorAmount',
+    'paymentMethod',
+    'sponsorStatus',
+    'sponsorBankAccountNum',
+    'sponsorBank'
   ]
 }
