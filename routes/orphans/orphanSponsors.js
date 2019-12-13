@@ -56,9 +56,12 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
 
         // for each sponsor get all sponsorships
         for (let i = 0; i < allSponsors.length; i++) {
-          allSponsorships = await SponsorshipModel.find({
-            sponsorId: allSponsors[i].sponsorId
-          })
+          allSponsorships = await SponsorshipModel.find(
+            {
+              sponsorId: allSponsors[i].sponsorId
+            },
+            'sponsorshipId'
+          )
           // console.log(allSponsorships)
 
           if (allSponsorships.length === 0) {
@@ -72,9 +75,12 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
           } else {
             // for each sponsorship get all payments
             for (let j = 0; j < allSponsorships.length; j++) {
-              allPayments = await PaymentModel.find({
-                sponsorshipId: allSponsorships[j].sponsorshipId
-              })
+              allPayments = await PaymentModel.find(
+                {
+                  sponsorshipId: allSponsorships[j].sponsorshipId
+                },
+                'sponsorshipId'
+              )
               // console.log(allSponsorships[j].sponsorshipId, allPayments.length)
               // if no payment then insert into array
               if (allPayments.length === 0) {
