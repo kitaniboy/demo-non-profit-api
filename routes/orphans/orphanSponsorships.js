@@ -120,7 +120,7 @@ router.post('/', verifyToken, async (req, res) => {
       try {
         await model.save()
 
-        await SponsorModel.findOneAndReplace(
+        await SponsorModel.findOneAndUpdate(
           { sponsorId: model.sponsorId },
           { hasSponsorship: true }
         )
