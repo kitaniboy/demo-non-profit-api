@@ -200,6 +200,8 @@ module.exports = {
     'paymentMethod',
     'sponsorStatus',
     'sponsorBankAccountNum',
-    'sponsorBank'
+    'sponsorBank',
+    'hasSponsorship',
+    'hasPayments'
   ]
 }
