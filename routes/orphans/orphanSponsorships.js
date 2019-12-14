@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const Model = require('../../models/orphans/orphanSponsorships')
+const SponsorModel = require('../../models/orphans/orphanSponsors')
 const OrphanModel = require('../../models/orphans/orphans')
 const newDocument = require('../../utils/createNewDoc')
 const verifyToken = require('../../middleware/verifyToken')
@@ -118,6 +119,11 @@ router.post('/', verifyToken, async (req, res) => {
       let model = new Model(newDocument(Model.schema.obj, req.body))
       try {
         await model.save()
+
+        await SponsorModel.findOneAndReplace(
+          { sponsorId: model.sponsorId },
+          { hasSponsorship: true }
+        )
         return res.status(201).json({ message: 'new data created!' })
       } catch (err) {
         if (err.name === 'MongoError' && err.code === 11000) {

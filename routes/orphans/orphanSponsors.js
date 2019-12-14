@@ -18,7 +18,9 @@ let TableData = [
   'paymentMethod',
   'sponsorStatus',
   'sponsorBankAccountNum',
-  'sponsorBank'
+  'sponsorBank',
+  'hasSponsorship',
+  'hasPayments'
 ]
 
 /* GET route */
@@ -60,44 +62,34 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
             {
               sponsorId: allSponsors[i].sponsorId
             },
-            'sponsorshipId'
+            'sponsorshipId sponsorId'
           )
-          // console.log(allSponsorships)
 
-          if (allSponsorships.length === 0) {
-            let x = {
-              ...JSON.parse(JSON.stringify(allSponsors[i])),
-              sponsorshipId: 'لا يوجد'
-            }
-            // x.sponsorshipId = 'لا يوجد'
-            noPaymentSponsors.push(x)
-            // console.log(x)
-          } else {
-            // for each sponsorship get all payments
-            for (let j = 0; j < allSponsorships.length; j++) {
-              allPayments = await PaymentModel.find(
-                {
-                  sponsorshipId: allSponsorships[j].sponsorshipId
-                },
-                'sponsorshipId'
+          if (allSponsorships.length > 0) {
+            await Model.findOneAndUpdate(
+              { sponsorId: allSponsors[i].sponsorId },
+              { hasSponsorship: true }
+            )
+          }
+          for (let j = 0; j < allSponsorships.length; j++) {
+            allPayments = await PaymentModel.find(
+              {
+                sponsorshipId: allSponsorships[j].sponsorshipId
+              },
+              'sponsorshipId'
+            )
+            if (allPayments.length > 0) {
+              await Model.findOneAndUpdate(
+                { sponsorId: allSponsors[i].sponsorId },
+                { hasPayments: true }
               )
-              // console.log(allSponsorships[j].sponsorshipId, allPayments.length)
-              // if no payment then insert into array
-              if (allPayments.length === 0) {
-                let x = {
-                  ...JSON.parse(JSON.stringify(allSponsors[i])),
-                  sponsorshipId: JSON.parse(JSON.stringify(allSponsorships[j]))
-                    .sponsorshipId
-                }
-                noPaymentSponsors.push(x)
-              }
             }
           }
         }
 
         return res.status(200).json({ data: noPaymentSponsors })
       } catch (err) {
-        // console.log(err);
+        // console.log(err)
         res.status(500).json({ message: 'Error in GET assistance route' })
       }
     }
@@ -112,6 +104,7 @@ router.get('/', verifyToken, async (req, res) => {
     } else {
       try {
         let result = await Model.find({}, TableData.join(' '))
+        console.log(result)
         return res.status(200).json({ data: result })
       } catch (err) {
         res.status(500).json({ message: 'Error in GET assistance route' })
