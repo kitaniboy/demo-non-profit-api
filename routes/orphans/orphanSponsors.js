@@ -48,9 +48,10 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
     } else {
       try {
         let noPaymentSponsors = await Model.find({
-          hasSponsorship: false,
+          // hasSponsorship: false,
           hasPayments: false
         })
+        // console.log(noPaymentSponsors)
         // let noPaymentSponsors = []
         // let allSponsorships
         // let allPayments
