@@ -47,45 +47,49 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
       res.sendStatus(403)
     } else {
       try {
-        let noPaymentSponsors = []
-        let allSponsorships
-        let allPayments
-        // get all sponsors
-        let allSponsors = await Model.find(
-          {},
-          clientSideTableData.orphanSponsors.join(' ')
-        )
+        let noPaymentSponsors = await Model.find({
+          hasSponsorship: false,
+          hasPayments: false
+        })
+        // let noPaymentSponsors = []
+        // let allSponsorships
+        // let allPayments
+        // // get all sponsors
+        // let allSponsors = await Model.find(
+        //   {},
+        //   clientSideTableData.orphanSponsors.join(' ')
+        // )
 
-        // for each sponsor get all sponsorships
-        for (let i = 0; i < allSponsors.length; i++) {
-          allSponsorships = await SponsorshipModel.find(
-            {
-              sponsorId: allSponsors[i].sponsorId
-            },
-            'sponsorshipId sponsorId'
-          )
+        // // for each sponsor get all sponsorships
+        // for (let i = 0; i < allSponsors.length; i++) {
+        //   allSponsorships = await SponsorshipModel.find(
+        //     {
+        //       sponsorId: allSponsors[i].sponsorId
+        //     },
+        //     'sponsorshipId sponsorId'
+        //   )
 
-          if (allSponsorships.length > 0) {
-            await Model.findOneAndUpdate(
-              { sponsorId: allSponsors[i].sponsorId },
-              { hasSponsorship: true }
-            )
-          }
-          for (let j = 0; j < allSponsorships.length; j++) {
-            allPayments = await PaymentModel.find(
-              {
-                sponsorshipId: allSponsorships[j].sponsorshipId
-              },
-              'sponsorshipId'
-            )
-            if (allPayments.length > 0) {
-              await Model.findOneAndUpdate(
-                { sponsorId: allSponsors[i].sponsorId },
-                { hasPayments: true }
-              )
-            }
-          }
-        }
+        //   if (allSponsorships.length > 0) {
+        //     await Model.findOneAndUpdate(
+        //       { sponsorId: allSponsors[i].sponsorId },
+        //       { hasSponsorship: true }
+        //     )
+        //   }
+        //   for (let j = 0; j < allSponsorships.length; j++) {
+        //     allPayments = await PaymentModel.find(
+        //       {
+        //         sponsorshipId: allSponsorships[j].sponsorshipId
+        //       },
+        //       'sponsorshipId'
+        //     )
+        //     if (allPayments.length > 0) {
+        //       await Model.findOneAndUpdate(
+        //         { sponsorId: allSponsors[i].sponsorId },
+        //         { hasPayments: true }
+        //       )
+        //     }
+        // }
+        // }
 
         return res.status(200).json({ data: noPaymentSponsors })
       } catch (err) {
@@ -104,7 +108,7 @@ router.get('/', verifyToken, async (req, res) => {
     } else {
       try {
         let result = await Model.find({}, TableData.join(' '))
-        console.log(result)
+        // console.log(result)
         return res.status(200).json({ data: result })
       } catch (err) {
         res.status(500).json({ message: 'Error in GET assistance route' })
