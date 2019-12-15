@@ -70,6 +70,7 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
             {
               sponsorId: noPaymentSponsors[i].sponsorId
             },
+            { sponsorshipStatus: 'فعال' },
             'sponsorshipId sponsorId'
           )
 
