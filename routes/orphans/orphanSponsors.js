@@ -58,7 +58,8 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
         let noPaymentSponsors = await Model.find(
           {
             // hasSponsorship: false,
-            hasPayments: false
+            hasPayments: false,
+            sponsorStatus: 'فعال'
           },
           clientSideTableData.orphanSponsors.join(' ')
         )
