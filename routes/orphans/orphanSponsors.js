@@ -47,20 +47,34 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
       res.sendStatus(403)
     } else {
       try {
-      
-        // RESET ALL 
+        // RESET ALL
         // let noPaymentSponsors = []
         // await Model.updateMany({}, {
         //   hasSponsorship: false,
         //    hasPayments: false
         //  })
-         // RESET ALL
+        // RESET ALL
 
         let noPaymentSponsors = await Model.find({
           // hasSponsorship: false,
           hasPayments: false
         })
-        
+        let obj = []
+
+        for (let i = 0; i < noPaymentSponsors.length; i++) {
+          let sponsorships = await SponsorshipModel.find(
+            {
+              sponsorId: noPaymentSponsors[i].sponsorId
+            },
+            'sponsorshipId sponsorId'
+          )
+
+          let copy = JSON.parse(JSON.stringify(noPaymentSponsors[i]))
+          copy.sponsorshipId = sponsorships.sponsorshipId
+
+          obj.push(copy)
+        }
+
         // let noPaymentSponsors = []
         // let allSponsorships
         // let allPayments
@@ -101,7 +115,7 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
         // }
         // }
 
-        return res.status(200).json({ data: noPaymentSponsors })
+        return res.status(200).json({ data: obj })
       } catch (err) {
         console.log(err)
         res.status(500).json({ message: 'Error in GET assistance route' })
