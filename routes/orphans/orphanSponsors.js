@@ -56,50 +56,50 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
         //  })
          // RESET ALL
 
-        // let noPaymentSponsors = await Model.find({
-        //   // hasSponsorship: false,
-        //   hasPayments: false
-        // })
+        let noPaymentSponsors = await Model.find({
+          // hasSponsorship: false,
+          hasPayments: false
+        })
         
-        let noPaymentSponsors = []
-        let allSponsorships
-        let allPayments
-        // // get all sponsors
-        let allSponsors = await Model.find(
-          {},
-          clientSideTableData.orphanSponsors.join(' ')
-        )
+        // let noPaymentSponsors = []
+        // let allSponsorships
+        // let allPayments
+        // // // get all sponsors
+        // let allSponsors = await Model.find(
+        //   {},
+        //   clientSideTableData.orphanSponsors.join(' ')
+        // )
 
-        // // for each sponsor get all sponsorships
-        for (let i = 0; i < allSponsors.length; i++) {
-          allSponsorships = await SponsorshipModel.find(
-            {
-              sponsorId: allSponsors[i].sponsorId
-            },
-            'sponsorshipId sponsorId'
-          )
+        // // // for each sponsor get all sponsorships
+        // for (let i = 0; i < allSponsors.length; i++) {
+        //   allSponsorships = await SponsorshipModel.find(
+        //     {
+        //       sponsorId: allSponsors[i].sponsorId
+        //     },
+        //     'sponsorshipId sponsorId'
+        //   )
 
-          // if (allSponsorships.length > 0) {
-          //   await Model.findOneAndUpdate(
-          //     { sponsorId: allSponsors[i].sponsorId },
-          //     { hasSponsorship: true }
-          //   )
-          // }
-          for (let j = 0; j < allSponsorships.length; j++) {
-            allPayments = await PaymentModel.find(
-              {
-                sponsorshipId: allSponsorships[j].sponsorshipId
-              },
-              'sponsorshipId'
-            )
-            if (allPayments.length > 0) {
-              await Model.findOneAndUpdate(
-                { sponsorId: allSponsors[i].sponsorId },
-                { hasPayments: true }
-              )
-            }
-        }
-        }
+        //   // if (allSponsorships.length > 0) {
+        //   //   await Model.findOneAndUpdate(
+        //   //     { sponsorId: allSponsors[i].sponsorId },
+        //   //     { hasSponsorship: true }
+        //   //   )
+        //   // }
+        //   for (let j = 0; j < allSponsorships.length; j++) {
+        //     allPayments = await PaymentModel.find(
+        //       {
+        //         sponsorshipId: allSponsorships[j].sponsorshipId
+        //       },
+        //       'sponsorshipId'
+        //     )
+        //     if (allPayments.length > 0) {
+        //       await Model.findOneAndUpdate(
+        //         { sponsorId: allSponsors[i].sponsorId },
+        //         { hasPayments: true }
+        //       )
+        //     }
+        // }
+        // }
 
         return res.status(200).json({ data: noPaymentSponsors })
       } catch (err) {
