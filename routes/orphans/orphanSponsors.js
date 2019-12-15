@@ -68,8 +68,8 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
         for (let i = 0; i < noPaymentSponsors.length; i++) {
           let sponsorships = await SponsorshipModel.find(
             {
-              sponsorId: noPaymentSponsors[i].sponsorId,
-              sponsorshipStatus: 'فعال'
+              sponsorId: noPaymentSponsors[i].sponsorId
+              // sponsorshipStatus: 'فعال'
             },
             'sponsorshipId sponsorId'
           )
