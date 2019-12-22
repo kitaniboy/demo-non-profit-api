@@ -82,6 +82,7 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
           }
         }
 
+
         // let noPaymentSponsors = []
         // let allSponsorships
         // let allPayments
