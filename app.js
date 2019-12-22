@@ -33,6 +33,7 @@ const lowIncomeSponsorshipsRouter = require('./routes/lowIncome/lowIncomeSponsor
 const insolventFamiliesRouter = require('./routes/lowIncome/insolventFamilies')
 const sponsorshipRouter = require('./routes/sponsorship')
 const productiveFamiliesRouter = require('./routes/productiveFamilies/productiveFamilies')
+const statisticsRouter = require('./routes/statistics/statistics.js')
 
 // initiate Express app
 const app = express()
@@ -115,5 +116,6 @@ app.use('/insolventFamilies', insolventFamiliesRouter)
 app.use('/login', loginRouter)
 app.use('/sponsorship', sponsorshipRouter)
 app.use('/productiveFamilies', productiveFamiliesRouter)
+app.use('/statistics', statisticsRouter)
 
 module.exports = app

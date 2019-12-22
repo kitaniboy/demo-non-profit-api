@@ -16,7 +16,8 @@ const FamilyMembersSchema = new Schema({
   familyMemberLoan: { type: String, default: '' },
   monthlyInstallment: { type: String, default: '' },
   loanReason: { type: String, default: '' },
-  health: { type: String, default: '' }
+  health: { type: String, default: '' },
+  retirementSalary: { type: String, default: '' }
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model('FamilyMembers', FamilyMembersSchema);
