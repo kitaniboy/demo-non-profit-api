@@ -9,6 +9,7 @@ const incomeSchema = new Schema({
   darAlataaSalary: { type: String, default: '0' },
   nafaqaSalary: { type: String, default: '0' },
   bahwanSalary: { type: String, default: '0' },
+  omanCharityOrgSalary: { type: String, default: '0' },
   otherSalary: { type: String, default: '0' }
 },{ _id : false });
 
