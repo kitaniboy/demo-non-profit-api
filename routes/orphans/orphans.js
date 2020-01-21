@@ -12,6 +12,7 @@ let TableData = [
   'sponsorId',
   'orphanName',
   'sponsorAmount',
+  'orphanDateOfBirth',
   'sponsorshipStatus',
   '_id'
 ]
