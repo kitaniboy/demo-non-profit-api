@@ -82,7 +82,6 @@ router.get('/noPaymentSponsors', verifyToken, async (req, res) => {
           }
         }
 
-
         // let noPaymentSponsors = []
         // let allSponsorships
         // let allPayments
@@ -140,7 +139,7 @@ router.get('/', verifyToken, async (req, res) => {
     } else {
       try {
         let result = await Model.find({}, TableData.join(' '))
-        console.log(result)
+        // console.log(result)
         return res.status(200).json({ data: result })
       } catch (err) {
         res.status(500).json({ message: 'Error in GET assistance route' })
