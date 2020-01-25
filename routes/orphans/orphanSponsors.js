@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const SponsorshipModel = require('../../models/orphans/orphanSponsorships')
-const PaymentModel = require('../../models/orphans/orphanPayments')
+// const PaymentModel = require('../../models/orphans/orphanPayments')
 const Model = require('../../models/orphans/orphanSponsors')
 const newDocument = require('../../utils/createNewDoc')
 const verifyToken = require('../../middleware/verifyToken')
@@ -20,7 +20,8 @@ let TableData = [
   'sponsorBankAccountNum',
   'sponsorBank',
   'hasSponsorship',
-  'hasPayments'
+  'hasPayments',
+  'hasPaidThisMonth'
 ]
 
 /* GET route */

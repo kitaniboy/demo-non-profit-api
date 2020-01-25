@@ -22,7 +22,8 @@ const OrphanSponsorsSchema = new Schema(
     sponsorBank: { type: String, default: '' },
     notes: { type: String, default: '' },
     hasSponsorship: { type: Boolean, default: false },
-    hasPayments: { type: Boolean, default: false }
+    hasPayments: { type: Boolean, default: false },
+    hasPaidThisMonth: { type: Boolean, default: false }
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 )

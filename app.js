@@ -35,6 +35,8 @@ const sponsorshipRouter = require('./routes/sponsorship')
 const productiveFamiliesRouter = require('./routes/productiveFamilies/productiveFamilies')
 const statisticsRouter = require('./routes/statistics/statistics.js')
 
+const cronJob = require('./cron job/task.js')
+
 // initiate Express app
 const app = express()
 
@@ -117,5 +119,7 @@ app.use('/login', loginRouter)
 app.use('/sponsorship', sponsorshipRouter)
 app.use('/productiveFamilies', productiveFamiliesRouter)
 app.use('/statistics', statisticsRouter)
+
+cronJob.start()
 
 module.exports = app
