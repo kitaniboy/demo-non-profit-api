@@ -4,12 +4,14 @@
   "description": "The main API for Al rahma admin dashboard",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
+    "start-dev": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "build": "node ./cluster.js",
     "seed": "node ./seed/seed.js",
     "lint": "eslint ./",
-    "test-bench": "node ./tests/benchmark.test.js"
+    "test-bench": "node ./tests/benchmark.test.js",
+    "instance": "heroku ps:scale web=1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -23,7 +25,8 @@
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.1",
     "morgan": "~1.9.0",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "pm2": "^4.2.3"
   },
   "author": "Maher Alkendi",
   "license": "ISC",
