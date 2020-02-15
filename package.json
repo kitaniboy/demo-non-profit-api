@@ -1,0 +1,37 @@
+{
+  "name": "alrahma-api",
+  "version": "0.1.4",
+  "description": "The main API for Al rahma admin dashboard",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "build": "node ./cluster.js",
+    "seed": "node ./seed/seed.js",
+    "lint": "eslint ./",
+    "test-bench": "node ./tests/benchmark.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.1",
+    "morgan": "~1.9.0",
+    "node-cron": "^2.0.3"
+  },
+  "author": "Maher Alkendi",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "eslint": "^5.11.1",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.18.2",
+    "siege": "^0.2.0"
+  }
+}
