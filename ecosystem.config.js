@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'app',
-      script: './bin/www',
+      script: './cluster.js',
       env: {
         NODE_ENV: 'development'
       },
