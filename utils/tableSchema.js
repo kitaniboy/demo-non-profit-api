@@ -45,7 +45,8 @@ module.exports = {
     'familyAddress.state',
     'familyAddress.town',
     'isArchived',
-    'reasonForArchiving'
+    'reasonForArchiving',
+    'typeOfAssistanceNeeded'
     // 'numberOfChildrenInElementary',
     // 'numberOfChildrenInSecondary',
     // 'numberOfChildrenInHighSchool',
