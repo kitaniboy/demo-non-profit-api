@@ -61,6 +61,7 @@ const patchOne = async (req, res, Model, patchOneObject) => {
       res.sendStatus(403)
     } else {
       try {
+        console.log(patchOneObject)
         await Model.findByIdAndUpdate(patchOneObject, { $set: req.body })
         return res.status(200).json({ message: 'existing document updated!' })
       } catch (err2) {
