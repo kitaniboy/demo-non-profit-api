@@ -163,8 +163,8 @@ module.exports = {
     'loan',
     'formId',
     'typeOfAssistanceNeeded',
-    'lowIncomeFamilyId',
-    'notes',
+    // 'lowIncomeFamilyId',
+    // 'notes',
     // main not family
     'insolventFamilies.insolventFamilyId',
     'insolventFamilies.insolventFamilyNotes',
