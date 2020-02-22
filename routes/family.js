@@ -6,6 +6,7 @@ const router = express.Router()
 const Family = require('../models/Archives/family/family')
 const VisitReports = require('../models/Archives/homeVisits/visitReports')
 const FamilyMembers = require('../models/Archives/familyMembers')
+const InsolventFamiliesModel = require('../models/lowIncome/insolventFamilies')
 const createNewDocument = require('../utils/createNewDoc')
 const verifyToken = require('../middleware/verifyToken')
 const clientSideTableData = require('../utils/tableSchema')
@@ -113,7 +114,7 @@ router.get('/orphanWaitList', verifyToken, async (req, res) => {
 
 //! do I need this route???
 /* GET all per table columns on frontend */
-router.get('/lowIncomeWaitList', verifyToken, async (req, res) => {
+router.get('/insolventFamilies', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
     if (err) {
       /* client side should view all 403 as an auth error and deliver
@@ -123,11 +124,11 @@ router.get('/lowIncomeWaitList', verifyToken, async (req, res) => {
       try {
         let result = await Family.find(
           {
-            isWaitList: true,
+            // isWaitList: true,
             isArchived: false,
             typeOfAssistanceNeeded: 'اسرة معسرة'
           },
-          clientSideTableData.family.join(' ')
+          clientSideTableData.insolventFamilies.join(' ')
         )
         return res.status(200).json({ data: result })
       } catch (err) {
@@ -454,6 +455,7 @@ router.post('/', verifyToken, async (req, res) => {
         await visitReports.save()
         return res.status(201).json({ message: 'New Visit document created!' })
       } catch (err) {
+        console.log(err)
         if (err.name === 'MongoError' && err.code === 11000) {
           res.status(422).json({ message: err })
         }

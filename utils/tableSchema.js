@@ -46,7 +46,10 @@ module.exports = {
     'familyAddress.town',
     'isArchived',
     'reasonForArchiving',
-    'typeOfAssistanceNeeded'
+    'typeOfAssistanceNeeded',
+    'insolventFamilies.insolventFamilyId',
+    'insolventFamilies.insolventFamilyNotes',
+    'insolventFamilies.isActive'
     // 'numberOfChildrenInElementary',
     // 'numberOfChildrenInSecondary',
     // 'numberOfChildrenInHighSchool',
@@ -145,6 +148,7 @@ module.exports = {
     '-_id'
   ],
   insolventFamilies: [
+    '_id',
     'husband.husbandName',
     'husband.husbandPhone',
     'wife.wifeName',
@@ -157,13 +161,13 @@ module.exports = {
     'numberOfChildrenInHighSchool',
     'income',
     'loan',
-    // main not family
-    'lowIncomeFamilyId',
     'formId',
-    'sponsorshipEndDate',
-    'shoppingCenterName',
-    'notes',
-    'isActive'
+    'typeOfAssistanceNeeded',
+    // main not family
+    'insolventFamilies.insolventFamilyId',
+    'insolventFamilies.insolventFamilyNotes',
+    'insolventFamilies.isActive'
+    // 'typeOfAssistanceNeeded'
   ],
   possibleProductiveFamilies: [
     'formId',

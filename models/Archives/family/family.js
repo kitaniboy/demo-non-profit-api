@@ -15,6 +15,7 @@ const relativeSchema = require('./relative')
 const wifeSchema = require('./wife')
 const ramadanSchema = require('./ramadan')
 const eidAlAdhaSchema = require('./eidAlAdha')
+const insolventFamiliesSchema = require('./insolventFamilies')
 
 const familySchema = new Schema(
   {
@@ -33,6 +34,7 @@ const familySchema = new Schema(
     wife: [wifeSchema],
     ramadan: [ramadanSchema],
     eidAlAdha: [eidAlAdhaSchema],
+    insolventFamilies: [insolventFamiliesSchema],
     visitReports: { type: String, default: '' },
     numberOfFamilyMembers: { type: String, default: '0' },
     formId: { type: String, default: '0', unique: true }, //, unique: true

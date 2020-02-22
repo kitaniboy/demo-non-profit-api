@@ -41,7 +41,10 @@ const cronJob = require('./cron job/task.js')
 const app = express()
 
 // Connect to mongodb
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 mongoose.set('useCreateIndex', true) // fixed error with internal mongoDB depreciated module
 
 // check db connection
