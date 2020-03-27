@@ -149,6 +149,7 @@ module.exports = {
   ],
   insolventFamilies: [
     '_id',
+    'claimMadeBy',
     'husband.husbandName',
     'husband.husbandPhone',
     'wife.wifeName',

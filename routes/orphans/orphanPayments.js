@@ -1,9 +1,11 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
+const newMongooseDocument = require('createmongoosedocument')
 
 const Model = require('../../models/orphans/orphanPayments')
-const newDocument = require('../../utils/createNewDoc')
+// const newDocument = require('../../utils/createNewDoc')
+const currentLocalDate = require('../../utils/convertToLocalDate')
 const verifyToken = require('../../middleware/verifyToken')
 const SponsorModel = require('../../models/orphans/orphanSponsors')
 const SponsorshipModel = require('../../models/orphans/orphanSponsorships')
@@ -64,21 +66,48 @@ router.post('/', verifyToken, async (req, res) => {
     if (err) {
       res.sendStatus(403)
     } else {
-      let model = new Model(newDocument(Model.schema.obj, req.body))
+      // let model = new Model(newDocument(Model.schema.obj, req.body))
+      // let model = new Model(newDocument(Model.schema.obj, req.body))
+
       try {
-        await model.save()
-        let sponsorshipDocument = await SponsorshipModel.findOneAndUpdate({
+        // save payment data
+        // await model.save()
+        let model = await newMongooseDocument(Model, req.body).save()
+
+        // find sponsorship related to payment
+        let sponsorshipDocument = await SponsorshipModel.findOne({
           sponsorshipId: model.sponsorshipId
         })
-        await SponsorModel.findOneAndUpdate(
+
+        // Get local current month
+        let currentMonth = await currentLocalDate().getMonth()
+
+        // Get month of payment
+        let monthOfPayment = new Date(model.dateOfPayment).getMonth()
+
+        let updateObject
+        // compare two months
+        if (currentMonth === monthOfPayment) {
+          updateObject = { hasPayments: true, hasPaidThisMonth: true }
+        } else if (currentMonth > monthOfPayment) {
+          updateObject = { hasPayments: true }
+        } else if (currentMonth < monthOfPayment) {
+          return res
+            .status(500)
+            .json({ message: 'month of payment is in hte future' })
+        }
+
+        // find sponsor related to sponsorship
+        let sponsor = await SponsorModel.findOneAndUpdate(
           {
             sponsorId: sponsorshipDocument.sponsorId
           },
-          { hasPayments: true }
+          updateObject
         )
-        // console.log(sponsor)
-        return res.status(201).json({ message: 'new data created!' })
+
+        return res.status(201).json({ message: 'new data created!', sponsor })
       } catch (err) {
+        // console.log(err)
         res.status(500).json({ message: 'Error in POST orphanSponsor route' })
       }
     }
