@@ -42,8 +42,8 @@ const app = express()
 
 // Connect to mongodb
 mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+  useNewUrlParser: true
+  // useUnifiedTopology: true
 })
 mongoose.set('useCreateIndex', true) // fixed error with internal mongoDB depreciated module
 
