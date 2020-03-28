@@ -7,7 +7,8 @@ module.exports = {
     'purposeOfVisit',
     'caseMovedTo',
     '_id',
-    'caseClosed'
+    'caseClosed',
+    'newCase'
   ],
   assistance: [
     'cost',
