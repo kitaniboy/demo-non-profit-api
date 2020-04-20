@@ -73,7 +73,8 @@ var whitelist = [
   'http://gifted-payne-0ac760.netlify.com',
   'https://heuristic-stallman-09135b.netlify.com',
   'https://heuristic-stallman-09135b.netlify.com/',
-  'http://heuristic-stallman-09135b.netlify.com/'
+  'http://heuristic-stallman-09135b.netlify.com/',
+  'https://heuristic-stallman-09135b.netlify.app/'
 ]
 var corsOptions = {
   origin: function(origin, callback) {
