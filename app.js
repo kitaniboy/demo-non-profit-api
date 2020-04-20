@@ -74,6 +74,7 @@ var whitelist = [
   'https://heuristic-stallman-09135b.netlify.com',
   'https://heuristic-stallman-09135b.netlify.com/',
   'http://heuristic-stallman-09135b.netlify.com/',
+  'https://heuristic-stallman-09135b.netlify.app',
   'https://heuristic-stallman-09135b.netlify.app/'
 ]
 var corsOptions = {
