@@ -71,11 +71,13 @@ var whitelist = [
   'https://alrahma4mc.com/log/morfiqat/test.pdf',
   'https://gifted-payne-0ac760.netlify.com',
   'http://gifted-payne-0ac760.netlify.com',
+  'https://gifted-payne-0ac760.netlify.app',
   'https://heuristic-stallman-09135b.netlify.com',
   'https://heuristic-stallman-09135b.netlify.com/',
   'http://heuristic-stallman-09135b.netlify.com/',
   'https://heuristic-stallman-09135b.netlify.app',
-  'https://heuristic-stallman-09135b.netlify.app/'
+  'https://heuristic-stallman-09135b.netlify.app/',
+  'http://localhost:5000/status'
 ]
 var corsOptions = {
   origin: function(origin, callback) {
