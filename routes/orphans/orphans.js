@@ -48,6 +48,16 @@ router.get('/getOne/:id', verifyToken, async (req, res) => {
   // });
 })
 
+// for public sponsor page
+router.get('/sponsorId/:sponsorId', async (req, res) => {
+  try {
+    let result = await Model.find({ sponsorId: req.params.sponsorId })
+    return res.status(200).json({ data: result })
+  } catch (err) {
+    res.status(500).json({ message: 'Error in GET LowIncomePayments route' })
+  }
+})
+
 /* GET route */
 router.get('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
