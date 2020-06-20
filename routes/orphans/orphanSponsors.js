@@ -124,6 +124,16 @@ router.get('/:sponsorId', verifyToken, async (req, res) => {
   //  });
 })
 
+// get a sponsor by their civil ID: this is for public page
+router.get('/sponsorPhone/:sponsorPhone', async (req, res) => {
+  try {
+    let result = await Model.find({ sponsorPhone: req.params['sponsorPhone'] })
+    return res.status(200).json({ data: result })
+  } catch (err) {
+    res.status(500).json({ message: 'Error in GET orphanSponsor route' })
+  }
+})
+
 /* POST route */
 router.post('/', verifyToken, async (req, res) => {
   await jwt.verify(req.token, 'alrahmasecrestkey', async (err, authData) => {
