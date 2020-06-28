@@ -20,6 +20,7 @@ const FamilyMembersSchema = new Schema(
     health: { type: String, default: '' },
     retirementSalary: { type: String, default: '' },
     age: { type: String, default: '' },
+    familyMemberCivilId: { type: String, default: '' },
     isProductiveFamilyMember: { type: Boolean, default: false }
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
