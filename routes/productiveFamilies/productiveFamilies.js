@@ -3,9 +3,11 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const Model1 = require('../../models/Archives/family/family')
+const familyMemberModel = require('../../models/Archives/familyMembers')
 const Model2 = require('../../models/productiveFamilies/productiveFamilies')
 const clientSideTableData = require('../../utils/tableSchema')
 const createNewDocument = require('../../utils/createNewDoc')
+const { Model } = require('mongoose')
 
 router.get('/:id', async (req, res) => {
   try {
@@ -28,24 +30,10 @@ router.get('/:id', async (req, res) => {
 // GET ALL
 router.get('/', async (req, res) => {
   try {
-    let families = await Model1.find(
-      { isArchived: false },
-      clientSideTableData.possibleProductiveFamilies.join(' ')
-    )
-    let y = []
-    for (let i = 0; i < families.length; i++) {
-      let x = await Model2.find(
-        { formId: families[i].formId },
-        clientSideTableData.productiveFamilies.join(' ')
-      )
-      if (x.length != 0) {
-        let z = Object.assign({}, x[0].toObject(), families[i].toObject())
-        y.push(z)
-      } else {
-        y.push(families[i])
-      }
-    }
-    return res.status(200).json({ data: y })
+    let familyMembers = await familyMemberModel.find({
+      isProductiveFamilyMember: true
+    })
+    return res.status(200).json({ data: familyMembers })
   } catch (err) {
     console.log(err)
   }
