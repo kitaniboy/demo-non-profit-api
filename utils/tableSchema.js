@@ -188,17 +188,24 @@ module.exports = {
     '-_id'
   ],
   productiveFamilies: [
-    '_id',
-    'formId',
-    'nameOfRecipient',
-    'relationship',
-    'ageOfRecipient',
-    'RecipientNationalId',
-    'RecipientEducationLevel',
-    'fieldOfWork',
-    'formOfContact',
-    'dateOfContact',
-    'reasonForNotRegistering'
+    'mainPhoneNumber',
+    'product',
+    'service',
+    'jobHunting',
+    'employedByAlRahma',
+    'employedBySelfEffort',
+    'productiveFamilyMemberId',
+    'familyId',
+    'familyMemberId',
+    'familyMemberData'
+  ],
+  productiveFamilyMembers: [
+    'familyId',
+    'dateOfBirth',
+    'familyMemberCivilId',
+    'familyMemberId',
+    'familyMemberName',
+    '-_id'
   ],
   orphanSponsors: [
     'sponsorName',
