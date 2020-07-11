@@ -22,6 +22,9 @@ const FamilyMembersSchema = new Schema(
     age: { type: String, default: '' },
     familyMemberCivilId: { type: String, default: '' },
     isProductiveFamilyMember: { type: Boolean, default: false }
+    // productiveFamilyMemberData: [
+    //   { type: Schema.Types.ObjectId, ref: 'ProductiveFamily' }
+    // ]
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 )
