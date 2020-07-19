@@ -33,6 +33,7 @@ const lowIncomeSponsorshipsRouter = require('./routes/lowIncome/lowIncomeSponsor
 const insolventFamiliesRouter = require('./routes/lowIncome/insolventFamilies')
 const sponsorshipRouter = require('./routes/sponsorship')
 const productiveFamiliesRouter = require('./routes/productiveFamilies/productiveFamilies')
+const notificationsRouter = require('./routes/productiveFamilies/notifications')
 const statisticsRouter = require('./routes/statistics/statistics.js')
 
 const cronJob = require('./cron job/task.js')
@@ -125,6 +126,7 @@ app.use('/insolventFamilies', insolventFamiliesRouter)
 app.use('/login', loginRouter)
 app.use('/sponsorship', sponsorshipRouter)
 app.use('/productiveFamilies', productiveFamiliesRouter)
+app.use('/notifications', notificationsRouter)
 app.use('/statistics', statisticsRouter)
 
 cronJob.start()

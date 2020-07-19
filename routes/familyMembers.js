@@ -4,7 +4,9 @@ const router = express.Router()
 
 const Model = require('../models/Archives/familyMembers')
 const ProductiveFamilyModel = require('../models/productiveFamilies/productiveFamilies')
+const NotificationsModel = require('../models/productiveFamilies/notifications')
 const newDocument = require('../utils/createNewDoc')
+const createNewDocument = require('../utils/createNewDoc')
 const verifyToken = require('../middleware/verifyToken')
 
 let TableData = [
@@ -86,8 +88,18 @@ router.post('/', verifyToken, async (req, res) => {
               familyMemberData: model._id // assign the _id from the person
             })
 
-            productiveFamily.save(function(err) {
+            productiveFamily.save(async function(err) {
               if (err) return err
+              // if no errors save logs of posting new information
+              let notification = new NotificationsModel({
+                message: 'ادخال فرد جديد',
+                familyMemberId: req.body.familyMemberId,
+                familyId: req.body.familyId,
+                isClosed: 'لا',
+                dateTime: new Date(),
+                enteredBy: req.body.enteredBy
+              })
+              await notification.save()
             })
           }
         })
@@ -106,21 +118,21 @@ router.patch('/:id', verifyToken, async (req, res) => {
       res.sendStatus(403)
     } else {
       try {
-        await Model.findByIdAndUpdate(
+        let oldMemberData = await Model.findByIdAndUpdate(
           { _id: req.params.id },
           { $set: req.body }
         )
 
         // we fetch the new updated data
         // the data above wont return the updated document but the old one instead
-        let member = await Model.findOne({ _id: req.params.id })
+        let newMemberData = await Model.findOne({ _id: req.params.id })
 
-        if (member.isProductiveFamilyMember) {
+        if (newMemberData.isProductiveFamilyMember) {
           await ProductiveFamilyModel.countDocuments(
             {
               familyMemberData: [
                 {
-                  _id: member._id
+                  _id: newMemberData._id
                   // , familyId: member.familyId
                 }
               ]
@@ -129,17 +141,55 @@ router.patch('/:id', verifyToken, async (req, res) => {
               if (err) console.log(err)
 
               if (count === 0) {
+                // if we don't have productive fam data
                 const productiveFamily = await new ProductiveFamilyModel({
-                  familyId: member.familyId,
-                  familyMemberData: member._id // assign the _id from the person
+                  familyId: newMemberData.familyId,
+                  familyMemberData: newMemberData._id // assign the _id from the person
                 })
 
-                await productiveFamily.save(function(err) {
+                await productiveFamily.save(async function(err) {
                   if (err) console.log(err)
+                  // console.log('old', oldMemberData.isProductiveFamilyMember)
+                  // console.log('new', newMemberData.isProductiveFamilyMember)
+                  // if no errors save logs of posting new information
+                  let notification = new NotificationsModel({
+                    message: 'ادخال فرد جديد',
+                    familyMemberId: req.body.familyMemberId,
+                    familyId: req.body.familyId,
+                    isClosed: 'لا',
+                    dateTime: new Date(),
+                    enteredBy: req.body.enteredBy
+                  })
+                  await notification.save()
                 })
+              } else {
+                let notification = new NotificationsModel({
+                  message: 'ادخال فرد سابق الى القائمة',
+                  familyMemberId: req.body.familyMemberId,
+                  familyId: req.body.familyId,
+                  isClosed: 'لا',
+                  dateTime: new Date(),
+                  enteredBy: req.body.enteredBy
+                })
+                await notification.save()
               }
             }
           )
+        } else {
+          if (
+            oldMemberData.isProductiveFamilyMember === true &&
+            newMemberData.isProductiveFamilyMember === false
+          ) {
+            let notification = new NotificationsModel({
+              message: 'اخراج فرد من القائمة',
+              familyMemberId: req.body.familyMemberId,
+              familyId: req.body.familyId,
+              isClosed: 'لا',
+              dateTime: new Date(),
+              enteredBy: req.body.enteredBy
+            })
+            await notification.save()
+          }
         }
 
         return res.status(200).json({ message: 'existing data updated!' })
