@@ -77,13 +77,12 @@ router.get('/', verifyToken, async (req, res) => {
               }
             }
           },
-          // {
-          //   $project: {
-          //     sponsorInfo: 0
-          //   }
-          // }
+          {
+            $project: {
+              sponsorInfo: 0
+            }
+          }
         ])
-        console.info(result[0])
         return res.status(200).json({ data: result })
       } catch (err) {
         console.error(err);
