@@ -43,6 +43,7 @@ router.get('/getBy/:sponsorId', verifyToken, async (req, res) => {
     } else {
       try {
         let result1 = await Model.find({ sponsorId: req.params['sponsorId'] })
+        const sponsor = await SponsorModel.findOne({sponsorId: req.params['sponsorId']})
         let y = []
         for (let i = 0; i < result1.length; i++) {
           let x = await OrphanModel.find(
@@ -50,10 +51,11 @@ router.get('/getBy/:sponsorId', verifyToken, async (req, res) => {
             'orphanName'
           )
           if (x.length != 0) {
-            let z = Object.assign({}, x[0].toObject(), result1[i].toObject())
+            const z = Object.assign({}, x[0].toObject(), result1[i].toObject(), {sponsorName: sponsor.sponsorName})
             y.push(z)
           } else {
-            y.push(result1[i])
+            const z = Object.assign({}, result1[i].toObject(), {sponsorName: sponsor.sponsorName})
+            y.push(z)
           }
         }
         return res.status(200).json({ data: y })

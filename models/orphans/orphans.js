@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const OrphansSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
-  orphanId: { type: String, default: '' },
+  orphanId: { type: String, default: '', index: true },
   orphanFamilyId: { type: String, default: '' },
-  sponsorId: { type: String, default: '' },
+  sponsorId: { type: String, default: '', index: true },
   orphanName: { type: String, default: '' },
   orphanSex: { type: String, default: '' },
   orphanNationality: { type: String, default: '' },
