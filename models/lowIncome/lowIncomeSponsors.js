@@ -6,6 +6,8 @@ const LowIncomeSponsorsSchema = new Schema({
   sponsorId: { type: String, default: '' },
   sponsorName: { type: String, default: '' },
   sponsorPhone: { type: String, default: '' },
+  sponsorBankAccountNum: { type: String, default: '' },
+  sponsorBank: { type: String, default: '' },
   paymentMethod: { type: String, default: '' },
   paymentAmount: { type: String, default: '' },
   dateOfPayment: { type: String, default: '' },

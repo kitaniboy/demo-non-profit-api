@@ -9,6 +9,8 @@ const verifyToken = require('../../middleware/verifyToken');
 let TableData = [
   'sponsorId',
   'sponsorName',
+  'sponsorBankAccountNum',
+  'sponsorBank',
   'paymentMethod',
   'paymentAmount',
   'dateOfPayment',

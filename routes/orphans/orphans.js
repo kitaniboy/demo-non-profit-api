@@ -55,10 +55,38 @@ router.get('/', verifyToken, async (req, res) => {
       res.sendStatus(403)
     } else {
       try {
-        let result = await Model.find({}, TableData.join(' '))
+        const result = await Model.aggregate([
+          {
+            $lookup: {
+              from: 'orphansponsors',
+              localField: 'sponsorId',
+              foreignField: 'sponsorId',
+              as: 'sponsorInfo'
+            }
+          },
+          {
+            $unwind: {
+              path: '$sponsorInfo',
+              preserveNullAndEmptyArrays: true
+            }
+          },
+          {
+            $replaceRoot: {
+              newRoot: {
+                $mergeObjects: ['$sponsorInfo', '$$ROOT']
+              }
+            }
+          },
+          // {
+          //   $project: {
+          //     sponsorInfo: 0
+          //   }
+          // }
+        ])
+        console.info(result[0])
         return res.status(200).json({ data: result })
       } catch (err) {
-        // console.log(err);
+        console.error(err);
         res.status(500).json({ message: 'Error in GET orphan route' })
       }
     }

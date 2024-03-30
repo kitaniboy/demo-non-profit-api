@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const OrphanSponsorsSchema = new Schema(
   {
     id: { type: Schema.Types.ObjectId },
-    sponsorId: { type: String, default: '' },
+    sponsorId: { type: String, default: '', index: true },
     sponsorName: { type: String, default: '' },
     sponsorNationality: { type: String, default: '' },
     sponsorEmail: { type: String, default: '' },
