@@ -65,6 +65,7 @@ app.use(helmet())
 // app.use(fileUpload())
 
 var whitelist = [
+  '46.101.100.21',
   'http://104.248.25.52',
   'http://localhost:3000',
   'https://dashboard.alrahma-baraka.com',
@@ -78,7 +79,8 @@ var whitelist = [
   'http://heuristic-stallman-09135b.netlify.com/',
   'https://heuristic-stallman-09135b.netlify.app',
   'https://heuristic-stallman-09135b.netlify.app/',
-  'http://localhost:5000/status'
+  'http://localhost:5000/status',
+'https://desolate-waters-95703.herokuapp.com'
 ]
 var corsOptions = {
   origin: function(origin, callback) {
@@ -92,7 +94,7 @@ var corsOptions = {
 }
 
 // initialize cors
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -102,32 +104,32 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // all routes
-app.use('/users', usersRouter) // not active
-app.use('/receptions', receptionsRouter)
-app.use('/visitReports', visitReportsRouter)
-app.use('/family', familyRouter)
-app.use('/interiorFamily', interiorFamilyRouter)
-app.use('/familyMembers', familyMembersRouter)
-app.use('/assistance', assistanceRouter)
-app.use('/donation', donationRouter)
-app.use('/financialAssistance', financialAssistanceRouter)
-app.use('/foodStuffAssistance', foodStuffAssistanceRouter)
-app.use('/borrow', borrowRouter)
-app.use('/orphanSponsors', orphanSponsorsRouter)
-app.use('/orphanFamily', orphanFamilyRouter)
-app.use('/orphans', orphansRouter)
-app.use('/orphanSponsorships', orphanSponsorshipsRouter)
-app.use('/orphanPayments', orphanPaymentsRouter)
-app.use('/lowIncomeFamilies', lowIncomeFamiliesRouter)
-app.use('/lowIncomeSponsors', lowIncomeSponsorsRouter)
-app.use('/lowIncomePayments', lowIncomePaymentsRouter)
-app.use('/lowIncomeSponsorships', lowIncomeSponsorshipsRouter)
-app.use('/insolventFamilies', insolventFamiliesRouter)
-app.use('/login', loginRouter)
-app.use('/sponsorship', sponsorshipRouter)
-app.use('/productiveFamilies', productiveFamiliesRouter)
-app.use('/notifications', notificationsRouter)
-app.use('/statistics', statisticsRouter)
+app.use('/api/users', usersRouter) // not active
+app.use('/api/receptions', receptionsRouter)
+app.use('/api/visitReports', visitReportsRouter)
+app.use('/api/family', familyRouter)
+app.use('/api/interiorFamily', interiorFamilyRouter)
+app.use('/api/familyMembers', familyMembersRouter)
+app.use('/api/assistance', assistanceRouter)
+app.use('/api/donation', donationRouter)
+app.use('/api/financialAssistance', financialAssistanceRouter)
+app.use('/api/foodStuffAssistance', foodStuffAssistanceRouter)
+app.use('/api/borrow', borrowRouter)
+app.use('/api/orphanSponsors', orphanSponsorsRouter)
+app.use('/api/orphanFamily', orphanFamilyRouter)
+app.use('/api/orphans', orphansRouter)
+app.use('/api/orphanSponsorships', orphanSponsorshipsRouter)
+app.use('/api/orphanPayments', orphanPaymentsRouter)
+app.use('/api/lowIncomeFamilies', lowIncomeFamiliesRouter)
+app.use('/api/lowIncomeSponsors', lowIncomeSponsorsRouter)
+app.use('/api/lowIncomePayments', lowIncomePaymentsRouter)
+app.use('/api/lowIncomeSponsorships', lowIncomeSponsorshipsRouter)
+app.use('/api/insolventFamilies', insolventFamiliesRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/sponsorship', sponsorshipRouter)
+app.use('/api/productiveFamilies', productiveFamiliesRouter)
+app.use('/api/notifications', notificationsRouter)
+app.use('/api/statistics', statisticsRouter)
 
 cronJob.start()
 
