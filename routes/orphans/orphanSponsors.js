@@ -21,7 +21,8 @@ let TableData = [
   'sponsorBank',
   'hasSponsorship',
   'hasPayments',
-  'hasPaidThisMonth'
+  'hasPaidThisMonth',
+  'sponsorNationalId'
 ]
 
 /* GET route */

@@ -5,6 +5,7 @@ const OrphansSchema = new Schema({
   id: { type: Schema.Types.ObjectId },
   orphanId: { type: String, default: '', index: true },
   orphanFamilyId: { type: String, default: '' },
+  orphanNationalId: { type: String, default: '' },
   sponsorId: { type: String, default: '', index: true },
   orphanName: { type: String, default: '' },
   orphanSex: { type: String, default: '' },

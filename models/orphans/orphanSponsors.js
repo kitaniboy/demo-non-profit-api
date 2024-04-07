@@ -9,6 +9,7 @@ const OrphanSponsorsSchema = new Schema(
     sponsorNationality: { type: String, default: '' },
     sponsorEmail: { type: String, default: '' },
     sponsorPhone: { type: String, default: '' },
+    sponsorNationalId: { type: String, default: '' },
     numberOfSponsored: { type: String, default: '' },
     sponsorAmount: { type: String, default: '' },
     paymentMethod: { type: String, default: '' },
