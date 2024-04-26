@@ -1,6 +1,10 @@
+const jwt = require('jsonwebtoken');
+const Model = require('../models/users');
+const mongoose = require('mongoose');
+
 // middleware
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   // Get Auth Header value
   const bearerHeader = req.headers['authorization'];
 
@@ -12,11 +16,24 @@ const verifyToken = (req, res, next) => {
     const bearerToken = bearer[1];
     // Set the token
     req.token = bearerToken;
-    // next middleware
-    next();
+
+    const decodedToken = jwt.decode(bearerToken);
+    const userId = new mongoose.Types.ObjectId(decodedToken?.user[0]?._id);
+    const currentUser = await Model.findOne({"_id": userId});
+
+    console.log('userId:', userId)
+    console.log('currentUser:', currentUser)
+    console.log('req.method:', req.method)
+
+    if (currentUser.readOnly && req.method !== 'GET') {
+      res.status(400).json({message: 'Bad Request; The current user has read-only access'});
+    } else {
+      // next middleware
+      next();
+    }
   } else {
-    // Forbidden
-    res.status(403).json({message: 'Forbidden'});
+    // Forbiddend
+    res.status(403).json({message: 'Forbiden'});
   }
 };
 

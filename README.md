@@ -2,7 +2,7 @@
 
 The main API for Al Rahma Admin dashboard
 
-This node js project handles all serverside related activities for the over all project. 
+This node js project handles all serverside related activities for the over all project.
 
 Can be accessed fronm a frontend application to:
 

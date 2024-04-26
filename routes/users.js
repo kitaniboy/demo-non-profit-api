@@ -46,7 +46,8 @@ router.post('/', async (req, res) => {
     admin: req.body.admin,
     delegate: req.body.delegate,
     finance: req.body.finance,
-    productive: req.body.productive
+    productive: req.body.productive,
+    readOnly: req.body.readOnly
   })
   try {
     await model.save()
