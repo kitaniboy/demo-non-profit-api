@@ -21,10 +21,6 @@ const verifyToken = async (req, res, next) => {
     const userId = new mongoose.Types.ObjectId(decodedToken?.user[0]?._id);
     const currentUser = await Model.findOne({"_id": userId});
 
-    console.log('userId:', userId)
-    console.log('currentUser:', currentUser)
-    console.log('req.method:', req.method)
-
     if (currentUser.readOnly && req.method !== 'GET') {
       res.status(400).json({message: 'Bad Request; The current user has read-only access'});
     } else {
