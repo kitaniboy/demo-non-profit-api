@@ -18,7 +18,7 @@ const verifyToken = async (req, res, next) => {
     req.token = bearerToken;
 
     const decodedToken = jwt.decode(bearerToken);
-    const userId = new mongoose.Types.ObjectId(decodedToken?.user[0]?._id);
+    const userId = new mongoose.Types.ObjectId(decodedToken && decodedToken.user && decodedToken.user[0] && decodedToken.user[0]._id);
     const currentUser = await Model.findOne({"_id": userId});
 
     if (currentUser.readOnly && req.method !== 'GET') {
