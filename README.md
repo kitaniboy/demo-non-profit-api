@@ -34,3 +34,5 @@ See [CONTRIBUTING.md](https://gitlab.com/estore-oman/al-rahme-api/blob/master/CO
 ### NOTE:
 
 perform  `npm audit` before deploy
+
+In production run `service al-rahma-api restart` to restart the api service.
